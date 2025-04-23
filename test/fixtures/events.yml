@@ -1,0 +1,51 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  eventable: one
+  eventable_type: Restaurant
+  label: Kitchen
+  start_day: Sunday
+  end_day: Sunday
+  start_time: 9:00 AM
+  end_time: 6:00 PM
+  active: true
+
+two:
+  eventable: one
+  eventable_type: Restaurant
+  label: Jazz Night
+  start_day: Friday
+  end_day: Friday
+  start_time: 6:00 PM
+  end_time: 8:00 PM
+  active: true
+
+three:
+  eventable: one
+  eventable_type: Restaurant
+  label: Kitchen
+  start_day: Sunday
+  end_day: Sunday
+  start_time: 9:00 AM
+  end_time: 6:00 PM
+  active: true
+
+four:
+  eventable: one
+  eventable_type: Restaurant
+  label: Brunch
+  start_day: Sunday
+  end_day: Sunday
+  start_time: 9:00 AM
+  end_time: 2:00 PM
+  active: true
+
+five:
+  eventable: one
+  eventable_type: Store
+  label: Hours
+  start_day: Tuesday
+  end_day: Sunday
+  start_time: 9:00 AM
+  end_time: 5:00 PM
+  active: true

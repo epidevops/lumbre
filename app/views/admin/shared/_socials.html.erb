@@ -1,0 +1,12 @@
+<% context.instance_eval do
+  f.inputs 'Socials' do
+    f.has_many :socials, allow_destroy: true, heading: false do |s|
+      s.input :id, as: :hidden
+      s.input :socialable_id, as: :hidden, input_html: { value: resource.id}
+      s.input :socialable_type, as: :hidden, input_html: { value: resource.class.name }
+      s.input :name
+      s.input :url
+      s.input :icon
+    end
+  end
+end %>

@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  socialable: one
+  socialable_type: Restaurant
+  name: Facebook
+  url: https://www.facebook.com/lumbre
+  icon: facebook
+
+two:
+  socialable: one
+  socialable_type: Restaurant
+  name: Instagram
+  url: https://www.instagram.com/lumbre
+  icon: instagram
+

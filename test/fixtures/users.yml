@@ -1,0 +1,6 @@
+<% encrypted_password = Devise::Encryptor.digest(User, ENV.fetch('DYNAMIC_PASSWORD') { Rails.application.credentials.dig(:passwords, :dynamic) || 'secret1234!' }) %>
+
+one:
+  name: User
+  email: user@example.com
+  encrypted_password: <%= encrypted_password %>

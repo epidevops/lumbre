@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Lumbre
+  slogan: Finca a la Mesa
+  hero_text: A taste of Mexico Hero Text
+  about_text: A taste of Mexico About Text
