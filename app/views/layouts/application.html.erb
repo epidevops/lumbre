@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="!scroll-smooth">
   <head>
     <title><%= content_for(:title) || "Lumbre" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,7 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= current_user_meta_tags %>
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -23,9 +23,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-white">
+    <%= render "layouts/top" %>
+    <%= render "layouts/header" %>
+    <main class="">
       <%= yield %>
     </main>
+    <%= render "layouts/footer" %>
   </body>
 </html>

@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  emailable: one
+  emailable_type: AdminUser
+  label: Authentication
+  email: admin@example.com
+  active: true
+
+two:
+  emailable: two
+  emailable_type: AdminUser
+  label: Home
+  email: home@example.com
+  active: true
+
+three:
+  emailable: one
+  emailable_type: Restaurant
+  label: Restaurant Email
+  email: lumbre@example.com
+  active: true

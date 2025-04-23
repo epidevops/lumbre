@@ -1,0 +1,38 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  productable: one
+  productable_type: Restaurant
+  category: menu
+  title: Wild Garden Salad
+  description: A mix of locally foraged greens, pickled beet and
+  price: 180
+  # active: false
+  # recommended: false
+  # discount_percent: ""
+  sequential_id: 1
+
+two:
+  productable: one
+  productable_type: Restaurant
+  category: specialty-cocktails
+  title: Solar
+  description: El Tinieblo Reposado, Pineapple, Ginger, Lime, Min
+  price: 220
+  # active: false
+  # recommended: false
+  # discount_percent: ""
+  sequential_id: 2
+
+three:
+  productable: one
+  productable_type: Restaurant
+  category: non-alcoholic-specialties
+  title: Kombucha
+  description: Healthy probiotic soda. Ask about our seasonal
+  price: 90
+  # active: false
+  # recommended: false
+  # discount_percent: ""
+  sequential_id: 3
+

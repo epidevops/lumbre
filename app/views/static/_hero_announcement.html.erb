@@ -1,0 +1,8 @@
+<!-- Hero Announcement section -->
+<% @announcement = local_assigns[:announcement] %>
+
+<div class="sm:mb-8 sm:flex sm:justify-center">
+  <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
+    <%= @announcement.text %> <a href="#{@announcement.link}" class="font-semibold text-white"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
