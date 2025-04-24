@@ -16,9 +16,6 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
-      <%= link_to "Sqlqueen", mount_solid_litequeen_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
-      <%= link_to "Jobs", mount_mission_control_jobs_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
-      <%= link_to "Letter Opener", mount_letter_opener_web_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
       <%= link_to t('header.home'), root_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <div class="relative">
@@ -115,11 +112,12 @@
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
       <% if user_signed_in? %>
-        <%= link_to 'Sign out', destroy_user_session_path, class: 'text-sm/6 font-semibold text-white' %>
+        <%= render 'layouts/dev_tools_select' %>
+        <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
       <% else %>
         <%= render 'layouts/language_select' %>
-        <%= link_to 'Sign in', new_user_session_path, class: 'text-sm/6 font-semibold text-white' %>
-        <%= link_to 'Sign up', new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+        <%= link_to t('header.sign_in'), new_user_session_path, data: { turbo_frame: 'modal' }, class: 'text-sm/6 font-semibold text-white' %>
+        <%= link_to t('header.sign_up'), new_user_registration_path, data: { turbo_frame: 'modal' }, class: 'text-sm/6 font-semibold text-white' %>
       <% end %>
     </div>
   </nav>
