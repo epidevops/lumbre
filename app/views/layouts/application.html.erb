@@ -24,9 +24,13 @@
   </head>
 
   <body class="bg-white">
+    <%#= turbo_frame_tag "modal" %>
+
     <%= render "layouts/modal" %>
     <%= render "layouts/header" %>
-    <%= render "layouts/flash" %>
+     <div id="flash" data-controller="element-removal">
+      <%= render "layouts/flash" %>
+    </div>
     <%= render "layouts/top" %>
     <main class="">
       <%= yield %>

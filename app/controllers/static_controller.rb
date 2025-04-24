@@ -11,7 +11,13 @@ class StaticController < ApplicationController
     @restaurant_phone = @restaurant.phones.active.first.phone
     @restaurant_email = @restaurant.emails.active.first.email
     @events = @restaurant.events.active
-    flash[:notice] = "Successfully uploaded"
+    # flash[:notice] = "Successfully uploaded notice"
+    # flash[:alert] = "Successfully uploaded alert"
+    # flash[:error] = "Successfully uploaded error"
+    # flash[:success] = "Successfully uploaded success"
+    # flash[:danger] = "Successfully uploaded danger"
+    # flash[:info] = "Successfully uploaded info"
+    # flash[:warning] = "Successfully uploaded warning"
   end
 
   private
