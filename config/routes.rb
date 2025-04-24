@@ -11,11 +11,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    devise_for :users
+    devise_for :users, class_name: "User", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
     root "static#index"
   end
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
-  mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
-  mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
+  authenticate :user, lambda { |u| u.present? } do
+    mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
+    mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
+    mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
+  end
 end
