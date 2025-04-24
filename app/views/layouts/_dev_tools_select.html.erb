@@ -39,6 +39,20 @@
         <%= heroicon("envelope", class: "mr-4 size-5 text-gray-400") %>
         <%= "Letter Opener" %>
       <% end %>
+      <%= link_to mount_lookbook_path,
+                  id: "dev-tool-button-3",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1",
+                  data: { action: 'toggle#toggleDropdownItem' } do %>
+        <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Lookbook" %>
+      <% end %>
+      <div id="dev-tool-button-4" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+        <%= heroicon("arrow-left-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Hotwire Native: #{hotwire_native_app?}" %>
+      </div>
     </div>
   </div>
 </div>
