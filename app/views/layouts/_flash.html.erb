@@ -1,0 +1,37 @@
+<div id="flash" data-controller="element-removal">
+  <% flash = [["notice", "Successfully uploaded"]] %>
+  <% flash.each do |flash_type, message| %>
+    <%  flash_type_attributes = case flash_type
+    when "notice", "success"
+      {icon: "check-circle", class: "green"}
+    when "alert", "error", "danger"
+      {icon: "exclamation-circle", class: "red"}
+    when "info"
+      {icon: "information-circle", class: "blue"}
+    else
+      {icon: "exclamation-triangle", class: "yellow"}
+    end %>
+
+    <div class="rounded-md fixed bg-green-50 top-25 z-[9999] p-4 py-6 w-1/2 translate-x-1/2 shadow-xl ring-1 ring-green-400/50 ring-inset ">
+      <div class="flex items-center gap-4">
+        <div class="shrink-0">
+          <%= heroicon flash_type_attributes[:icon], variant: "solid", class: "size-8 text-green-400" %>
+        </div>
+        <div class="ml-3">
+          <p class="text-lg font-medium text-green-800"><%= message.html_safe %></p>
+        </div>
+        <div class="ml-auto pl-3">
+          <div class="-mx-1.5 -my-1.5">
+            <button type="button" class="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50 focus:outline-hidden" data-action="click->element-removal#remove">
+              <span class="sr-only">Dismiss</span>
+              <svg class="size-8" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+

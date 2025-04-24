@@ -69,3 +69,7 @@ gem "sequenced", "~> 4.0"
 gem "sortablejs-rails", "~> 1.15"
 gem "inline_svg", "~> 1.10"
 gem "rails_heroicon", "~> 2.3"
+
+gem "view_component", "~> 3.21"
+gem "lookbook", "~> 2.3"
+gem "listen", "~> 3.9"

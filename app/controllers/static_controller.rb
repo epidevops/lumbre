@@ -11,6 +11,7 @@ class StaticController < ApplicationController
     @restaurant_phone = @restaurant.phones.active.first.phone
     @restaurant_email = @restaurant.emails.active.first.email
     @events = @restaurant.events.active
+    flash[:notice] = "Successfully uploaded"
   end
 
   private

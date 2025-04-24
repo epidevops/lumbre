@@ -27,5 +27,14 @@ module Lumbre
     config.i18n.available_locales = %i[en es fr de pt-BR]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
+
+    config.view_component.component_parent_class = "ApplicationComponent"
+    config.view_component.generate.sidecar = true
+    config.view_component.generate.stimulus_controller = true
+    config.view_component.generate.distinct_locale_files = true
+    config.view_component.generate.preview = true
+    config.view_component.generate.preview_path = "test/components/previews"
+    config.view_component.show_previews = true
+    config.lookbook.project_name = "Lumbre"
   end
 end

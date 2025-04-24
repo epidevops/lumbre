@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>" class="!scroll-smooth">
+<html lang="<%= I18n.locale %>" <%= "data-hotwire-native-app" if hotwire_native_app? %> class="!scroll-smooth">
   <head>
     <title><%= content_for(:title) || "Lumbre" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,8 +24,10 @@
   </head>
 
   <body class="bg-white">
-    <%= render "layouts/top" %>
+    <%= render "layouts/modal" %>
     <%= render "layouts/header" %>
+    <%= render "layouts/flash" %>
+    <%= render "layouts/top" %>
     <main class="">
       <%= yield %>
     </main>
