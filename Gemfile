@@ -27,6 +27,8 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+gem "solid_litequeen", "~> 0.15.1"
+gem "mission_control-jobs", "~> 1.0"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
@@ -43,6 +45,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :development do
@@ -59,5 +63,9 @@ end
 gem "activeadmin", "~> 4.0.0.beta15"
 gem "activeadmin_assets"
 gem "devise", "~> 4.9"
+gem "devise-i18n", "~> 1.13"
+gem "rails-i18n", "~> 8.0"
 gem "sequenced", "~> 4.0"
 gem "sortablejs-rails", "~> 1.15"
+gem "inline_svg", "~> 1.10"
+gem "rails_heroicon", "~> 2.3"

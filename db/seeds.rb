@@ -1,10 +1,12 @@
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(name: "Admin User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+User.create!(name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
+
 
 
 # Clear existing menu items
-Restaurant.destroy_all
-Product.destroy_all
+# Restaurant.destroy_all
+# Product.destroy_all
 
 restaurant = Restaurant.create(name: "Lumbre", slogan: "Finca a la mesa", hero_text: "The Wild Garden is a restaurant that serves a mix of locally foraged greens, pickled beet and carrot, strawberry, goat cheese with a lemon-lavender vinaigrette.", about_text: "The Wild Garden is a restaurant that serves a mix of locally foraged greens, pickled beet and carrot, strawberry, goat cheese with a lemon-lavender vinaigrette.")
 
@@ -14,9 +16,9 @@ restaurant.socials.create(name: "Instagram", url: "https://www.instagram.com/lum
 restaurant.addresses.create(label: "Restaurant Address", address: "Insurgentes 333, Atotonilco, 37839 El Cortijo, Gto., Mexico", url: "https://maps.app.goo.gl/b1C6RbjRpvyDmy9P9", active: true)
 restaurant.addresses.create(label: "Restaurant Embedded Map", address: "Insurgentes 333, Atotonilco, 37839 El Cortijo, Gto., Mexico", url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.8575114487126!2d-100.79714987216299!3d20.998348080643435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b4faceaace155%3A0x218cf49020306a74!2sLumbre!5e0!3m2!1sen!2sus!4v1745355688478!5m2!1sen!2sus", active: true)
 
-restaurant.phones.create(label: "Restaurant Phone", phone: "+52 449 152 0222", active: true)
+restaurant.phones.create(label: "Restaurant Phone WhatsApp", phone: "+52 415 109 9411", active: true)
 
-restaurant.emails.create(label: "Restaurant Email", email: "lumbre@lumbre.com", active: true)
+restaurant.emails.create(label: "Restaurant Email", email: "lumbreyhumo@gmail.com", active: true)
 
 
 # Create menu items
