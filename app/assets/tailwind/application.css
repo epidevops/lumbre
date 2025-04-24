@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* @import "flowbite/src/themes/default"; */
+/* @plugin "flowbite/plugin"; */
+
 @theme {
   --animate-appear-then-fade: appear-then-fade 4s ease-in-out both;
   --animate-slide-in-then-slide-out: slide-in-then-slide-out slide-in 0.3s ease-out, slide-out 0.5s ease-out 2.5s forwards;
@@ -43,3 +46,4 @@
   hotwire-native: &:where(html[data-hotwire-native-app] &);
   not-hotwire-native: &:where(html:not([data-hotwire-native-app]) &);
 }
+
