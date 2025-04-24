@@ -37,7 +37,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.show_previews = true
+  # config.action_mailer.preview_path = Rails.root.join("app/mailers/previews")
+  config.mission_control.jobs.http_basic_auth_enabled = false
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

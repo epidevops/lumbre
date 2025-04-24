@@ -1,6 +1,6 @@
 <!-- Header -->
 <header class="absolute inset-x-0 top-0 z-50" data-controller="toggle">
-  <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+  <nav class="flex items-center justify-between p-6 lg:px-8 bg-gray-900/50" aria-label="Global">
     <div class="flex lg:flex-1">
       <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
         <span class="sr-only">Lumbre</span>
@@ -16,8 +16,11 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
-      <%= link_to 'Home', root_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
-      <%= link_to 'About', '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
+      <%= link_to "Sqlqueen", mount_solid_litequeen_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
+      <%= link_to "Jobs", mount_mission_control_jobs_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
+      <%= link_to "Letter Opener", mount_letter_opener_web_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400', target: '_blank' %>
+      <%= link_to t('header.home'), root_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
+      <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <div class="relative">
         <%= button_tag 'Menu', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
 
@@ -110,8 +113,14 @@
       <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
     </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <a href="#" class="text-sm/6 font-semibold text-white">Log in <span aria-hidden="true">&rarr;</span></a>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out', destroy_user_session_path, class: 'text-sm/6 font-semibold text-white' %>
+      <% else %>
+        <%= render 'layouts/language_select' %>
+        <%= link_to 'Sign in', new_user_session_path, class: 'text-sm/6 font-semibold text-white' %>
+        <%= link_to 'Sign up', new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+      <% end %>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
@@ -142,8 +151,13 @@
             <%= link_to 'Gallery', '#gallery', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <%= link_to 'Contact', '#contact', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
           </div>
-          <div class="py-6">
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800">Log in</a>
+          <div class="py-6 flex gap-x-4">
+            <% if user_signed_in? %>
+              <%= link_to 'Sign out', destroy_user_session_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+            <% else %>
+              <%= link_to 'Sign in', new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+              <%= link_to 'Sign up', new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+            <% end %>
           </div>
         </div>
       </div>

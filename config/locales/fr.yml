@@ -1,0 +1,13 @@
+fr:
+  locales:
+    en: Français
+    es: Español
+    fr: Français
+    de: Allemand
+    pt-BR: Portugais
+  header:
+    home: Accueil
+    about: À propos
+    menu: Menu
+    gallery: Galerie
+    contact: Contact

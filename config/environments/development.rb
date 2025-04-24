@@ -38,7 +38,15 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: "127.0.0.1", port: 3000, locale: I18n.locale }
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.show_previews = true
+  config.action_mailer.preview_path = Rails.root.join("app/mailers/previews")
+
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
+  config.mission_control.jobs.http_basic_auth_enabled = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
