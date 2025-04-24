@@ -1,0 +1,28 @@
+---
+EnableDefaultLinters: true
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+  - '**/public/**/*'
+  - '**/app/assets/**/*'
+  - '**/app/javascript/**/*'
+  - '**/app/views/active_admin/**/*'
+  - '**/app/views/admin/**/*'
+  - '**/app/layouts/active_admin/**/*'
+  - '**/app/views/layouts/active_admin_login.html.erb'
+  - '**/app/views/layouts/active_admin.html.erb'
+
+linters:
+  ErbSafety:
+    enabled: true
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Style/FrozenStringLiteralComment:
+        Enabled: false
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
