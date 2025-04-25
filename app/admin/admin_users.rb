@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   # Specify parameters which should be permitted for assignment
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :name, :title, :bio
+  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username]
 
   # or consider:
   #
@@ -20,9 +20,11 @@ ActiveAdmin.register AdminUser do
   filter :reset_password_token
   filter :reset_password_sent_at
   filter :remember_created_at
-  filter :name
+  filter :first_name
+  filter :last_name
   filter :title
   filter :bio
+  filter :username
   filter :created_at
   filter :updated_at
 
@@ -35,9 +37,11 @@ ActiveAdmin.register AdminUser do
     column :reset_password_token
     column :reset_password_sent_at
     column :remember_created_at
-    column :name
+    column :first_name
+    column :last_name
     column :title
     column :bio
+    column :username
     column :created_at
     column :updated_at
     actions
@@ -52,9 +56,11 @@ ActiveAdmin.register AdminUser do
       row :reset_password_token
       row :reset_password_sent_at
       row :remember_created_at
-      row :name
+      row :first_name
+      row :last_name
       row :title
       row :bio
+      row :username
       row :created_at
       row :updated_at
     end
@@ -69,9 +75,11 @@ ActiveAdmin.register AdminUser do
       f.input :reset_password_token
       f.input :reset_password_sent_at
       f.input :remember_created_at
-      f.input :name
+      f.input :first_name
+      f.input :last_name
       f.input :title
       f.input :bio
+      f.input :username
     end
     f.actions
   end

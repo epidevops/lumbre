@@ -1,6 +1,6 @@
 
-AdminUser.create!(name: "Admin User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-User.create!(name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(first_name: "Admin", last_name: "User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+User.create!(first_name: "User", last_name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
 
 
 
