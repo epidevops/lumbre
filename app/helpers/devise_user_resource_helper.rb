@@ -1,4 +1,4 @@
-module ContentHelper
+module DeviseUserResourceHelper
   def resource_name
     :user
   end

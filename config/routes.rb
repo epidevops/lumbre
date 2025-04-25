@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
     root "static#index"
+    namespace :static do
+      resources :contacts, only: [ :create ]
+    end
   end
 
   authenticate :user, lambda { |u| u.present? } do
