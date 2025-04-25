@@ -12,4 +12,7 @@ class Restaurant < ApplicationRecord
   accepts_nested_attributes_for :emails, allow_destroy: true
   accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :products, allow_destroy: true
+
+  scope :active, -> { where(active: true) }
+  scope :primary, -> { where(primary: true) }
 end

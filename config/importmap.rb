@@ -14,3 +14,5 @@ pin_all_from "app/javascript/initializers", under: "initializers"
 pin_all_from "app/javascript/lib", under: "lib"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/helpers", under: "helpers"
+pin "stimulus-confetti" # @1.0.1
+pin "canvas-confetti" # @1.9.3

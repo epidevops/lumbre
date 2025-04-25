@@ -65,11 +65,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_25_063054) do
 
   create_table "addresses", force: :cascade do |t|
     t.boolean "active", default: true, null: false
-    t.string "address"
+    t.string "address", null: false
     t.integer "addressable_id", null: false
     t.string "addressable_type", null: false
     t.datetime "created_at", null: false
-    t.string "label"
+    t.string "label", null: false
     t.datetime "updated_at", null: false
     t.string "url"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
@@ -111,10 +111,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_25_063054) do
   create_table "emails", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
-    t.string "email"
+    t.string "email", null: false
     t.integer "emailable_id", null: false
     t.string "emailable_type", null: false
-    t.string "label"
+    t.string "label", null: false
     t.datetime "updated_at", null: false
     t.index ["emailable_type", "emailable_id"], name: "index_emails_on_emailable"
   end
@@ -160,8 +160,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_25_063054) do
   create_table "phones", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
-    t.string "label"
-    t.string "phone"
+    t.string "label", null: false
+    t.string "phone", null: false
     t.integer "phoneable_id", null: false
     t.string "phoneable_type", null: false
     t.datetime "updated_at", null: false
@@ -189,9 +189,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_25_063054) do
 
   create_table "restaurants", force: :cascade do |t|
     t.text "about_text"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.text "hero_text"
     t.string "name"
+    t.boolean "primary", default: true
     t.string "slogan"
     t.datetime "updated_at", null: false
   end
@@ -199,19 +201,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_25_063054) do
   create_table "socials", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
-    t.string "icon"
-    t.string "name"
+    t.string "icon", null: false
+    t.string "name", null: false
     t.integer "socialable_id", null: false
     t.string "socialable_type", null: false
     t.datetime "updated_at", null: false
-    t.string "url"
+    t.string "url", null: false
     t.index ["socialable_type", "socialable_id"], name: "index_socials_on_socialable"
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "about"
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.string "name"
+    t.boolean "primary", default: true
+    t.string "slogan"
     t.datetime "updated_at", null: false
   end
 
