@@ -38,12 +38,11 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   # config.action_mailer.default_url_options = { host: "example.com" }
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
-  config.action_mailer.delivery_method = :letter_opener_web
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: "lumbre.com" }
+
   # config.action_mailer.show_previews = true
   # config.action_mailer.preview_path = Rails.root.join("app/mailers/previews")
-  config.mission_control.jobs.http_basic_auth_enabled = false
+  # config.mission_control.jobs.http_basic_auth_enabled = false
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -56,4 +55,10 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Limit logging in test environment
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "fatal")
+
+  # Use perform_enqueued_jobs to run active jobs in test
+  config.active_job.queue_adapter = :test
 end

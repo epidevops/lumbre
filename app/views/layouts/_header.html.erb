@@ -115,6 +115,7 @@
         <%= render 'layouts/dev_tools_select' %>
         <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
       <% else %>
+        <%= render 'layouts/dev_tools_select' %>
         <%= render 'layouts/language_select' %>
         <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
         <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
