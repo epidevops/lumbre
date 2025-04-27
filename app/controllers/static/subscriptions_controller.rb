@@ -8,35 +8,27 @@ class Static::SubscriptionsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(contact_params)
-    if @contact.save
-      debugger
-      # SubscribeConfirmationNotifier.with(record: @contact).deliver(@contact)
-      # NewSubscribeAlertNotifier.with(record: @contact).deliver(AdminUser.first)
+    @contact = Contact.find_by(email: contact_params[:email])
+
+    if @contact.nil?
+      @contact = Contact.new(contact_params)
+      @contact.subscribed = true
+      @contact.save
+    elsif !@contact.subscribed?
+      @contact.update(subscribed: true)
     end
-    # if @contact.subscribed?
-    #   # TODO: Send subcription update email
-    #   respond_to do |format|
-    #     format.html { redirect_to root_path, notice: SUBSCRIBING_SUCCESS_MESSAGE }
-    #     format.turbo_stream {
-    #       render turbo_stream: [
-    #         turbo_stream.replace("flash", partial: "layouts/flash", locals: { notice: SUBSCRIBING_SUCCESS_MESSAGE })
-    #       ]
-    #     }
-    #   end
-    # else
-    #   @contact.update(subscribed: true)
-    #   SubscribeConfirmationNotifier.with(record: @contact).deliver(@contact)
-    #   NewSubscribeAlertNotifier.with(record: @contact).deliver(AdminUser.first)
-    #   respond_to do |format|
-    #     format.html { redirect_to root_path, notice: SUBSCRIBING_SUCCESS_MESSAGE }
-    #     format.turbo_stream {
-    #       render turbo_stream: [
-    #         turbo_stream.replace("flash", partial: "layouts/flash", locals: { notice: SUBSCRIBING_SUCCESS_MESSAGE })
-    #       ]
-    #     }
-    #   end
-    # end
+
+    flash.now[:notice] = SUBSCRIBING_SUCCESS_MESSAGE
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: SUBSCRIBING_SUCCESS_MESSAGE }
+      format.turbo_stream {
+        render turbo_stream: [
+          turbo_stream.replace("subscription_form", partial: "static/subscriptions/form", locals: { contact: Contact.new }),
+          turbo_stream.replace("flash", partial: "layouts/flash")
+        ]
+      }
+    end
   end
 
   private

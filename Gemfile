@@ -46,13 +46,14 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  gem "dotenv", "~> 3.1"
   gem "letter_opener_web", "~> 3.0"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  # gem "erb_lint", "~> 0.9.0", require: false
+  gem "erb_lint", "~> 0.9.0", require: false
 end
 
 group :test do
@@ -78,3 +79,8 @@ gem "lookbook", "~> 2.3"
 gem "listen", "~> 3.9"
 
 gem "noticed", "~> 2.6"
+
+gem "exception-track", "~> 1.3"
+gem "flipper", "~> 1.3"
+gem "flipper-active_record", "~> 1.3"
+gem "flipper-ui", "~> 1.3"

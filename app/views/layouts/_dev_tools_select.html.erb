@@ -49,6 +49,26 @@
         <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
         <%= "Lookbook" %>
       <% end %>
+      <%= link_to mount_exception_track_path,
+                  id: "dev-tool-button-4",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1",
+                  data: { action: 'toggle#toggleDropdownItem' } do %>
+        <%= heroicon("exclamation-triangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Exception Track" %>
+      <% end %>
+      <%= link_to mount_flipper_path,
+                  id: "dev-tool-button-5",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1",
+                  data: { action: 'toggle#toggleDropdownItem' } do %>
+        <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Flipper" %>
+      <% end %>
       <div id="dev-tool-button-4" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= heroicon("arrow-left-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
         <%= "Hotwire Native: #{hotwire_native_app?}" %>
