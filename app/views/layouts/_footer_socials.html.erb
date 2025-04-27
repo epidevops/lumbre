@@ -1,0 +1,4 @@
+<%= link_to sanitize(footer_socials.url.to_s), class: "text-gray-400 hover:text-gray-300", target: "_blank" do %>
+  <span class="sr-only"><%= footer_socials.name %></span>
+  <%= inline_svg_tag footer_socials.icon, class: "size-6" %>
+<% end %>

@@ -11,3 +11,6 @@
   }
 <% end %>
 <%= javascript_importmap_tags "active_admin", importmap: ActiveAdmin.importmap %>
+<%#= javascript_import_module_tag "active_admin_custom" %>
+
+<%= yield(:head) %>

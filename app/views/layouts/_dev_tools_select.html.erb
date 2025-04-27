@@ -9,6 +9,16 @@
 
   <div class="absolute right-0 z-10 w-48 gap-x-4 px-4 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="dev-tool-button" tabindex="-1" data-toggle-target="dropdownMenu">
     <div class="py-1" role="none">
+      <%= link_to new_admin_user_session_path,
+                  id: "dev-tool-button-0",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1",
+                  data: { action: 'toggle#toggleDropdownItem' } do %>
+        <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Admin Login" %>
+      <% end %>
       <%= link_to mount_solid_litequeen_path,
                   id: "dev-tool-button-0",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
@@ -69,9 +79,9 @@
         <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
         <%= "Flipper" %>
       <% end %>
-      <div id="dev-tool-button-4" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
-        <%= heroicon("arrow-left-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Hotwire Native: #{hotwire_native_app?}" %>
+      <div id="dev-tool-button-6" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+        <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Mobile: #{hotwire_native_app?}" %>
       </div>
     </div>
   </div>

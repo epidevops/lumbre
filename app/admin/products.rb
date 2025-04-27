@@ -1,11 +1,11 @@
 ActiveAdmin.register Product do
   # Specify parameters which should be permitted for assignment
-  permit_params :productable_type, :productable_id, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :active, :sequential_id
+  permit_params :productable_type, :productable_id, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :active, :position
 
   # or consider:
   #
   # permit_params do
-  #   permitted = [:productable_type, :productable_id, :title, :description, :price, :recommended, :discount_percent, :active, :sequential_id]
+  #   permitted = [:productable_type, :productable_id, :title, :description, :price, :recommended, :discount_percent, :active, :position]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
@@ -23,7 +23,7 @@ ActiveAdmin.register Product do
   filter :recommended
   filter :discount_percent
   filter :active
-  filter :sequential
+  filter :position
   filter :created_at
   filter :updated_at
 
@@ -40,7 +40,7 @@ ActiveAdmin.register Product do
     # column :recommended
     # column :discount_percent
     column :active
-    column :sequential_id
+    column :position
     # column :created_at
     # column :updated_at
     actions
@@ -58,7 +58,7 @@ ActiveAdmin.register Product do
       row :recommended
       row :discount_percent
       row :active
-      row :sequential
+      row :position
       row :created_at
       row :updated_at
     end
@@ -79,7 +79,7 @@ ActiveAdmin.register Product do
       f.input :recommended_text
       f.input :discount_percent
       f.input :active
-      f.input :sequential_id
+      f.input :position
     end
     f.actions
   end

@@ -10,4 +10,12 @@ module ApplicationHelper
   def render_turbo_stream_flash_messages
     turbo_stream.prepend "flash", partial: "layouts/flash"
   end
+
+  def safe_url(url)
+    uri = URI.parse(url)
+
+    uri.to_s if uri.is_a?(URI::HTTP)
+  rescue URI::InvalidURIError
+    nil
+  end
 end

@@ -11,10 +11,10 @@ class CreateProducts < ActiveRecord::Migration[8.1]
       t.string :discount_percent
       t.string :options
       t.boolean :active, default: true, null: false
-      t.integer :sequential_id, null: false
+      t.integer :position, null: false
 
       t.timestamps
     end
-    add_index :products, [ :sequential_id, :productable_id, :productable_type, :category ], unique: true
+    add_index :products, [ :productable_id, :productable_type, :category, :position ], unique: true
   end
 end

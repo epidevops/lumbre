@@ -8,7 +8,6 @@ pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.t
 pin "@rails/request.js", to: "@rails--request.js" # @0.0.11
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
-pin "sortablejs" # @1.15.6
 
 pin_all_from "app/javascript/initializers", under: "initializers"
 pin_all_from "app/javascript/lib", under: "lib"
@@ -16,3 +15,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/helpers", under: "helpers"
 pin "stimulus-confetti" # @1.0.1
 pin "canvas-confetti" # @1.9.3
+pin "sortablejs" # @1.15.6
