@@ -49,7 +49,7 @@ export default class extends Controller {
       return this.defaultOptions.offset
     }
 
-    return 10
+    return 0
   }
 
   get behavior() {
