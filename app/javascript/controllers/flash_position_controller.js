@@ -4,12 +4,24 @@ export default class extends Controller {
   static targets = ["flash"]
 
   connect() {
-    this.mainContent = document.querySelector("main")
+    // Observe the main content area
+    this.mainContent = document.querySelector("#site-main")
     if (this.mainContent) {
       this.observer = new IntersectionObserver(this.handleIntersection.bind(this), {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: "-100px 0px" // Add some margin to trigger before the element is fully in view
       })
       this.observer.observe(this.mainContent)
+    }
+
+    // Also observe the subscriptions form if it exists
+    this.subscriptionsForm = document.querySelector("#subscriptions-form")
+    if (this.subscriptionsForm) {
+      this.formObserver = new IntersectionObserver(this.handleIntersection.bind(this), {
+        threshold: 0.1,
+        rootMargin: "-100px 0px"
+      })
+      this.formObserver.observe(this.subscriptionsForm)
     }
   }
 
@@ -17,17 +29,13 @@ export default class extends Controller {
     if (this.observer) {
       this.observer.disconnect()
     }
+    if (this.formObserver) {
+      this.formObserver.disconnect()
+    }
   }
 
   handleIntersection(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        this.element.classList.remove("fixed")
-        this.element.classList.add("relative")
-      } else {
-        this.element.classList.remove("relative")
-        this.element.classList.add("fixed")
-      }
-    })
+    // The positioning is now handled by Tailwind classes
+    // This method is kept for future use if needed
   }
 }

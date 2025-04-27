@@ -10,8 +10,8 @@
     {icon: "exclamation-triangle", container_classes: "bg-yellow-50 ring-yellow-400/50", icon_classes: "text-yellow-400", text_classes: "text-yellow-800", button_classes: "bg-yellow-50 text-yellow-500 hover:bg-yellow-100 focus:ring-yellow-600 focus:ring-offset-yellow-50"}
   end %>
 
-  <div class="rounded-md fixed top-25 z-[9999] p-4 py-6 w-1/2 translate-x-1/2 shadow-xl ring-1 ring-inset <%= flash_type_attributes[:container_classes] %> animate-appear-then-fade"
-       data-controller="element-removal flash-position"
+  <div class="rounded-md fixed top-25 left-1/2 -translate-x-1/2 z-[9999] p-4 py-6 w-1/2 shadow-xl ring-1 ring-inset <%= flash_type_attributes[:container_classes] %> animate-appear-then-fade"
+       data-controller="flash-position element-removal"
        data-flash-position-target="flash"
        data-action="animationend->element-removal#remove">
     <div class="flex items-center gap-4">
