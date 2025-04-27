@@ -1,12 +1,12 @@
 ActiveAdmin.register Restaurant do
   # Specify parameters which should be permitted for assignment
-  permit_params :name, :slogan, :hero_text, :about_text,
+  permit_params :name, :slogan, :hero_text, :about_text, :enable_weekly_deals, :enable_meet_the_team, :enable_subscribe, :enable_gallery, :enable_testimonials, :active, :primary,
   socials_attributes: %i[id socialable_type socialable_id name url icon _destroy],
-  addresses_attributes: %i[id addressable_type addressable_id label address address2 _destroy],
+  addresses_attributes: %i[id addressable_type addressable_id label address url active _destroy],
   phones_attributes: %i[id phoneable_type phoneable_id label phone active _destroy],
   emails_attributes: %i[id emailable_type emailable_id label email active _destroy],
   events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active _destroy],
-  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text sequential_id active _destroy]
+  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text sequential_id active options _destroy]
 
   # or consider:
   #
@@ -59,6 +59,17 @@ ActiveAdmin.register Restaurant do
           f.input :slogan
           f.input :hero_text
           f.input :about_text
+          f.input :active
+          f.input :primary
+        end
+      end
+      tab "Site Settings" do
+        f.inputs do
+          f.input :enable_weekly_deals
+          f.input :enable_meet_the_team
+          f.input :enable_subscribe
+          f.input :enable_gallery
+          f.input :enable_testimonials
         end
       end
       tab "Socials" do
@@ -70,6 +81,7 @@ ActiveAdmin.register Restaurant do
             social.input :name
             social.input :url
             social.input :icon
+            social.input :active
           end
         end
       end
@@ -81,7 +93,8 @@ ActiveAdmin.register Restaurant do
             address.input :addressable_type, as: :hidden, input_html: { value: resource.class.name }
             address.input :label
             address.input :address
-            address.input :address2
+            address.input :url
+            address.input :active
           end
         end
       end
@@ -125,21 +138,15 @@ ActiveAdmin.register Restaurant do
         end
       end
       tab "Products" do
-        f.inputs do
-          f.has_many :products, allow_destroy: true, heading: false do |product|
-            product.input :id, as: :hidden
-            product.input :productable_id, as: :hidden, input_html: { value: resource.id }
-            product.input :productable_type, as: :hidden, input_html: { value: resource.class.name }
-            product.input :category
-            product.input :title
-            product.input :description
-            product.input :price
-            product.input :discount_percent
-            product.input :recommended
-            product.input :recommended_text
-            product.input :sequential_id
-            product.input :active
-            product.input :options
+        div data: { controller: "drag" } do
+          table_for resource.products, class: "sortable-table" do
+            column :sequential_id
+            column :id, as: :hidden, html_options: { style: "display: none;" }
+            column :productable_id, as: :hidden, html_options: { style: "display: none;" }
+            column :productable_type, as: :hidden, html_options: { style: "display: none;" }
+            column :category
+            column :title
+            column :active
           end
         end
       end

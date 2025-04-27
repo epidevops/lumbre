@@ -6,30 +6,40 @@
   <%= render "about" %>
 </section>
 
-<section id="our_restaurant">
-  <%= render "our_restaurant" %>
-</section>
+<% if @restaurant.enable_weekly_deals? %>
+  <section id="our_restaurant">
+    <%= render "our_restaurant" %>
+  </section>
+<% end %>
 
-<section id="team">
-  <%= render "team" %>
-</section>
+<% if @restaurant.enable_meet_the_team? %>
+  <section id="team">
+    <%= render "team" %>
+  </section>
+<% end %>
 
-<section id="subscribe">
-  <%= render "subscribe" %>
-</section>
+<% if @restaurant.enable_subscribe? %>
+  <section id="subscribe">
+    <%= render "subscribe" %>
+  </section>
+<% end %>
+
+<% if @restaurant.enable_gallery? %>
+  <section id="gallery">
+    <%= render "gallery" %>
+  </section>
+<% end %>
 
 <section id="menu">
   <%= render "menu" %>
-</section>
-
-<section id="gallery">
-  <%= render "gallery" %>
 </section>
 
 <section id="contact">
   <%= render "contact" %>
 </section>
 
-<section id="testimonial">
-  <%= render "testimonial" %>
-</section>
+<% if @restaurant.enable_testimonials? %>
+  <section id="testimonial">
+    <%= render "testimonial" %>
+  </section>
+<% end %>

@@ -207,16 +207,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_27_012003) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
-    t.index ["sequential_id", "productable_id", "productable_type"], name: "idx_on_sequential_id_productable_id_productable_typ_6cb8ab2b7f", unique: true
+    t.index ["sequential_id", "productable_id", "productable_type", "category"], name: "idx_on_sequential_id_productable_id_productable_typ_3b1866f8a3", unique: true
   end
 
   create_table "restaurants", force: :cascade do |t|
     t.text "about_text"
-    t.boolean "active", default: true
+    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.boolean "enable_gallery", default: true, null: false
+    t.boolean "enable_meet_the_team", default: true, null: false
+    t.boolean "enable_subscribe", default: true, null: false
+    t.boolean "enable_testimonials", default: true, null: false
+    t.boolean "enable_weekly_deals", default: true, null: false
     t.text "hero_text"
     t.string "name"
-    t.boolean "primary", default: true
+    t.boolean "primary", default: true, null: false
     t.string "slogan"
     t.datetime "updated_at", null: false
   end

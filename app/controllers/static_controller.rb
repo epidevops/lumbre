@@ -3,7 +3,7 @@ class StaticController < ApplicationController
   before_action :memoized_restaurant
 
   def index
-    flash.now[:notice] = "Hello"
+    # flash.now[:notice] = "Hello"
   end
 
   private

@@ -107,7 +107,9 @@
           </div>
         </div>
       </div>
-      <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <% if @restaurant.enable_gallery? %>
+        <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <% end %>
       <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
