@@ -5,12 +5,12 @@ one:
   socialable_type: Restaurant
   name: Facebook
   url: https://www.facebook.com/lumbre
-  icon: facebook
+  icon: facebook.svg
 
 two:
   socialable: one
   socialable_type: Restaurant
   name: Instagram
   url: https://www.instagram.com/lumbre
-  icon: instagram
+  icon: instagram.svg
 

@@ -198,16 +198,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_27_012003) do
     t.text "description"
     t.string "discount_percent"
     t.string "options"
+    t.integer "position", null: false
     t.string "price"
     t.integer "productable_id", null: false
     t.string "productable_type", null: false
     t.boolean "recommended", default: false, null: false
     t.string "recommended_text", default: "Chef's Selection", null: false
-    t.integer "sequential_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["productable_id", "productable_type", "category", "position"], name: "idx_on_productable_id_productable_type_category_pos_2bfebd940b", unique: true
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
-    t.index ["sequential_id", "productable_id", "productable_type", "category"], name: "idx_on_sequential_id_productable_id_productable_typ_3b1866f8a3", unique: true
   end
 
   create_table "restaurants", force: :cascade do |t|

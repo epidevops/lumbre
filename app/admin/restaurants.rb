@@ -6,7 +6,7 @@ ActiveAdmin.register Restaurant do
   phones_attributes: %i[id phoneable_type phoneable_id label phone active _destroy],
   emails_attributes: %i[id emailable_type emailable_id label email active _destroy],
   events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active _destroy],
-  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text sequential_id active options _destroy]
+  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text position active options _destroy]
 
   # or consider:
   #
@@ -15,6 +15,19 @@ ActiveAdmin.register Restaurant do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+
+  member_action :toggle_product_active, method: :post do
+    product = Product.find(params[:product_id])
+    product.update(active: !product.active)
+    redirect_to admin_restaurant_path(resource), notice: "Product #{product.active ? 'activated' : 'deactivated'} successfully"
+  end
+
+  member_action :update_product_position, method: :post do
+    product = Product.find(params[:product_id])
+    product.update(position: params[:position])
+    redirect_to admin_restaurant_path(resource), notice: "Product position updated successfully"
+  end
 
   # For security, limit the actions that should be available
   actions :all, except: []
@@ -138,17 +151,7 @@ ActiveAdmin.register Restaurant do
         end
       end
       tab "Products" do
-        div data: { controller: "drag" } do
-          table_for resource.products, class: "sortable-table" do
-            column :sequential_id
-            column :id, as: :hidden, html_options: { style: "display: none;" }
-            column :productable_id, as: :hidden, html_options: { style: "display: none;" }
-            column :productable_type, as: :hidden, html_options: { style: "display: none;" }
-            column :category
-            column :title
-            column :active
-          end
-        end
+        f.template.render partial: "admin/restaurants/products/table", locals: { restaurant: resource }
       end
     end
     f.actions

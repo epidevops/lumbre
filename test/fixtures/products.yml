@@ -10,7 +10,7 @@ one:
   # active: false
   # recommended: false
   # discount_percent: ""
-  sequential_id: 1
+  position: 1
 
 two:
   productable: one
@@ -22,7 +22,7 @@ two:
   # active: false
   # recommended: false
   # discount_percent: ""
-  sequential_id: 2
+  position: 2
 
 three:
   productable: one
@@ -34,5 +34,5 @@ three:
   # active: false
   # recommended: false
   # discount_percent: ""
-  sequential_id: 3
+  position: 3
 

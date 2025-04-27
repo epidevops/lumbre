@@ -69,8 +69,6 @@ gem "devise-i18n", "~> 1.13"
 gem "rails-i18n", "~> 8.0"
 gem "name_of_person", "~> 1.1"
 
-gem "sequenced", "~> 4.0"
-gem "sortablejs-rails", "~> 1.15"
 gem "inline_svg", "~> 1.10"
 gem "rails_heroicon", "~> 2.3"
 
@@ -84,3 +82,5 @@ gem "exception-track", "~> 1.3"
 gem "flipper", "~> 1.3"
 gem "flipper-active_record", "~> 1.3"
 gem "flipper-ui", "~> 1.3"
+
+gem "positioning", "~> 0.4.5"
