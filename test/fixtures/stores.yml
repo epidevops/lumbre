@@ -2,4 +2,6 @@
 
 one:
   name: Cafe & Market
-  about: A taste of Mexico Cafe & Market About Text
+  slogan: A taste of Mexico Cafe & Market About Text
+  active: true
+  primary: true

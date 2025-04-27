@@ -5,6 +5,8 @@ class CreateRestaurants < ActiveRecord::Migration[8.1]
       t.string :slogan
       t.text :hero_text
       t.text :about_text
+      t.boolean :active, default: true
+      t.boolean :primary, default: true
 
       t.timestamps
     end

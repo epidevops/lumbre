@@ -1,0 +1,4 @@
+<%= form_with(model: contact, url: static_subscriptions_path, method: :post, local: false, id: "subscription_form", class: "mt-6 flex max-w-md gap-x-4", data: { turbo: "true" }) do |f| %>
+  <%= f.email_field :email, autocomplete: "email", required: true, class: "min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6", placeholder: "Enter your email" %>
+  <%= f.submit "Subscribe", class: "flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500", data: { controller: 'confetti', turbo_submit_end: "Subscribing..." } %>
+<% end %>

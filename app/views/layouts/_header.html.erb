@@ -16,8 +16,8 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
-      <%= link_to t('header.home'), root_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
-      <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
+      <%= link_to t('header.home'), '/thank-you', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'confetti', action: 'confetti#spray', confetti_follow_value: 'false' } %>
+      <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
       <div class="relative">
         <%= button_tag 'Menu', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
 
@@ -41,10 +41,10 @@
                 </svg>
               </div>
               <div class="flex-auto">
-                <a href="#menu" class="block font-semibold text-gray-900 cursor-pointer transition-all duration-300" data-action="toggle#toggleDropdownItem">
+                <%= link_to "#menu", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   Menu
                   <span class="absolute inset-0"></span>
-                </a>
+                <% end %>
                 <p class="mt-1 text-gray-600">Get straight to the point</p>
               </div>
             </div>
@@ -55,10 +55,10 @@
                 </svg>
               </div>
               <div class="flex-auto">
-                <a href="#menu-section-title-hot-dishes" class="block font-semibold text-gray-900 cursor-pointer transition-all duration-300" data-action="toggle#toggleDropdownItem">
+                <%= link_to "#menu-section-title-hot-dishes", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   Hot Dishes
                   <span class="absolute inset-0"></span>
-                </a>
+                <% end %>
                 <p class="mt-1 text-gray-600">Jump to the hot dishes</p>
               </div>
             </div>
@@ -69,10 +69,10 @@
                 </svg>
               </div>
               <div class="flex-auto">
-                <a href="#menu-section-title-beverages" class="block font-semibold text-gray-900 cursor-pointer transition-all duration-300" data-action="toggle#toggleDropdownItem">
+                <%= link_to "#menu-section-title-beverages", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   Beverages
                   <span class="absolute inset-0"></span>
-                </a>
+                <% end %>
                 <p class="mt-1 text-gray-600">Jump to the beverages</p>
               </div>
             </div>
@@ -83,10 +83,10 @@
                 </svg>
               </div>
               <div class="flex-auto">
-                <a href="#menu-section-subtitle-specialty-cocktails" class="block font-semibold text-gray-900 cursor-pointer transition-all duration-300" data-action="toggle#toggleDropdownItem">
+                <%= link_to "#menu-section-subtitle-specialty-cocktails", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   Specialty Cocktails
                   <span class="absolute inset-0"></span>
-                </a>
+                <% end %>
                 <p class="mt-1 text-gray-600">Jump to the specialty cocktails</p>
               </div>
             </div>
@@ -97,24 +97,25 @@
                 </svg>
               </div>
               <div class="flex-auto">
-                <a href="#menu-section-subtitle-non-alcoholic-specialties" class="block font-semibold text-gray-900 cursor-pointer transition-all duration-300" data-action="toggle#toggleDropdownItem">
+                <%= link_to "#menu-section-subtitle-non-alcoholic-specialties", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   Non-Alcoholic Specialties
                   <span class="absolute inset-0"></span>
-                </a>
+                <% end %>
                 <p class="mt-1 text-gray-600">Jump to the non-alcoholic specialties</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
-      <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
+      <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
       <% if user_signed_in? %>
         <%= render 'layouts/dev_tools_select' %>
         <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
       <% else %>
+        <%= render 'layouts/dev_tools_select' %>
         <%= render 'layouts/language_select' %>
         <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
         <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>

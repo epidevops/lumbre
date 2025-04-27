@@ -15,13 +15,14 @@ Rails.application.routes.draw do
     root "static#index"
     namespace :static do
       resources :contacts, only: [ :create ]
+      resources :subscriptions, only: [ :create ]
     end
   end
 
-  authenticate :user, lambda { |u| u.present? } do
+    # authenticate :user, lambda { |u| u.present? } do
     mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
     mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
-  end
+  # end
 end
