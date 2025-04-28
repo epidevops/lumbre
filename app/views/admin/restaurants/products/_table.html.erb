@@ -1,25 +1,68 @@
-<% content_for :head do %>
-  <%= javascript_import_module_tag "sortablejs" %>
-  <%= javascript_import_module_tag "drag" %>
-<% end %>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tbody = document.querySelector('tbody[data-move]')
+
+  if (tbody) {
+    new Sortable(tbody, {
+      animation: 150,
+      ghostClass: "bg-blue-100",
+      onStart: function(evt) {
+        // Update positions when drag starts
+        updatePositions()
+      },
+      onEnd: function(evt) {
+        // Update positions after drop
+        updatePositions()
+
+        const items = Array.from(tbody.children)
+        const positions = items.map((item, index) => ({
+          id: item.id.split('_')[1],
+          position: index + 1
+        }))
+
+        // Send the new positions to the server
+        fetch('/admin/products/update_positions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ positions: positions })
+        })
+      }
+    })
+
+    function updatePositions() {
+      const rows = tbody.querySelectorAll('tr')
+      rows.forEach((row, index) => {
+        const positionCell = row.querySelector('[data-column="position"]')
+        if (positionCell) {
+          positionCell.textContent = index + 1
+        }
+      })
+    }
+  }
+})
+</script>
 
 <div>
-  <table class="data-table table-auto">
+  <table class="data-table">
     <thead>
       <tr>
-        <th>Reorder</th>
-        <th>Position</th>
-        <th>Category</th>
-        <th>Title</th>
-        <th>Active</th>
-        <th>Actions</th>
+        <th data-column="position">Position</th>
+        <th data-column="category">Category</th>
+        <th data-column="title">Title</th>
+        <th data-column="active">Active</th>
+        <th data-column="actions">Actions</th>
       </tr>
     </thead>
-    <tbody data-controller="drag" data-drag-resource-name-value="product" data-drag-param-name-value="position">
-      <% resource.products.each do |product| %>
+    <tbody data-move>
+      <% resource.products.order(:category, :position).each do |product| %>
         <%= render "admin/restaurants/products/table_row", product: product %>
       <% end %>
     </tbody>
   </table>
 </div>
+

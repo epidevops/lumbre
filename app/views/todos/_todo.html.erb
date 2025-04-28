@@ -1,0 +1,24 @@
+<tr id="<%= dom_id todo %>" class="hover:bg-gray-50">
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= todo.id %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= todo.position %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= todo.category %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= todo.name %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <%= todo.active? ? "Yes" : "No" %>
+  </td>
+  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+    <div class="flex space-x-2">
+      <%= link_to "Show", todo, class: "text-blue-600 hover:text-blue-900" %>
+      <%= link_to "Edit", edit_todo_path(todo), class: "text-blue-600 hover:text-blue-900" %>
+      <%= button_to "Destroy", todo, method: :delete, class: "text-red-600 hover:text-red-900", data: { turbo_confirm: "Are you sure?" } %>
+    </div>
+  </td>
+</tr>

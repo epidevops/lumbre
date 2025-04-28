@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_27_012003) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_28_025756) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -244,6 +244,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_27_012003) do
     t.string "name"
     t.boolean "primary", default: true
     t.string "slogan"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.boolean "active", default: true
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "position", null: false
     t.datetime "updated_at", null: false
   end
 

@@ -1,14 +1,13 @@
-<tr data-drag-update-url="<%= update_product_position_admin_restaurant_path({product_id: product.id}) %>">
-  <td data-drag-handle><%= heroicon("bars-2", class: "size-5 cursor-move") %></td>
-  <td class="hidden"><%= product.id %></td>
-  <td><%= product.position %></td>
-  <td><%= product.category %></td>
-  <td><%= product.title %></td>
-  <td><%= product.active %></td>
-  <td class="flex items-center gap-4">
-    <%= link_to toggle_product_active_admin_restaurant_path({product_id: product.id}), method: :post do %>
-      <%= heroicon("arrows-right-left", class: "size-5 cursor-pointer") %>
-    <% end %>
-    <%= link_to heroicon("pencil", class: "size-5 cursor-pointer"), edit_polymorphic_path([:admin, product]) %>
+<tr id="product_<%= product.id %>">
+  <td data-column="position"><%= product.position %></td>
+  <td data-column="category"><%= product.category %></td>
+  <td data-column="title"><%= product.title %></td>
+  <td data-column="active">
+    <span class="status-tag" data-status="<%= product.active ? 'yes' : 'no' %>">
+      <%= product.active ? 'Yes' : 'No' %>
+    </span>
+  </td>
+  <td data-column="actions">
+    <%= link_to "Edit", edit_polymorphic_path([:admin, product]) %>
   </td>
 </tr>
