@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: menu
+  name: Menu Item 1
+  active: true
+  position: 1
+
+
+two:
+  category: menu
+  name: Menu Item 2
+  active: true
+  position: 2

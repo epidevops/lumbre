@@ -1,12 +1,6 @@
-
 AdminUser.create!(first_name: "Admin", last_name: "User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 User.create!(first_name: "User", last_name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
 
-
-
-# Clear existing menu items
-# Restaurant.destroy_all
-# Product.destroy_all
 
 restaurant = Restaurant.create(name: "Lumbre", slogan: "Finca a la mesa", hero_text: "The Wild Garden is a restaurant that serves a mix of locally foraged greens, pickled beet and carrot, strawberry, goat cheese with a lemon-lavender vinaigrette.", about_text: "The Wild Garden is a restaurant that serves a mix of locally foraged greens, pickled beet and carrot, strawberry, goat cheese with a lemon-lavender vinaigrette.")
 
@@ -148,3 +142,10 @@ restaurant.products.create(
   description: "Alfalfa juice grown on the Finca with lime and raw sugar.",
   price: "60"
 )
+
+%w[menu specialty-cocktails non-alcoholic-specialties].each_with_index do |category, index|
+  range = (index + 1..index + 5)
+  range.each do |i|
+    Todo.create!(category: category, name: "Todo Item #{i} - #{category}")
+  end
+end

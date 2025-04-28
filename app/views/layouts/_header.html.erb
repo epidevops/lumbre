@@ -18,6 +18,7 @@
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
       <%= link_to t('header.home'), '/thank-you', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'confetti', action: 'confetti#spray', confetti_follow_value: 'false' } %>
       <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <%= link_to 'Todos', todos_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <div class="relative">
         <%= button_tag 'Menu', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
 

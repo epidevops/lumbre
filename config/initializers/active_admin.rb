@@ -272,14 +272,4 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
-
-  # Configure how JavaScript files are served
-  # config.register_javascript "active_admin/active_admin_custom.js"
-  # config.register_javascript "active_admin/dragable.js"
-end
-
-ActiveAdmin.importmap.draw do
-  pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.11/src/index.js", preload: false
-  pin "sortablejs", to: "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js", preload: false
-  pin "drag", to: "app/javascript/controllers/drag_controller.js", preload: false
 end
