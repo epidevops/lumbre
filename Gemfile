@@ -72,7 +72,7 @@ gem "name_of_person", "~> 1.1"
 gem "inline_svg", "~> 1.10"
 gem "rails_heroicon", "~> 2.3"
 
-gem "view_component", "~> 3.21"
+gem "view_component", "~> 3.22"
 gem "lookbook", "~> 2.3"
 gem "listen", "~> 3.9"
 
