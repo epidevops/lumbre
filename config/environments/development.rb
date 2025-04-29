@@ -89,4 +89,9 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
+
+  Flipper::UI.configure do |config|
+    config.banner_text = "Development Environment"
+    config.banner_class = "primary"
+  end
 end

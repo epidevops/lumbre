@@ -1,0 +1,39 @@
+.header {
+  #utility_nav {
+    #current_user {
+      display: flex;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+    }
+
+    #current_user a {
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+
+    #current_user a:before {
+      display: inline;
+      visibility: visible;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #333333;
+      text-align: center;
+      width: 60px;
+      font-size: 20px;
+    }
+
+    #current_user a.has-avatar,
+    #current_user a.has-initials {
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      margin: auto;
+    }
+  }
+}

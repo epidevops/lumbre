@@ -19,8 +19,17 @@
         <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
         <%= "Admin Login" %>
       <% end %>
+      <%= link_to todos_path,
+                  id: "dev-tool-button-1",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  role: "menuitem",
+                  tabindex: "-1",
+                  data: { action: 'toggle#toggleDropdownItem' } do %>
+        <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Playground" %>
+      <% end %>
       <%= link_to mount_solid_litequeen_path,
-                  id: "dev-tool-button-0",
+                  id: "dev-tool-button-2",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -30,7 +39,7 @@
         <%= "Litequeen" %>
       <% end %>
       <%= link_to mount_mission_control_jobs_path,
-                  id: "dev-tool-button-1",
+                  id: "dev-tool-button-3",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -40,7 +49,7 @@
         <%= "Jobs" %>
       <% end %>
       <%= link_to mount_letter_opener_web_path,
-                  id: "dev-tool-button-2",
+                  id: "dev-tool-button-4",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -50,7 +59,7 @@
         <%= "Letter Opener" %>
       <% end %>
       <%= link_to mount_lookbook_path,
-                  id: "dev-tool-button-3",
+                  id: "dev-tool-button-5",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -60,7 +69,7 @@
         <%= "Lookbook" %>
       <% end %>
       <%= link_to mount_exception_track_path,
-                  id: "dev-tool-button-4",
+                  id: "dev-tool-button-6",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -70,7 +79,7 @@
         <%= "Exception Track" %>
       <% end %>
       <%= link_to mount_flipper_path,
-                  id: "dev-tool-button-5",
+                  id: "dev-tool-button-7",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
@@ -79,7 +88,7 @@
         <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
         <%= "Flipper" %>
       <% end %>
-      <div id="dev-tool-button-6" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+      <div id="dev-tool-button-8" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
         <%= "Mobile: #{hotwire_native_app?}" %>
       </div>

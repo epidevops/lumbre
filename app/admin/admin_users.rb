@@ -1,6 +1,8 @@
 ActiveAdmin.register AdminUser do
+  menu priority: 5
+
   # Specify parameters which should be permitted for assignment
-  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username]
+  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar]
 
   # or consider:
   #
@@ -9,6 +11,11 @@ ActiveAdmin.register AdminUser do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  member_action :delete_avatar, method: :get do
+    resource.avatar.purge
+    redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
+  end
 
   # For security, limit the actions that should be available
   actions :all, except: []
@@ -67,20 +74,33 @@ ActiveAdmin.register AdminUser do
   end
 
   # Add or remove fields to toggle their visibility in the form
+  # form do |f|
+  #   f.semantic_errors(*f.object.errors.attribute_names)
+  #   f.inputs do
+  #     f.input :avatar, as: :image_attachment, default_image: "default-avatar.svg"
+  #     if resource.avatar.attached?
+  #       div style: "display: none;" do
+  #         link_to "Delete Avatar", delete_avatar_admin_admin_user_path, class: "image-attachment-delete-file-admin-user-avatar"
+  #       end
+  #     end
+  #     f.input :email
+  #     f.input :encrypted_password
+  #     f.input :reset_password_token
+  #     f.input :reset_password_sent_at
+  #     f.input :remember_created_at
+  #     f.input :first_name
+  #     f.input :last_name
+  #     f.input :title
+  #     f.input :bio
+  #     f.input :username
+  #   end
+  #   f.actions
+  # end
+  # form do |f|
+  #   render 'form', context: self, f:
+  # end
+
   form do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :email
-      f.input :encrypted_password
-      f.input :reset_password_token
-      f.input :reset_password_sent_at
-      f.input :remember_created_at
-      f.input :first_name
-      f.input :last_name
-      f.input :title
-      f.input :bio
-      f.input :username
-    end
-    f.actions
+    f partial: "form", locals: { context: self, f: }
   end
 end

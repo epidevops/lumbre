@@ -7,6 +7,15 @@ module ApplicationHelper
     ]
   end
 
+  def current_admin_user_meta_tags
+    unless current_admin_user.nil?
+      safe_join [
+        tag(:meta, name: "current-user-id", content: current_admin_user.id),
+        tag(:meta, name: "current-user-data", content: current_admin_user.user_meta_data_tag)
+      ]
+    end
+  end
+
   def render_turbo_stream_flash_messages
     turbo_stream.prepend "flash", partial: "layouts/flash"
   end

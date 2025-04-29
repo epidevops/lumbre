@@ -1,32 +1,47 @@
 ActiveAdmin.register Restaurant do
+  menu priority: 2
+
   # Specify parameters which should be permitted for assignment
-  permit_params :name, :slogan, :hero_text, :about_text, :enable_weekly_deals, :enable_meet_the_team, :enable_subscribe, :enable_gallery, :enable_testimonials, :active, :primary,
+  permit_params :name, :slogan, :hero_text, :about_text, :active, :primary,
   socials_attributes: %i[id socialable_type socialable_id name url icon _destroy],
   addresses_attributes: %i[id addressable_type addressable_id label address url active _destroy],
   phones_attributes: %i[id phoneable_type phoneable_id label phone active _destroy],
   emails_attributes: %i[id emailable_type emailable_id label email active _destroy],
   events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active _destroy],
-  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text position active options _destroy]
+  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text position active options _destroy],
+  schedules_attributes: %i[id scheduleable_type scheduleable_id name active capacity exclude_lunch_time beginning_of_week time_zone _destroy]
 
-  # or consider:
-  #
-  # permit_params do
-  #   permitted = [:name, :about]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  controller do
+    def update
+      with_blocking_on_primary_restaurant do
+        super
+      end
+    end
 
+    def destroy
+      with_blocking_on_primary_restaurant do
+        super
+      end
+    end
 
-  member_action :toggle_product_active, method: :post do
-    product = Product.find(params[:product_id])
-    product.update(active: !product.active)
-    redirect_to admin_restaurant_path(resource), notice: "Product #{product.active ? 'activated' : 'deactivated'} successfully"
+    private
+
+    def with_blocking_on_primary_restaurant
+      if resource.primary
+        flash[:alert] = "The primary restaurant cannot be modified."
+        redirect_back fallback_location: admin_restaurants_path
+      else
+        yield
+      end
+    end
   end
 
-  member_action :update_product_position, method: :post do
-    product = Product.find(params[:product_id])
-    product.update(position: params[:position])
-    redirect_to admin_restaurant_path(resource), notice: "Product position updated successfully"
+  member_action :toggle_product_active, method: :post do
+    product = Product.find(params[:id])
+    resource = product.productable
+    product.update(active: !product.active)
+    # head :ok
+    redirect_to edit_admin_restaurant_path(resource), notice: "Product #{product.active ? 'activated' : 'deactivated'} successfully"
   end
 
   # For security, limit the actions that should be available
@@ -74,15 +89,6 @@ ActiveAdmin.register Restaurant do
           f.input :about_text
           f.input :active
           f.input :primary
-        end
-      end
-      tab "Site Settings" do
-        f.inputs do
-          f.input :enable_weekly_deals
-          f.input :enable_meet_the_team
-          f.input :enable_subscribe
-          f.input :enable_gallery
-          f.input :enable_testimonials
         end
       end
       tab "Socials" do
@@ -152,6 +158,21 @@ ActiveAdmin.register Restaurant do
       end
       tab "Products" do
         f.template.render partial: "admin/restaurants/products/table", locals: { restaurant: resource }
+      end
+      tab "Schedules" do
+        f.inputs do
+          f.has_many :schedules, allow_destroy: true, heading: false do |schedule|
+            schedule.input :id, as: :hidden
+            schedule.input :scheduleable_id, as: :hidden, input_html: { value: resource.id }
+            schedule.input :scheduleable_type, as: :hidden, input_html: { value: resource.class.name }
+            schedule.input :name
+            schedule.input :active
+            schedule.input :capacity
+            schedule.input :exclude_lunch_time
+            schedule.input :beginning_of_week
+            schedule.input :time_zone
+          end
+        end
       end
     end
     f.actions

@@ -1,4 +1,9 @@
 AdminUser.create!(first_name: "Admin", last_name: "User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+%w[super_admin admin developer new_user].each do |role|
+  Role.create!(name: role)
+end
+AdminUser.first.add_role :super_admin
+
 User.create!(first_name: "User", last_name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
 
 
@@ -149,3 +154,22 @@ restaurant.products.create(
     Todo.create!(category: category, name: "Todo Item #{i} - #{category}")
   end
 end
+
+
+%w[
+  sign_in
+  sign_up
+  enable_weekly_deals
+  enable_subscribe
+  enable_meet_the_team
+  enable_gallery
+  enable_testimonials
+].each do |feature|
+  Flipper.disable(feature)
+end
+
+
+Schedule.create!(scheduleable_id: AdminUser.first.id, scheduleable_type: "AdminUser", name: "Appointment Availability", active: true, capacity: 3, exclude_lunch_time: false, beginning_of_week: "monday", time_zone: "Mountain Time (US & Canada)")
+
+Schedule.first.rules.create!(name: "Open Time Rule MWF", rule_type: "inclusion", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: [ "monday", "wednesday", "friday" ], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "08:00", rule_hour_end: "12:00")
+Schedule.first.rules.create!(name: "Open Time Rule TTH", rule_type: "inclusion", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: [ "tuesday", "thursday" ], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "17:15", rule_hour_end: "20:45")

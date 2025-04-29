@@ -16,22 +16,9 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
-      <%= link_to t('header.home'), '/thank-you', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'confetti', action: 'confetti#spray', confetti_follow_value: 'false' } %>
       <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
-      <%= link_to 'Todos', todos_path, class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300' %>
       <div class="relative">
         <%= button_tag 'Menu', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
-
-        <!--
-          'Product' flyout menu, show/hide based on flyout menu state.
-
-          Entering: "transition ease-out duration-200"
-            From: "opacity-0 translate-y-1"
-            To: "opacity-100 translate-y-0"
-          Leaving: "transition ease-in duration-150"
-            From: "opacity-100 translate-y-0"
-            To: "opacity-0 translate-y-1"
-        -->
         <div class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 hidden" data-toggle-target="dropdownMenu">
           <div class="p-4">
             <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
@@ -108,7 +95,7 @@
           </div>
         </div>
       </div>
-      <% if @restaurant.enable_gallery? %>
+      <% if Flipper.enabled?(:enable_gallery) %>
         <%= link_to 'Gallery', '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
       <% end %>
       <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
@@ -120,8 +107,12 @@
       <% else %>
         <%= render 'layouts/dev_tools_select' %>
         <%= render 'layouts/language_select' %>
-        <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
-        <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+        <% if Flipper.enabled?(:sign_in) %>
+          <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
+        <% end %>
+        <% if Flipper.enabled?(:sign_up) %>
+          <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+        <% end %>
       <% end %>
     </div>
   </nav>
@@ -145,20 +136,25 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/25">
           <div class="space-y-2 py-6">
-            <%= link_to 'Home', root_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <%= link_to 'About', '#about', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <%= link_to 'Menu', '#menu', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <%= link_to 'Hot Dishes', '#menu-section-title-hot-dishes', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <%= link_to 'Beverages', '#menu-section-title-beverages', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
-            <%= link_to 'Gallery', '#gallery', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <% if Flipper.enabled?(:enable_gallery) %>
+              <%= link_to 'Gallery', '#gallery', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <% end %>
             <%= link_to 'Contact', '#contact', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
           </div>
           <div class="py-6 flex gap-x-4">
             <% if user_signed_in? %>
               <%= link_to 'Sign out', destroy_user_session_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
             <% else %>
-              <%= link_to 'Sign in', new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-              <%= link_to 'Sign up', new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+              <% if Flipper.enabled?(:sign_in) %>
+                <%= link_to 'Sign in', new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+              <% end %>
+              <% if Flipper.enabled?(:sign_up) %>
+                <%= link_to 'Sign up', new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+              <% end %>
             <% end %>
           </div>
         </div>

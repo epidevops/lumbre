@@ -6,25 +6,25 @@
   <%= render "about" %>
 </section>
 
-<% if @restaurant.enable_weekly_deals? %>
+<% if Flipper.enabled?(:enable_weekly_deals) %>
   <section id="our_restaurant">
     <%= render "our_restaurant" %>
   </section>
 <% end %>
 
-<% if @restaurant.enable_meet_the_team? %>
+<% if Flipper.enabled?(:enable_meet_the_team) %>
   <section id="team">
     <%= render "team" %>
   </section>
 <% end %>
 
-<% if @restaurant.enable_subscribe? %>
+<% if Flipper.enabled?(:enable_subscribe) %>
   <section id="subscribe">
     <%= render "subscribe" %>
   </section>
 <% end %>
 
-<% if @restaurant.enable_gallery? %>
+<% if Flipper.enabled?(:enable_gallery) %>
   <section id="gallery">
     <%= render "gallery" %>
   </section>
@@ -38,7 +38,7 @@
   <%= render "contact" %>
 </section>
 
-<% if @restaurant.enable_testimonials? %>
+<% if Flipper.enabled?(:enable_testimonials) %>
   <section id="testimonial">
     <%= render "testimonial" %>
   </section>

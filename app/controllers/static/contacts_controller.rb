@@ -10,32 +10,18 @@ class Static::ContactsController < ApplicationController
       @contact.contact_messages.build(message: contact_params[:contact_messages_attributes]["0"][:message])
     end
 
-    if @contact.save
-      # ContactUsConfirmationNotifier.with(record: @contact_message, message: @contact_message.message).deliver(@contact)
-      # NewContactUsAlertNotifier.with(record: @contact_message, message: @contact_message.message).deliver(AdminUser.first)
-      flash.now[:notice] = CONTACT_MESSAGE_SUCCESS_MESSAGE
+    flash.now[:notice] = CONTACT_MESSAGE_SUCCESS_MESSAGE
 
+    if @contact.save
       respond_to do |format|
         format.html { redirect_to root_path, notice: CONTACT_MESSAGE_SUCCESS_MESSAGE }
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.replace("contact_form", partial: "static/contacts/form", locals: { contact: Contact.new }),
-            turbo_stream.replace("flash", partial: "layouts/flash")
-          ]
-        }
+        format.turbo_stream
       end
     else
       logger.error("Contact message creation failed: #{@contact.errors.full_messages}")
-      flash.now[:notice] = CONTACT_MESSAGE_SUCCESS_MESSAGE
-
       respond_to do |format|
         format.html { redirect_to root_path, notice: CONTACT_MESSAGE_SUCCESS_MESSAGE }
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.replace("contact_form", partial: "static/contacts/form", locals: { contact: Contact.new }),
-            turbo_stream.replace("flash", partial: "layouts/flash")
-          ]
-        }
+        format.turbo_stream
       end
     end
   end

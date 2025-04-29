@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
   has_many :emails, as: :emailable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
   has_many :products, as: :productable, dependent: :destroy
+  has_many :schedules, as: :scheduleable, dependent: :destroy
 
   accepts_nested_attributes_for :socials, allow_destroy: true
   accepts_nested_attributes_for :addresses, allow_destroy: true
@@ -12,7 +13,7 @@ class Restaurant < ApplicationRecord
   accepts_nested_attributes_for :emails, allow_destroy: true
   accepts_nested_attributes_for :events, allow_destroy: true
   accepts_nested_attributes_for :products, allow_destroy: true
-
+  accepts_nested_attributes_for :schedules, allow_destroy: true
   scope :active, -> { where(active: true) }
   scope :primary, -> { where(primary: true) }
 end

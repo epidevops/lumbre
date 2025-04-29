@@ -1,0 +1,103 @@
+.simple-calendar .calendar-heading nav {
+  gap: 0.5rem;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.simple-calendar .calendar-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.simple-calendar table {
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  max-width: 100%;
+  width: 100%;
+}
+
+.simple-calendar tr {
+  border-collapse: collapse;
+}
+
+.simple-calendar th {
+  padding: 6px;
+  border-bottom: 2px solid #dddddd;
+  border-collapse: collapse;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top: 0px none #333333;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.simple-calendar td {
+  padding: 6px;
+  vertical-align: top;
+  width: 14%;
+  border: 1px solid #ddd;
+  border-top-color: #dddddd;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: #dddddd;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: #dddddd;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: #dddddd;
+  border-left-style: solid;
+  border-left-width: 1px;
+}
+
+.simple-calendar .day {
+  height: 80px;
+}
+
+.simple-calendar .today {
+  background: rgba(75, 172, 254, 0.5);
+}
+
+.simple-calendar .prev-month {
+  background: #ddd;
+}
+
+.simple-calendar .next-month {
+  background: #ddd;
+}
+
+.simple-calendar .has-events div:nth-child(1n + 2) {
+  display: inline-block;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+  margin: 2px;
+  padding: 6px;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.simple-calendar .capacity-all {
+  background: rgba(75, 172, 254, 0.5);
+}
+
+.simple-calendar .capacity-some {
+  background: rgba(240, 255, 0, 0.5);
+}
+
+.simple-calendar .capacity-none {
+  background: rgba(220, 71, 71, 0.5);
+}
+
+.simple-calendar span {
+  font-size: smaller;
+}

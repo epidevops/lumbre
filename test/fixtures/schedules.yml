@@ -1,0 +1,11 @@
+one:
+  scheduleable: admin_user
+  scheduleable_type: AdminUser
+  name: Appointment Availability
+  active: true
+  capacity: 3
+  exclude_lunch_time: false
+  lunch_hour_start: ""
+  lunch_hour_end: ""
+  beginning_of_week: sunday
+  time_zone: Mountain Time (US & Canada)

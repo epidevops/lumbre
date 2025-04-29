@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "contact_form" do %>
+  <%= render "static/contacts/form", contact: Contact.new %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <%= render "layouts/flash" %>
+<% end %>
