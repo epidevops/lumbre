@@ -1,0 +1,374 @@
+
+active_admin_form_for [ :admin, resource ] do |f|
+  f.semantic_errors(*f.object.errors.attribute_names, class: "form-error-message")
+  tabs do
+    tab "Details" do
+      f.inputs do
+        f.input :avatar, as: :image_attachment, default_image: "default-avatar.svg"
+        if resource.avatar.attached?
+          div style: "display: none;" do
+            link_to "Delete Avatar", delete_avatar_admin_admin_user_path, class: "image-attachment-delete-file-admin-user-avatar"
+          end
+        end
+        f.input :first_name
+        f.input :last_name
+        f.input :email, input_html: { autocomplete: "username" }
+        f.input :password, input_html: { autocomplete: "new-password" }
+        f.input :password_confirmation, input_html: { autocomplete: "new-password" }
+        # f.input :time_zone, as: :select,
+        #         collection: ActiveSupport::TimeZone.us_zones.map(&:name)
+        # f.input :locale, as: :select,
+        #         collection: [[I18n.t('locale.en'), :en], [I18n.t('locale.es'), :es]]
+      end
+    end
+    # if policy(current_admin_user).restrict_access_for_new_user?
+    #   tab 'Companies' do
+    #     f.inputs do
+    #       f.has_many :admin_user_companies, heading: false, allow_destroy: true do |c|
+    #         c.input :company_id, as: :select,
+    #                 collection: Company.all
+    #       end
+    #     end
+    #   end
+    # end
+    tab "Contact" do
+      tabs do
+        tab "Addresses" do
+          # f.inputs do
+          #   f.has_many :addresses, heading: false, allow_destroy: policy(resource).delete_address? do |a|
+          #     a.input :id, as: :hidden
+          #     a.input :label, as: :select, collection: ContactTypeLabel.address.pluck(:label).map { |l| [l.humanize, l] }
+          #     a.input :address_line_1
+          #     a.input :address_line_2
+          #     a.input :city
+          #     a.input :state, as: :select, collection: Utils::CsService.call.invert
+          #     a.input :zip
+          #     a.input :time_zone
+          #     a.input :is_valid
+          #     a.input :default
+          #   end
+          # end
+        end
+        tab "Emails" do
+          # f.inputs do
+          #   f.has_many :emails, heading: false, allow_destroy: policy(resource).delete_email? do |e|
+          #     disabled = e.object.label == "authentication" && !e.object.new_record?
+          #     e.input :id, as: :hidden
+          #     e.input :label, as: :select, collection: ContactTypeLabel.email.pluck(:label).map { |l| [l.humanize, l] }, input_html: { disabled: disabled }
+          #     e.input :email, input_html: { autocomplete: 'off', disabled: disabled }
+          #     unless disabled
+          #       e.input :is_valid
+          #       e.input :default
+          #     end
+          #   end
+          # end
+        end
+        tab "Phones" do
+          # f.inputs do
+          #   f.has_many :phones, heading: false, allow_destroy: policy(resource).delete_phone? do |ph|
+          #     disabled = ph.object.label == "authentication" && !ph.object.new_record?
+          #     ph.input :id, as: :hidden
+          #     ph.input :label, as: :select, collection: ContactTypeLabel.phone.pluck(:label).map { |l| [l.humanize, l] }, input_html: { disabled: disabled }
+          #     ph.input :phone_number, input_html: { disabled: disabled }
+          #     unless disabled
+          #       ph.input :is_valid
+          #       ph.input :default
+          #     end
+          #   end
+          # end
+        end
+      end
+    end
+    # tab 'Preferences' do
+    #   tabs do
+    #     tab 'Notification' do
+    #       f.inputs do
+    #         f.semantic_fields_for :admin_user_notification_preference do |np|
+    #           np.input :id, as: :hidden
+    #           np.input :admin_user_id, as: :hidden
+    #           np.input :email_enabled, as: :boolean
+    #           np.input :push_enabled, as: :boolean
+    #           np.input :sms_enabled, as: :boolean
+    #         end
+    #       end
+    #     end
+    #     tab 'Device' do
+    #       table_for resource.admin_device_tokens do
+    #         column :id, as: :hidden
+    #         column :enabled
+    #         column('Token Type') { |token| token.token_type.humanize }
+    #         column('Operating System', &:os)
+    #         column :browser
+    #         column :ip_address
+    #         column :created_at
+    #         column :updated_at
+    #       end
+    #     end
+    #     if policy(current_admin_user).restrict_access_for_new_user?
+    #       tab 'Help' do
+    #         f.inputs do
+    #           f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
+    #             hp.input :id, as: :hidden
+    #             hp.input :controller_name,
+    #                     input_html: { disabled: !hp.object.new_record? }
+    #             hp.input :enabled
+    #           end
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
+    # if policy(current_admin_user).restrict_access_for_new_user?
+    #   tab 'Security' do
+    #     tabs do
+    #       tab 'Roles' do
+    #         f.inputs do
+    #           if current_admin_user.has_any_role?(:super_admin, :developer)
+    #             f.input :roles, label: '', as: :check_boxes, collection: Role.global.map { |r| [r.name.titleize, r.id] }
+    #           else
+    #             f.input :roles, label: '', as: :check_boxes,
+    #                     input_html: { disabled: true },
+    #                     collection: current_admin_user.roles.map { |r| [r.name.titleize, r.id] }
+    #           end
+    #         end
+    #       end
+    #       tab 'Permissions' do
+    #         panel "Pundit" do
+    #           tabs do
+    #             admin_resources = ActiveAdmin.application.namespaces[:admin].resources
+    #             base_policy_class = ApplicationPolicy
+    #             base_policy_methods = base_policy_class.instance_methods(false).select { |m| m.to_s.end_with?('?') }
+    #             base_method_sort_order = %w[index? show? new? create? edit? update? destroy? destroy_all?]
+    #             tab 'Base Policy' do
+    #               base_instance_vars = base_policy_class.new(nil, nil).instance_variables.map { |var| var.to_s.delete('@').to_sym }
+
+    #               sorted_base_policy_methods = base_policy_methods.sort_by do |method|
+    #                 method_name = method.to_s
+    #                 [base_method_sort_order.index(method_name) || Float::INFINITY, method_name]
+    #               end
+
+    #               base_policy_methods_ordered = (base_instance_vars + sorted_base_policy_methods)
+
+    #               table do
+    #                 thead do
+    #                   tr do
+    #                     th 'Item'
+    #                     th 'Application Policy Actions'
+    #                     th 'Access'
+    #                   end
+    #                 end
+    #                 tbody do
+    #                   base_policy_methods_ordered.each_with_index do |base_method, index|
+    #                   method = base_policy_class.instance_method(base_method)
+    #                   value = method.bind(base_policy_class.new(resource, nil)).call
+    #                   data = case value.class.to_s
+    #                           when "AdminUser"
+    #                             value.name
+    #                           when "NilClass"
+    #                             ''
+    #                           when "TrueClass"
+    #                             status_tag value
+    #                           else
+    #                             value
+    #                           end
+
+    #                     tr do
+    #                       td index + 1
+    #                       td base_method
+    #                       td data
+    #                     end
+    #                   end
+    #                 end
+    #               end
+    #             end
+    #             tab "Resource Policy" do
+    #               render partial: 'pundit_resource_select'
+    #               div do
+    #                 tag :input, name: :dynamic_policy_class, id: "dynamic_policy_class", type: "hidden", value: params[:dynamic_policy_class] || "AdminUser"
+    #               end
+    #               para id: "dynamic_policy_class_display"
+
+    #               @dynamic_policy_class = params[:dynamic_policy_class] || "AdminUser"
+
+    #               resource_policy_class = Pundit::PolicyFinder.new(@dynamic_policy_class.safe_constantize).policy
+    #               resrouce_policy_methods = resource_policy_class.instance_methods(false).select { |m| m.to_s.end_with?('?') }
+
+    #               sorted_policy_methods = resrouce_policy_methods.sort_by do |method|
+    #                 method_name = method.to_s
+    #                 [base_method_sort_order.index(method_name) || Float::INFINITY, method_name]
+    #               end
+
+    #               resource_policy_methods_ordered = sorted_policy_methods.select do |method|
+    #                 !base_policy_methods.include?(method) || resource_policy_class.instance_method(method).owner == resource_policy_class
+    #               end
+
+    #               div id: 'policy_for_resource_table', class: 'policy_for_resource_table', style: 'display: none' do
+    #                 table do
+    #                   thead do
+    #                     tr do
+    #                       th 'Item'
+    #                       th 'Resource Policy Methods'
+    #                       th 'Access'
+    #                     end
+    #                   end
+    #                   tbody do
+    #                     resource_policy_methods_ordered.each_with_index do |base_method, index|
+    #                     method = resource_policy_class.instance_method(base_method)
+    #                     value = method.bind(resource_policy_class.new(resource, nil)).call
+    #                       tr do
+    #                         td index + 1
+    #                         td base_method
+    #                         td value
+    #                       end
+    #                     end
+    #                   end
+    #                 end
+    #               end
+    #             end
+    #             # tab "Resource Policy" do
+    #             #   render partial: 'pundit_resource_select'
+    #             #   div do
+    #             #     tag :input, name: :dynamic_policy_class, id: "dynamic_policy_class", type: "hidden", value: params[:dynamic_policy_class] || "AdminUser"
+    #             #   end
+    #             #   para id: "dynamic_policy_class_display"
+
+    #             #   @dynamic_policy_class = params[:dynamic_policy_class] || "AdminUser"
+
+    #             #   resource_policy_class = Pundit::PolicyFinder.new(@dynamic_policy_class.safe_constantize).policy
+    #             #   resrouce_policy_methods = resource_policy_class.instance_methods(false).select { |m| m.to_s.end_with?('?') }
+
+    #             #   sorted_policy_methods = resrouce_policy_methods.sort_by do |method|
+    #             #     method_name = method.to_s
+    #             #     [base_method_sort_order.index(method_name) || Float::INFINITY, method_name]
+    #             #   end
+
+    #             #   resource_policy_methods_ordered = sorted_policy_methods.select do |method|
+    #             #     !base_policy_methods.include?(method) || resource_policy_class.instance_method(method).owner == resource_policy_class
+    #             #   end
+
+    #             #   div id: 'policy_for_resource_table', class: 'policy_for_resource_table', style: 'display: none' do
+    #             #     table do
+    #             #       thead do
+    #             #         tr do
+    #             #           th 'Item'
+    #             #           th 'Resource Policy Methods'
+    #             #           th 'Access'
+    #             #         end
+    #             #       end
+    #             #       tbody do
+    #             #         resource_policy_methods_ordered.each_with_index do |base_method, index|
+    #             #         method = resource_policy_class.instance_method(base_method)
+    #             #         value = method.bind(resource_policy_class.new(resource, nil)).call
+    #             #           tr do
+    #             #             td index + 1
+    #             #             td base_method
+    #             #             td value
+    #             #           end
+    #             #         end
+    #             #       end
+    #             #     end
+    #             #   end
+    #             # end
+    #           end
+    #         end
+    #       end
+    #       tab 'Navigation' do
+    #         # f.inputs do
+    #         #   f.has_many :admin_user_help_preferences, heading: false, allow_destroy: true do |hp|
+    #         #     hp.input :controller_name,
+    #         #              input_html: { disabled: !hp.object.new_record? }
+    #         #     hp.input :enabled
+    #         #   end
+    #         # end
+    #       end
+    #       tab 'HTTP Status Codes' do
+    #         panel 'Details' do
+    #           div do
+    #             para ["Note: specific to Rails. If you try to render content along with a non-content status code (100-199, 204, 205, or 304), it will be dropped from the response. See Rails Guides ",
+    #               link_to("here", "https://guides.rubyonrails.org/layouts_and_rendering.html#the-status-option", target: "_blank"),
+    #               " for more details."].join.html_safe
+    #           end
+    #           div class: 'paginated_collection' do
+    #             div class: 'paginated_collection_contents' do
+    #               div class: 'index_content' do
+    #                 div class: 'index_as_table' do
+    #                   table class: "index_table index" do
+    #                     thead do
+    #                       tr do
+    #                         th class: 'col' do
+    #                           '#'
+    #                         end
+    #                         th class: 'sortable col' do
+    #                           'Response Class'
+    #                         end
+    #                         th class: 'col' do
+    #                           'Code'
+    #                         end
+    #                         th class: 'col' do
+    #                           'Symbol'
+    #                         end
+    #                         th class: 'col' do
+    #                           'Source'
+    #                         end
+    #                       end
+    #                     end
+    #                     tbody do
+    #                       HTTP_STATUS_CODES.each do |response_class, codes|
+    #                         codes.each_with_index do |status, index|
+    #                           index_col = index + 1
+    #                           tr_class  = index_col.odd? ? 'odd' : 'even'
+    #                           tr class: tr_class do
+    #                             td index_col
+    #                             td response_class
+    #                             td status[:code].to_s
+    #                             td ":#{status[:symbol]}"
+    #                             td do
+    #                               status[:source].each_with_index do |source, index|
+    #                                 if index == 0
+    #                                   color = source == 'Rails' ? 'green' : 'red'
+    #                                   status_tag('Rails', class: color)
+    #                                 else
+    #                                   text_node source
+    #                                 end
+    #                                 br unless index == status[:source].length - 1
+    #                               end
+    #                             end
+    #                           end
+    #                         end
+    #                       end
+    #                     end
+    #                   end
+    #                 end
+    #               end
+    #             end
+    #           end
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
+  end
+  f.actions
+end
+
+
+
+# <script>
+# function updatePolicy(selectedValue) {
+#   console.log("Selected value:", selectedValue);
+
+#   // Update the hidden field value
+#   var dynamicPolicyClassInput = document.getElementById('dynamic_policy_class');
+#   dynamicPolicyClassInput.value = selectedValue;
+
+#   // Update the displayed value
+#   var displayElement = document.getElementById('dynamic_policy_class_display');
+#   displayElement.textContent = "Dynamic Policy Class: " + selectedValue;
+
+#   // Get the updated value of the hidden field
+#   var dynamicPolicyClass = dynamicPolicyClassInput.value;
+#   console.log("Dynamic Policy Class:", dynamicPolicyClass);
+
+#   // ... rest of your updatePolicy function ...
+# }
+# </script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_28_025756) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_28_191155) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -90,6 +90,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_28_025756) do
     t.string "username"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "admin_users_roles", id: false, force: :cascade do |t|
+    t.integer "admin_user_id"
+    t.integer "role_id"
+    t.index ["admin_user_id", "role_id"], name: "index_admin_users_roles_on_admin_user_id_and_role_id"
+    t.index ["admin_user_id"], name: "index_admin_users_roles_on_admin_user_id"
+    t.index ["role_id"], name: "index_admin_users_roles_on_role_id"
   end
 
   create_table "contact_messages", force: :cascade do |t|
@@ -214,16 +222,62 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_28_025756) do
     t.text "about_text"
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
-    t.boolean "enable_gallery", default: true, null: false
-    t.boolean "enable_meet_the_team", default: true, null: false
-    t.boolean "enable_subscribe", default: true, null: false
-    t.boolean "enable_testimonials", default: true, null: false
-    t.boolean "enable_weekly_deals", default: true, null: false
     t.text "hero_text"
     t.string "name"
     t.boolean "primary", default: true, null: false
     t.string "slogan"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "resource_id"
+    t.string "resource_type"
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "rules", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.json "days_of_week", default: [], null: false
+    t.date "end_date"
+    t.integer "frequency"
+    t.string "frequency_units"
+    t.string "name"
+    t.string "rule_hour_end"
+    t.string "rule_hour_start"
+    t.string "rule_type"
+    t.integer "schedule_id", null: false
+    t.date "start_date"
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_rules_on_schedule_id"
+  end
+
+  create_table "schedule_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "event_time"
+    t.integer "schedule_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_schedule_events_on_schedule_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.boolean "active", default: false, null: false
+    t.string "beginning_of_week", default: "monday"
+    t.integer "capacity", default: 1
+    t.datetime "created_at", null: false
+    t.boolean "exclude_lunch_time", default: true
+    t.string "lunch_hour_end"
+    t.string "lunch_hour_start"
+    t.string "name", null: false
+    t.integer "scheduleable_id", null: false
+    t.string "scheduleable_type", null: false
+    t.string "time_zone"
+    t.datetime "updated_at", null: false
+    t.index ["scheduleable_type", "scheduleable_id"], name: "index_schedules_on_scheduleable"
   end
 
   create_table "socials", force: :cascade do |t|
@@ -277,4 +331,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_28_025756) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_messages", "contacts"
+  add_foreign_key "rules", "schedules"
+  add_foreign_key "schedule_events", "schedules"
 end

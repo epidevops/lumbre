@@ -1,0 +1,31 @@
+<% if local_assigns[:locals][:events].present? %>
+  <%= month_calendar(attribute: :start_date, beginning_of_week: :sunday, events: local_assigns[:locals][:events]) do |date, events| %>
+    <div><%= date.strftime('%d') %></div>
+    <% events.sort_by(&:start_time).each do |event| %>
+    <% case %>
+    <% when event&.capacity == event&.availability %>
+      <div class="capacity-all">
+          <%= event&.start_time.to_time.strftime('%I:%M %p') %>
+          <br>
+          <span><%= t(:spots) %> <%= event&.availability %></span>
+      </div>
+    <% when event&.availability < event&.capacity && event&.availability > 0 %>
+      <div class="capacity-some">
+          <%= event&.start_time.to_time.strftime('%I:%M %p') %>
+          <br>
+          <span><%= t(:spots) %> <%= event&.availability %></span>
+      </div>
+    <% when event&.availability <= 0 %>
+      <div class="capacity-none">
+          <%= event&.start_time.to_time.strftime('%I:%M %p') %>
+          <br>
+          <span><%= t(:spots) %> <%= event&.availability %></span>
+      </div>
+    <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= month_calendar do |date| %>
+    <div><%= date.strftime('%d') %></div>
+  <% end %>
+<% end %>

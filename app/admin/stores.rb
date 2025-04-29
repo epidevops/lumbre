@@ -1,11 +1,11 @@
 ActiveAdmin.register Store do
   # Specify parameters which should be permitted for assignment
-  permit_params :name, :about
+  permit_params :active, :name, :primary, :slogan
 
   # or consider:
   #
   # permit_params do
-  #   permitted = [:name, :about]
+  #   permitted = [:active, :name, :primary, :slogan]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
@@ -15,18 +15,22 @@ ActiveAdmin.register Store do
 
   # Add or remove filters to toggle their visibility
   filter :id
-  filter :name
-  filter :about
+  filter :active
   filter :created_at
+  filter :name
+  filter :primary
+  filter :slogan
   filter :updated_at
 
   # Add or remove columns to toggle their visibility in the index action
   index do
     selectable_column
     id_column
-    column :name
-    column :about
+    column :active
     column :created_at
+    column :name
+    column :primary
+    column :slogan
     column :updated_at
     actions
   end
@@ -35,20 +39,25 @@ ActiveAdmin.register Store do
   show do
     attributes_table_for(resource) do
       row :id
-      row :name
-      row :about
+      row :active
       row :created_at
+      row :name
+      row :primary
+      row :slogan
       row :updated_at
     end
   end
 
   # Add or remove fields to toggle their visibility in the form
-  form do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :name
-      f.input :about
-    end
-    f.actions
-  end
+  # form do |f|
+  #   f.semantic_errors(*f.object.errors.attribute_names)
+  #   f.inputs do
+  #     f.input :active
+  #     f.input :name
+  #     f.input :primary
+  #     f.input :slogan
+  #   end
+  #   f.actions
+  # end
+  form partial: "form"
 end

@@ -84,5 +84,8 @@ gem "flipper-active_record", "~> 1.3"
 gem "flipper-ui", "~> 1.3"
 
 gem "positioning", "~> 0.4.5"
-
 gem "acts_as_list", "~> 1.2"
+gem "ice_cube", "~> 0.17.0"
+gem "simple_calendar", "~> 3.1"
+
+gem "rolify", "~> 6.0"

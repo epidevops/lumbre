@@ -1,3 +1,14 @@
+# module ActiveAdminHelpers
+#   def current_user_meta_tags
+#     unless current_admin_user.nil?
+#       safe_join [
+#         tag(:meta, name: 'current-user-id', content: current_admin_user.id),
+#         tag(:meta, name: 'current-user-data', content: current_admin_user.user_meta_data_tag)
+#       ]
+#     end
+#   end
+# end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #

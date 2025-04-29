@@ -1,0 +1,19 @@
+one:
+  schedule: one
+  event_time: <%= Date.today.next_week(:monday).to_s + ' 09:00:00 MST' %>
+
+two:
+  schedule: one
+  event_time: <%= Date.today.next_week(:monday).to_s + ' 09:00:00 MST' %>
+
+three:
+  schedule: one
+  event_time: <%= Date.today.next_week(:monday).to_s + ' 08:00:00 MST' %>
+
+four:
+  schedule: one
+  event_time: <%= Date.today.next_week(:monday).to_s + ' 08:00:00 MST' %>
+
+five:
+  schedule: one
+  event_time: <%= Date.today.next_week(:monday).to_s + ' 08:00:00 MST' %>

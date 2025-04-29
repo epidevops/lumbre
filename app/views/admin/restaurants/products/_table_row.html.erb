@@ -7,7 +7,29 @@
       <%= product.active ? 'Yes' : 'No' %>
     </span>
   </td>
-  <td data-column="actions">
-    <%= link_to "Edit", edit_polymorphic_path([:admin, product]) %>
+  <td data-column="actions" class="flex items-center gap-4 relative">
+    <%= link_to toggle_product_active_admin_restaurant_path(product.id), method: :post, data: { tooltip_target: "tooltip-refresh-#{product.id}", tooltip_trigger: "hover" } do %>
+      <%= heroicon 'arrow-path', class: 'size-6' %>
+    <% end %>
+    <div id="tooltip-refresh-<%= product.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
+      Toggle Active Status
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+
+    <%= link_to edit_polymorphic_path([:admin, product]), data: { tooltip_target: "tooltip-edit-#{product.id}", tooltip_trigger: "hover" } do %>
+      <%= heroicon 'pencil', class: 'size-6' %>
+    <% end %>
+    <div id="tooltip-edit-<%= product.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
+      Edit Product
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
+
+    <%= link_to edit_polymorphic_path([:admin, product]), data: { tooltip_target: "tooltip-delete-#{product.id}", tooltip_trigger: "hover" } do %>
+      <%= heroicon 'trash', class: 'size-6' %>
+    <% end %>
+    <div id="tooltip-delete-<%= product.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
+      Delete Product
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </td>
 </tr>

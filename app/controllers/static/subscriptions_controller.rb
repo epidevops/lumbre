@@ -16,18 +16,15 @@ class Static::SubscriptionsController < ApplicationController
       @contact.save
     elsif !@contact.subscribed?
       @contact.update(subscribed: true)
+    else
+      # send email to admin
     end
 
     flash.now[:notice] = SUBSCRIBING_SUCCESS_MESSAGE
 
     respond_to do |format|
       format.html { redirect_to root_path, notice: SUBSCRIBING_SUCCESS_MESSAGE }
-      format.turbo_stream {
-        render turbo_stream: [
-          turbo_stream.replace("subscription_form", partial: "static/subscriptions/form", locals: { contact: Contact.new }),
-          turbo_stream.replace("flash", partial: "layouts/flash")
-        ]
-      }
+      format.turbo_stream
     end
   end
 

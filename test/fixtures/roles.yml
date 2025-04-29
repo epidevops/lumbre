@@ -1,0 +1,14 @@
+super_admin:
+  name: super_admin
+
+admin:
+  name: admin
+
+developer:
+  name: developer
+
+manager:
+  name: manager
+
+new_user:
+  name: new_user

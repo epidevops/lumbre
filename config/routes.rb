@@ -21,12 +21,12 @@ Rails.application.routes.draw do
   end
 
 
-  authenticate :user, lambda { |u| u.present? || !Rails.env.production? } do
+    # authenticate :user, lambda { |u| u.present? } do
     mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
     mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
     mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
     mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
-  end
+  # end
 end

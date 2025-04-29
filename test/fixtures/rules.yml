@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedule: one
+  rule_type: inclusion
+  name: Open Time Rule MWF
+  frequency_units: IceCube::MinutelyRule
+  frequency: 15
+  days_of_week:
+    - monday
+    - wednesday
+    - friday
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 90.days %>
+  rule_hour_start: "08:00"
+  rule_hour_end: "12:00"
+
+two:
+  schedule: one
+  rule_type: inclusion
+  name: Open Time Rule TTH
+  frequency_units: IceCube::MinutelyRule
+  frequency: 15
+  days_of_week: <%= %w(tuesday thursday) %>
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 90.days %>
+  rule_hour_start: "17:15"
+  rule_hour_end: "20:45"
+
