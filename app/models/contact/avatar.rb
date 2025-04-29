@@ -1,4 +1,4 @@
-module AdminUser::Avatar
+module Contact::Avatar
   extend ActiveSupport::Concern
 
   included do
