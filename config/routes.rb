@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :todos
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  direct :fresh_admin_user_avatar do |admin_user, options|
+    route_for :avatar_admin_admin_user, admin_user.avatar_token, v: admin_user.updated_at.to_fs(:number)
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -18,15 +21,20 @@ Rails.application.routes.draw do
       resources :contacts, only: [ :create ]
       resources :subscriptions, only: [ :create ]
     end
+
+    resources :todos do
+      member do
+        patch :move
+      end
+    end
   end
 
-
-    # authenticate :user, lambda { |u| u.present? } do
-    mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
-    mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
-    mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
-    mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
-    mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
-    mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
+  # authenticate :user, lambda { |u| u.present? } do
+  mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
+  mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
+  mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
+  mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
+  mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
+  mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
   # end
 end

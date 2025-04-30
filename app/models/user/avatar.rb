@@ -1,4 +1,4 @@
-module Avatar
+module User::Avatar
   extend ActiveSupport::Concern
 
   included do
