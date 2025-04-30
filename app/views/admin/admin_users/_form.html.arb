@@ -4,12 +4,6 @@ active_admin_form_for [ :admin, resource ] do |f|
   tabs do
     tab "Details" do
       f.inputs do
-        f.input :avatar, as: :image_attachment, default_image: "default-avatar.svg"
-        if resource.avatar.attached?
-          div style: "display: none;" do
-            link_to "Delete Avatar", delete_avatar_admin_admin_user_path, class: "image-attachment-delete-file-admin-user-avatar"
-          end
-        end
         f.input :first_name
         f.input :last_name
         f.input :email, input_html: { autocomplete: "username" }
@@ -17,8 +11,7 @@ active_admin_form_for [ :admin, resource ] do |f|
         f.input :password_confirmation, input_html: { autocomplete: "new-password" }
         # f.input :time_zone, as: :select,
         #         collection: ActiveSupport::TimeZone.us_zones.map(&:name)
-        # f.input :locale, as: :select,
-        #         collection: [[I18n.t('locale.en'), :en], [I18n.t('locale.es'), :es]]
+        f.input :language_preference, as: :select, collection: locale_collection
       end
     end
     # if policy(current_admin_user).restrict_access_for_new_user?

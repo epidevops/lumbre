@@ -157,6 +157,8 @@ if Rails.env.development? then
     end
   end
 
+  Flipper.enable_group(:super_admin_access, :admin_user)
+  Flipper.enable(:super_admin_access)
 
   %w[
     sign_in
@@ -169,6 +171,8 @@ if Rails.env.development? then
   ].each do |feature|
     Flipper.disable(feature)
   end
+
+
 
 
   Schedule.create!(scheduleable_id: AdminUser.first.id, scheduleable_type: "AdminUser", name: "Appointment Availability", active: true, capacity: 3, exclude_lunch_time: false, beginning_of_week: "monday", time_zone: "Mountain Time (US & Canada)")

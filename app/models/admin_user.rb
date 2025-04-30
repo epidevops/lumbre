@@ -7,6 +7,8 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
 
+  # enum preferred_locale: %w[I18n.available_locales.map(&:to_s).join(" ")]
+
   def initials
     name.initials
   end

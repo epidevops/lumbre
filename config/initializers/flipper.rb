@@ -40,6 +40,6 @@ end
 ##
 ## See https://www.flippercloud.io/docs/features#enablement-group
 #
-# Flipper.register(:admins) do |actor|
-#  actor.respond_to?(:admin?) && actor.admin?
-# end
+Flipper.register(:admin_user) do |actor|
+  actor.respond_to?(:has_role?) && actor.has_role?(:super_admin)
+end

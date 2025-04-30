@@ -6,8 +6,8 @@
 #
 default: &default
   adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
-  default_transaction_mode: immediate
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
 
 development:
   primary:
@@ -34,10 +34,6 @@ test:
     <<: *default
     database: storage/db/test_primary.sqlite3
   cache:
-    <<: *default
-    database: storage/db/test_cache.sqlite3
-    migrations_paths: db/migrate_cache
-  queue:
     <<: *default
     database: storage/db/test_cache.sqlite3
     migrations_paths: db/migrate_cache
