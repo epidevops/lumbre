@@ -86,7 +86,19 @@
                   tabindex: "-1",
                   data: { action: 'toggle#toggleDropdownItem' } do %>
         <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Flipper" %>
+        <%= "Flipper".to_s %>
+      <% end %>
+      <% if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user) %>
+        <%= link_to mount_blazer_path,
+                    id: "dev-tool-button-8",
+                    class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                    target: '_blank',
+                    role: "menuitem",
+                    tabindex: "-1",
+                    data: { action: 'toggle#toggleDropdownItem' } do %>
+          <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
+          <%= "Blazer" %>
+        <% end %>
       <% end %>
       <div id="dev-tool-button-8" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>

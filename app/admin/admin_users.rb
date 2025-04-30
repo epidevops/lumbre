@@ -2,49 +2,49 @@ ActiveAdmin.register AdminUser do
   menu priority: 5
 
   # Specify parameters which should be permitted for assignment
-  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar]
+  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar language_preference]
 
-  controller do
-    include ActiveStorage::Streaming
-    include ActionView::Helpers::AssetUrlHelper
+  # controller do
+  #   include ActiveStorage::Streaming
+  #   include ActionView::Helpers::AssetUrlHelper
 
-    rescue_from(ActiveSupport::MessageVerifier::InvalidSignature) { head :not_found }
+  #   rescue_from(ActiveSupport::MessageVerifier::InvalidSignature) { head :not_found }
 
-    private
-      SQUARE_WEBP_VARIANT = { resize_to_limit: [ 512, 512 ], format: :webp }
+  #   private
+  #     SQUARE_WEBP_VARIANT = { resize_to_limit: [ 512, 512 ], format: :webp }
 
-      def send_webp_blob_file(key)
-        send_file ActiveStorage::Blob.service.path_for(key), content_type: "image/webp", disposition: :inline
-      end
+  #     def send_webp_blob_file(key)
+  #       send_file ActiveStorage::Blob.service.path_for(key), content_type: "image/webp", disposition: :inline
+  #     end
 
-      def render_default_avatar
-        send_file Rails.root.join("app/assets/images/default-admin-avatar.svg"), content_type: "image/svg+xml", disposition: :inline
-      end
+  #     def render_default_avatar
+  #       send_file Rails.root.join("app/assets/images/default-admin-avatar.svg"), content_type: "image/svg+xml", disposition: :inline
+  #     end
 
-      def render_initials
-        render formats: :svg
-      end
-  end
+  #     def render_initials
+  #       render formats: :svg
+  #     end
+  # end
 
-  member_action :delete_avatar, method: :delete do
-    resource.avatar.purge
-    redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
-  end
+  # member_action :delete_avatar, method: :delete do
+  #   resource.avatar.purge
+  #   redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
+  # end
 
-  member_action :avatar, method: :get do
-    if stale?(etag: @user)
-      expires_in 30.minutes, public: true, stale_while_revalidate: 1.week
+  # member_action :avatar, method: :get do
+  #   if stale?(etag: @user)
+  #     expires_in 30.minutes, public: true, stale_while_revalidate: 1.week
 
-      if current_admin_user.avatar.attached?
-        avatar_variant = current_admin_user.avatar.variant(SQUARE_WEBP_VARIANT).processed
-        send_webp_blob_file avatar_variant.key
-      elsif current_admin_user.initials.present?
-        render_initials
-      else
-        render_default_avatar
-      end
-    end
-  end
+  #     if current_admin_user.avatar.attached?
+  #       avatar_variant = current_admin_user.avatar.variant(SQUARE_WEBP_VARIANT).processed
+  #       send_webp_blob_file avatar_variant.key
+  #     elsif current_admin_user.initials.present?
+  #       render_initials
+  #     else
+  #       render_default_avatar
+  #     end
+  #   end
+  # end
 
   # For security, limit the actions that should be available
   actions :all, except: []
@@ -94,22 +94,5 @@ ActiveAdmin.register AdminUser do
     end
   end
 
-  form do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :avatar, as: :image_attachment, default_image: "default-avatar.svg"
-      if resource.avatar.attached?
-        div style: "display: none;" do
-          link_to "Delete Avatar", delete_avatar_admin_admin_user_path, class: "image-attachment-delete-file-admin-user-avatar"
-        end
-      end
-      f.input :email
-      f.input :first_name
-      f.input :last_name
-      f.input :title
-      f.input :bio
-      f.input :username
-    end
-    f.actions
-  end
+  form render: "form"
 end

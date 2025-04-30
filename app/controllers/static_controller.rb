@@ -1,6 +1,7 @@
 class StaticController < ApplicationController
   before_action :set_restaurant
   before_action :memoized_restaurant
+  include TranslationsHelper
 
   def index
     # flash.now[:notice] = "Hello"

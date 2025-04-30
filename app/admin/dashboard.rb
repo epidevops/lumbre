@@ -13,5 +13,16 @@ ActiveAdmin.register_page "Dashboard" do
         text_node "file to get started."
       end
     end
+
+    panel "Admin Tools" do
+      if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user)
+        h3 { b { link_to("Blazer", "/blazer", target: "_blank") } }
+      end
+      h3 { b { link_to("Flipper", "/flipper", target: "_blank") } }
+      # h3 { b { link_to('Model Graph', '/models') } }
+      # h3 { b { link_to('PgHero', '/pghero') } }
+      # h3 { b { link_to('Sidekiq', '/sidekiq') } }
+      # h3 { b { link_to('Vue Playground', '/vue-playground') } }
+    end
   end
 end

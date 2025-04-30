@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
-  direct :fresh_admin_user_avatar do |admin_user, options|
-    route_for :avatar_admin_admin_user, admin_user.avatar_token, v: admin_user.updated_at.to_fs(:number)
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    ActiveAdmin.routes(self)
   end
+
+  authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do
+    mount Blazer::Engine, at: "blazer", as: :mount_blazer
+  end
+
+  # direct :fresh_admin_user_avatar do |admin_user, options|
+  #   route_for :avatar_admin_admin_user, admin_user.avatar_token, v: admin_user.updated_at.to_fs(:number)
+  # end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
