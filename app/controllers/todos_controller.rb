@@ -1,10 +1,10 @@
 class TodosController < ApplicationController
   layout "todo"
-  before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :set_todo, only: %i[ show edit update destroy move ]
 
   # GET /todos or /todos.json
   def index
-    @todos = Todo.all
+    @todos = Todo.all.order(category: :asc, position: :asc)
   end
 
   # GET /todos/1 or /todos/1.json
@@ -55,6 +55,19 @@ class TodosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to todos_url, notice: "Todo was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def move
+    @todo.insert_at(params[:position].to_i)
+
+    # Get all todos in the same category, ordered by position
+    @todos = Todo.where(category: @todo.category).order(position: :asc)
+
+    respond_to do |format|
+      format.json { render json: {
+        positions: @todos.map { |todo| { id: todo.id, position: todo.position } }
+      } }
     end
   end
 

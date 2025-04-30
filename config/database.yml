@@ -6,24 +6,24 @@
 #
 default: &default
   adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+  default_transaction_mode: immediate
 
 development:
   primary:
     <<: *default
-    database: storage/development/data.sqlite3
+    database: storage/db/development_primary.sqlite3
   cache:
     <<: *default
-    database: storage/development/cache.sqlite3
+    database: storage/db/development_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/development/queue.sqlite3
+    database: storage/db/development_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/development/cable.sqlite3
+    database: storage/db/development_cable.sqlite3
     migrations_paths: db/migrate_cable
 
 # Warning: The database defined as "test" will be erased and
@@ -32,18 +32,22 @@ development:
 test:
   primary:
     <<: *default
-    database: storage/test/data.sqlite3
+    database: storage/db/test_primary.sqlite3
   cache:
     <<: *default
-    database: storage/test/cache.sqlite3
+    database: storage/db/test_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/test/queue.sqlite3
+    database: storage/db/test_cache.sqlite3
+    migrations_paths: db/migrate_cache
+  queue:
+    <<: *default
+    database: storage/db/test_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/test/cable.sqlite3
+    database: storage/db/test_cable.sqlite3
     migrations_paths: db/migrate_cable
 
 
@@ -56,16 +60,16 @@ test:
 production:
   primary:
     <<: *default
-    database: storage/production/data.sqlite3
+    database: storage/db/production_primary.sqlite3
   cache:
     <<: *default
-    database: storage/production/cache.sqlite3
+    database: storage/db/production_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/production/queue.sqlite3
+    database: storage/db/production_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/production/cable.sqlite3
+    database: storage/db/production_cable.sqlite3
     migrations_paths: db/migrate_cable

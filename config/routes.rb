@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :todos
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -21,6 +20,12 @@ Rails.application.routes.draw do
     namespace :static do
       resources :contacts, only: [ :create ]
       resources :subscriptions, only: [ :create ]
+    end
+
+    resources :todos do
+      member do
+        patch :move
+      end
     end
   end
 

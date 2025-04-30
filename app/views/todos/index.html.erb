@@ -22,9 +22,11 @@
           <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
         </tr>
       </thead>
-      <tbody class="bg-white divide-y divide-gray-200" data-controller="move">
+      <tbody class="bg-white divide-y divide-gray-200" data-controller="move" data-move-url-value="/todos/:id/move">
         <% if @todos.any? %>
-          <%= render @todos %>
+
+            <%= render @todos %>
+
         <% else %>
           <tr>
             <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">No todos found.</td>
@@ -33,4 +35,4 @@
       </tbody>
     </table>
   </div>
-</div>
+</div

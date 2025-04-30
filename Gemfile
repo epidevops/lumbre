@@ -64,7 +64,7 @@ end
 
 gem "activeadmin", "~> 4.0.0.beta15"
 gem "activeadmin_assets"
-gem "devise", "~> 4.9"
+gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise-i18n", "~> 1.13"
 gem "rails-i18n", "~> 8.0"
 gem "name_of_person", "~> 1.1"
@@ -89,3 +89,5 @@ gem "ice_cube", "~> 0.17.0"
 gem "simple_calendar", "~> 3.1"
 
 gem "rolify", "~> 6.0"
+
+gem "sequenced", "~> 4.0"
