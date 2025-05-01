@@ -64,6 +64,7 @@ end
 
 gem "activeadmin", "~> 4.0.0.beta15"
 gem "activeadmin_assets"
+# gem "activeadmin_assets", path: "/Users/jasonrossi/Sandbox/forked_repo/activeadmin_assets"
 gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise-i18n", "~> 1.13"
 gem "rails-i18n", "~> 8.0"

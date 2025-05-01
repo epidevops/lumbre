@@ -2,7 +2,8 @@ ActiveAdmin.register AdminUser do
   menu priority: 5
 
   # Specify parameters which should be permitted for assignment
-  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar language_preference]
+  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar language_preference active]
+  # preference_attributes: %i[id preferenceable_id preferenceable_type email_notifications sms_notifications mobile_push_notifications web_push_notifications language timezone theme]
 
   # controller do
   #   include ActiveStorage::Streaming
@@ -94,5 +95,11 @@ ActiveAdmin.register AdminUser do
     end
   end
 
-  form render: "form"
+  form partial: "form"
+
+  # form do |f|
+  #   # f.template.render partial: "admin/restaurants/products/table", locals: { restaurant: resource }
+  #   f.template.render partial: "form", locals: { resource: self, f: f }
+  #   # render partial: "form", locals: { resource: resource, f: f }
+  # end
 end
