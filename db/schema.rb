@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_30_050220) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_30_204847) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_30_050220) do
   end
 
   create_table "admin_users", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
     t.text "bio"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -254,6 +255,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_30_050220) do
     t.string "phoneable_type", null: false
     t.datetime "updated_at", null: false
     t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable"
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enable_email", default: false, null: false
+    t.boolean "enable_mobile_push", default: false, null: false
+    t.boolean "enable_sms", default: false, null: false
+    t.boolean "enable_web_push", default: false, null: false
+    t.integer "preferenceable_id", null: false
+    t.string "preferenceable_type", null: false
+    t.string "preferred_language", default: "en", null: false
+    t.string "theme", default: "system", null: false
+    t.string "time_zone", default: "UTC", null: false
+    t.datetime "updated_at", null: false
+    t.index ["preferenceable_type", "preferenceable_id"], name: "index_preferences_on_preferenceable"
   end
 
   create_table "products", force: :cascade do |t|

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  preferenceable: one
+  preferenceable_type: Preferenceable
+  preferred_language: MyString
+  time_zone: MyString
+  theme: MyString
+  enable_email: false
+  enable_sms: false
+  enable_web_push: false
+  enable_mobile_push: false
+
+two:
+  preferenceable: two
+  preferenceable_type: Preferenceable
+  preferred_language: MyString
+  time_zone: MyString
+  theme: MyString
+  enable_email: false
+  enable_sms: false
+  enable_web_push: false
+  enable_mobile_push: false
