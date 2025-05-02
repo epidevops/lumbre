@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Use main development branch of Rails
 gem "rails", github: "rails/rails", branch: "main"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
+# gem "propshaft"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 2.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -15,8 +15,21 @@ gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+# gem "tailwindcss-rails"
+gem "sprockets-rails"
+gem "cssbundling-rails"
+gem "tailwindcss-rails", "~> 4.2"
 
+# TODO: Remove look at these issues
+# cssa.1 | yarn run v1.22.19
+# cssa.1 | warning ../../../package.json: No license field
+# cssa.1 | $ tailwindcss -i ./app/assets/stylesheets/active_admin.css -o ./app/assets/builds/active_admin.css --minify -c tailwind-active_admin.config.js --watch
+# cssa.1 | Browserslist: caniuse-lite is outdated. Please run:
+# cssa.1 |   npx update-browserslist-db@latest
+# cssa.1 |   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+# cssa.1 | Browserslist: caniuse-lite is outdated. Please run:
+# cssa.1 |   npx update-browserslist-db@latest
+# cssa.1 |   Why you should do it regularly: https://github.com/browserslist/update-db#readme
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -63,7 +76,7 @@ group :test do
 end
 
 gem "activeadmin", "~> 4.0.0.beta15"
-gem "activeadmin_assets"
+# gem "activeadmin_assets"
 # gem "activeadmin_assets", path: "/Users/jasonrossi/Sandbox/forked_repo/activeadmin_assets"
 gem "devise", github: "heartcombo/devise", branch: "main"
 gem "devise-i18n", "~> 1.13"
