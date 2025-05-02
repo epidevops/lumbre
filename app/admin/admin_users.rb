@@ -47,6 +47,11 @@ ActiveAdmin.register AdminUser do
   #   end
   # end
 
+  member_action :delete_avatar, method: :get do
+    resource.avatar.purge
+    redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
+  end
+
   # For security, limit the actions that should be available
   actions :all, except: []
 
