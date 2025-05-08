@@ -101,17 +101,19 @@
       <%= link_to 'Contact', '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
-      <% if user_signed_in? %>
-        <%= render 'layouts/dev_tools_select' %>
-        <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
-      <% else %>
-        <%= render 'layouts/dev_tools_select' %>
-        <%= render 'layouts/language_select' %>
-        <% if Flipper.enabled?(:sign_in) %>
-          <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
-        <% end %>
-        <% if Flipper.enabled?(:sign_up) %>
-          <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+      <% if Flipper.enabled?(:sign_up) || Flipper.enabled?(:sign_in) %>
+        <% if user_signed_in? %>
+          <%= render 'layouts/dev_tools_select' %>
+          <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
+        <% else %>
+          <%= render 'layouts/dev_tools_select' %>
+          <%= render 'layouts/language_select' %>
+          <% if Flipper.enabled?(:sign_in) %>
+            <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
+          <% end %>
+          <% if Flipper.enabled?(:sign_up) %>
+            <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -146,14 +148,16 @@
             <%= link_to 'Contact', '#contact', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
           </div>
           <div class="py-6 flex gap-x-4">
-            <% if user_signed_in? %>
-              <%= link_to 'Sign out', destroy_user_session_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-            <% else %>
-              <% if Flipper.enabled?(:sign_in) %>
-                <%= link_to 'Sign in', new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-              <% end %>
-              <% if Flipper.enabled?(:sign_up) %>
-                <%= link_to 'Sign up', new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+            <% if Flipper.enabled?(:sign_up) || Flipper.enabled?(:sign_in) %>
+              <% if user_signed_in? %>
+                <%= link_to 'Sign out', destroy_user_session_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+              <% else %>
+                <% if Flipper.enabled?(:sign_in) %>
+                  <%= link_to 'Sign in', new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                <% end %>
+                <% if Flipper.enabled?(:sign_up) %>
+                  <%= link_to 'Sign up', new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                <% end %>
               <% end %>
             <% end %>
           </div>

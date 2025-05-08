@@ -1,4 +1,6 @@
 es:
+  application:
+    route_not_found: "¡Ups! Parece que la página que estás buscando no existe."
   locales:
     en: "Inglés"
     es: "Español"

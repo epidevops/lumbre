@@ -6,6 +6,12 @@ Rails.application.routes.draw do
 
   authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do
     mount Blazer::Engine, at: "blazer", as: :mount_blazer
+    mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
+    mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
+    mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
+    mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
+    mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
+    mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
   end
 
   # direct :fresh_admin_user_avatar do |admin_user, options|
@@ -21,7 +27,9 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+    if Flipper.enabled?(:sign_in) && Flipper.enabled?(:sign_up)
+      devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+    end
     root "static#index"
     namespace :static do
       resources :contacts, only: [ :create ]
@@ -36,11 +44,13 @@ Rails.application.routes.draw do
   end
 
   # authenticate :user, lambda { |u| u.present? } do
-  mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
-  mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
-  mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
-  mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
-  mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
-  mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
+  # mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
+  # mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
+  # mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
+  # mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
+  # mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
+  # mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
   # end
+
+  match "*unmatched", to: "application#route_not_found", via: :all
 end

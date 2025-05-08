@@ -28,6 +28,8 @@
 #       enabled: "ON"
 
 en:
+  application:
+    route_not_found: "Oops! Looks like the page you're looking for doesn't exist."
   locales:
     en: "English"
     es: "Spanish"
