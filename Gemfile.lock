@@ -351,7 +351,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.8-x86_64-linux-musl)
       racc (~> 1.4)
-    noticed (2.6.1)
+    noticed (2.7.0)
       rails (>= 6.1.0)
     orm_adapter (0.5.0)
     parallel (1.27.0)
@@ -590,7 +590,7 @@ DEPENDENCIES
   lookbook (~> 2.3)
   mission_control-jobs (~> 1.0)
   name_of_person (~> 1.1)
-  noticed (~> 2.6)
+  noticed (~> 2.7)
   positioning (~> 0.4.5)
   puma (>= 5.0)
   rails!

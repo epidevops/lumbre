@@ -91,7 +91,7 @@ gem "view_component", "~> 3.23"
 gem "lookbook", "~> 2.3"
 gem "listen", "~> 3.9"
 
-gem "noticed", "~> 2.6"
+gem "noticed", "~> 2.7"
 
 gem "exception-track", "~> 1.3"
 gem "flipper", "~> 1.3"
