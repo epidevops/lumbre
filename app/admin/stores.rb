@@ -1,6 +1,9 @@
 ActiveAdmin.register Store do
   # Specify parameters which should be permitted for assignment
-  permit_params :active, :name, :primary, :slogan
+  permit_params :active, :primary,
+    *I18n.available_locales.map { |locale| "name_#{Mobility.normalize_locale(locale)}" },
+    *I18n.available_locales.map { |locale| "slogan_#{Mobility.normalize_locale(locale)}" },
+    events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active _destroy]
 
   # or consider:
   #
@@ -48,16 +51,40 @@ ActiveAdmin.register Store do
     end
   end
 
-  # Add or remove fields to toggle their visibility in the form
-  # form do |f|
-  #   f.semantic_errors(*f.object.errors.attribute_names)
-  #   f.inputs do
-  #     f.input :active
-  #     f.input :name
-  #     f.input :primary
-  #     f.input :slogan
-  #   end
-  #   f.actions
-  # end
-  form partial: "form"
+  form do |f|
+    f.semantic_errors(*f.object.errors.attribute_names)
+    tabs do
+      tab "Details" do
+        f.inputs do
+          f.input :active
+          f.input :primary
+        end
+      end
+
+      I18n.available_locales.each do |locale|
+        tab "Content (#{locale.upcase})" do
+          f.inputs do
+            f.input "name_#{Mobility.normalize_locale(locale)}", as: :string, label: "Name (#{locale.upcase})"
+            f.input "slogan_#{Mobility.normalize_locale(locale)}", as: :string, label: "Slogan (#{locale.upcase})"
+          end
+        end
+      end
+      tab "Events" do
+        f.inputs do
+          f.has_many :events, allow_destroy: true, heading: false do |event|
+            event.input :id, as: :hidden
+            event.input :eventable_id, as: :hidden, input_html: { value: resource.id }
+            event.input :eventable_type, as: :hidden, input_html: { value: resource.class.name }
+            event.input :label
+            event.input :start_day
+            event.input :end_day
+            event.input :start_time
+            event.input :end_time
+            event.input :active
+          end
+        end
+      end
+    end
+    f.actions
+  end
 end

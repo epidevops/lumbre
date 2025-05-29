@@ -2,7 +2,8 @@ ActiveAdmin.register Product do
   menu priority: 4
 
   # Specify parameters which should be permitted for assignment
-  permit_params :productable_type, :productable_id, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :active, :position
+  permit_params :productable_type, :productable_id, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :active, :position, *I18n.available_locales.map { |locale| "title_#{Mobility.normalize_locale(locale)}" }, *I18n.available_locales.map { |locale| "description_#{Mobility.normalize_locale(locale)}" }, *I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}" }
+
 
   # or consider:
   #
@@ -69,19 +70,28 @@ ActiveAdmin.register Product do
   # Add or remove fields to toggle their visibility in the form
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
-    f.inputs do
-      f.input :productable_type
-      # f.input :productable
-      f.input :title
-      f.input :description
-      f.input :price
+    tabs do
+      tab "Basic Information" do
+        f.inputs do
+          f.input :productable_type
+          # f.input :productable
+          f.input :price
+          f.input :recommended
+          f.input :discount_percent
+          f.input :active
+          f.input :position
+        end
+      end
 
-
-      f.input :recommended
-      f.input :recommended_text
-      f.input :discount_percent
-      f.input :active
-      f.input :position
+      I18n.available_locales.each do |locale|
+        tab "Content (#{locale.upcase})" do
+          f.inputs do
+            f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
+            f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
+            f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "Recommended Text (#{locale.upcase})"
+          end
+        end
+      end
     end
     f.actions
   end

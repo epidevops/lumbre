@@ -31,6 +31,8 @@ es:
   menu:
     title: "Nuestro Menú"
     subtitle: "Hola desde el texto del menú"
+    no_items_found: "No se encontraron elementos"
+    default_recommended_text: "Recomendado por el Chef"
     hot_dishes:
       title: "Platos Calientes"
       description: "Somos un grupo dinámico de individuos apasionados por lo que hacemos y dedicados a entregar los mejores resultados para nuestros clientes."
@@ -60,3 +62,7 @@ es:
         label: "Mensaje"
         placeholder: "Ingresa tu mensaje"
       submit: "Enviar mensaje"
+  hours:
+    title: "Horario"
+    restaurant:
+      title: "Restaurante"

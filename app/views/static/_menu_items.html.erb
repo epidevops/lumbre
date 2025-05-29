@@ -30,7 +30,7 @@
         <li class="relative flex flex-row gap-2 sm:gap-4 p-4 pt-10 mx-4 <%= item.recommended? ? "border-gray-200 border-2" : "border-transparent" %>">
           <% if item.recommended? %>
             <div class="absolute inset-0 top-0 left-0 isolate">
-              <p class="text-sm/6 font-semibold text-gray-900 bg-gray-200 py-1 px-6 w-fit"><%= item.recommended_text %></p>
+              <p class="text-sm/6 font-semibold text-gray-900 bg-gray-200 py-1 px-6 w-fit"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
             </div>
           <% end %>
           <img class="mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 rounded-full" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
@@ -46,6 +46,6 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="mx-4 text-lg/8 text-gray-600 text-balance text-pretty">No items found</p>
+    <p class="mx-4 text-lg/8 text-gray-600 text-balance text-pretty"><%= t('menu.no_items_found') %></p>
   <% end %>
 </div>
