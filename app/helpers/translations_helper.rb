@@ -14,7 +14,8 @@ module TranslationsHelper
     "es": "🇪🇸",
     "fr": "🇫🇷",
     "de": "🇩🇪",
-    "pt-BR": "🇧🇷"
+    "pt-BR": "🇧🇷",
+    "es-MX": "🇲🇽"
   }
 
   def flag_for_locale(locale)

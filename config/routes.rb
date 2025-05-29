@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  if Flipper.enabled?(:enable_admin_locale)
+    scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+      ActiveAdmin.routes(self)
+    end
+  else
     ActiveAdmin.routes(self)
   end
 

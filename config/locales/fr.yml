@@ -1,13 +1,62 @@
 fr:
+  application:
+    route_not_found: "Oups ! Il semble que la page que vous recherchez n'existe pas."
   locales:
-    en: Français
-    es: Español
-    fr: Français
-    de: Allemand
-    pt-BR: Portugais
+    en: "Anglais"
+    es: "Espagnol"
+    fr: "Français"
+    de: "Allemand"
+    pt-BR: "Portugais"
+    es-MX: "Espagnol"
   header:
-    home: Accueil
-    about: À propos
-    menu: Menu
-    gallery: Galerie
-    contact: Contact
+    home: "Accueil"
+    about: "À propos"
+    menu: "Menu"
+    gallery: "Galerie"
+    contact: "Contact"
+    sign_in: "Se connecter"
+    sign_up: "S'inscrire"
+    sign_out: "Se déconnecter"
+    open_menu: "Ouvrir le menu principal"
+    close_menu: "Fermer le menu"
+    menu_description: "Aller directement au point"
+    hot_dishes: "Plats Chauds"
+    hot_dishes_description: "Aller aux plats chauds"
+    beverages: "Boissons"
+    beverages_description: "Aller aux boissons"
+    specialty_cocktails: "Cocktails Spéciaux"
+    specialty_cocktails_description: "Aller aux cocktails spéciaux"
+    non_alcoholic_specialties: "Spécialités Sans Alcool"
+    non_alcoholic_specialties_description: "Aller aux spécialités sans alcool"
+  menu:
+    title: "Notre Menu"
+    subtitle: "Bonjour du texte du menu"
+    hot_dishes:
+      title: "Plats Chauds"
+      description: "Nous sommes un groupe dynamique d'individus passionnés par ce que nous faisons et dédiés à offrir les meilleurs résultats à nos clients."
+    beverages:
+      title: "Boissons"
+      specialty_cocktails:
+        title: "Cocktails Spéciaux"
+        additional_info:
+          - "Avec El Tinieblo Mezcal"
+          - "* Disponible en version sans alcool"
+      non_alcoholic:
+        title: "Spécialités Non Alcoolisées"
+  contact:
+    title: "Contactez-nous"
+    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    address:
+      label: "Adresse"
+    phone:
+      label: "Téléphone"
+    email:
+      label: "E-mail"
+    form:
+      email:
+        label: "E-mail"
+        placeholder: "Entrez votre e-mail"
+      message:
+        label: "Message"
+        placeholder: "Entrez votre message"
+      submit: "Envoyer le message"

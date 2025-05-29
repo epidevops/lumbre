@@ -16,7 +16,12 @@ ActiveAdmin.register_page "Dashboard" do
 
     panel "Admin Tools" do
       if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user)
-        h3 { b { link_to("Blazer", "/blazer", target: "_blank") } }
+        h3 { b { link_to("Blazer", mount_blazer_path, target: "_blank") } }
+        h3 { b { link_to("Litequeen", mount_solid_litequeen_path, target: "_blank") } }
+        h3 { b { link_to("Mission Control Jobs", mount_mission_control_jobs_path, target: "_blank") } }
+        h3 { b { link_to("Letter Opener", mount_letter_opener_web_path, target: "_blank") } }
+        h3 { b { link_to("Lookbook", mount_lookbook_path, target: "_blank") } }
+        h3 { b { link_to("Exception Track", mount_exception_track_path, target: "_blank") } }
       end
       h3 { b { link_to("Flipper", "/flipper", target: "_blank") } }
       # h3 { b { link_to('Model Graph', '/models') } }

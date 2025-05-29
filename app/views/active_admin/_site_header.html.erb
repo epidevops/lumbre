@@ -9,13 +9,17 @@
     </h1>
   </div>
 
-  <div class="flex items-center me-1">
-    <%= select_tag :locale, options_for_select(locale_collection), class: "flex flex-row items-center justify-center text-sm/6 gap-x-4 text-gray-700 hover:bg-gray-100" %>
-  </div>
+  <% if Flipper.enabled?(:enable_admin_locale, current_admin_user) %>
+    <div class="flex items-center me-1">
+      <%= select_tag :locale, options_for_select(locale_collection), class: "flex flex-row items-center justify-center text-sm/6 gap-x-4 text-gray-700 hover:bg-gray-100" %>
+    </div>
+  <% end %>
 
-  <div class="flex items-center me-1">
-    <%= render "layouts/dev_tools_dropdown" %>
-  </div>
+  <% if Flipper.enabled?(:enable_admin_dev_tools, current_admin_user) %>
+    <div class="flex items-center me-1">
+      <%= render "layouts/dev_tools_dropdown" %>
+    </div>
+  <% end %>
 
   <button type="button" class="dark-mode-toggle flex items-center w-9 h-9 justify-center me-1 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 focus:outline-none text-sm" aria-label="<%= t('active_admin.toggle_dark_mode') %>">
     <svg class="hidden dark:block w-5 h-5 rtl:-scale-x-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.509 5.75c0-1.493.394-2.96 1.144-4.25h-.081a8.5 8.5 0 1 0 7.356 12.746A8.5 8.5 0 0 1 8.509 5.75Z"/></svg>

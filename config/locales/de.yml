@@ -1,13 +1,62 @@
 de:
+  application:
+    route_not_found: "Ups! Die gesuchte Seite scheint nicht zu existieren."
   locales:
     en: "Englisch"
     es: "Spanisch"
     fr: "Französisch"
     de: "Deutsch"
     pt-BR: "Portugiesisch"
+    es-MX: "Spanisch"
   header:
     home: "Startseite"
     about: "Über uns"
     menu: "Menü"
     gallery: "Galerie"
     contact: "Kontakt"
+    sign_in: "Anmelden"
+    sign_up: "Registrieren"
+    sign_out: "Abmelden"
+    open_menu: "Hauptmenü öffnen"
+    close_menu: "Menü schließen"
+    menu_description: "Direkt zum Punkt"
+    hot_dishes: "Warme Gerichte"
+    hot_dishes_description: "Zu den warmen Gerichten"
+    beverages: "Getränke"
+    beverages_description: "Zu den Getränken"
+    specialty_cocktails: "Spezial-Cocktails"
+    specialty_cocktails_description: "Zu den Spezial-Cocktails"
+    non_alcoholic_specialties: "Alkoholfreie Spezialitäten"
+    non_alcoholic_specialties_description: "Zu den alkoholfreien Spezialitäten"
+  menu:
+    title: "Unsere Speisekarte"
+    subtitle: "Hallo vom Menütext"
+    hot_dishes:
+      title: "Warme Gerichte"
+      description: "Wir sind eine dynamische Gruppe von Menschen, die leidenschaftlich an dem sind, was wir tun, und bestrebt sind, unseren Kunden die besten Ergebnisse zu liefern."
+    beverages:
+      title: "Getränke"
+      specialty_cocktails:
+        title: "Spezial-Cocktails"
+        additional_info:
+          - "Mit El Tinieblo Mezcal"
+          - "* Als alkoholfreie Variante erhältlich"
+      non_alcoholic:
+        title: "Alkoholfreie Spezialitäten"
+  contact:
+    title: "Kontaktieren Sie uns"
+    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    address:
+      label: "Adresse"
+    phone:
+      label: "Telefon"
+    email:
+      label: "E-Mail"
+    form:
+      email:
+        label: "E-Mail"
+        placeholder: "Geben Sie Ihre E-Mail-Adresse ein"
+      message:
+        label: "Nachricht"
+        placeholder: "Geben Sie Ihre Nachricht ein"
+      submit: "Nachricht senden"
