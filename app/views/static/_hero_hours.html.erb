@@ -34,54 +34,80 @@
 <% else %>
  <div class="mt-12 py-8 px-4 border-2 border-white relative">
           <div class="absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 bg-gray-900 px-4">
-            <h2 class="text-2xl font-semibold tracking-tight text-center text-balance text-white sm:text-5xl uppercase">Hours</h2>
+            <h2 class="text-2xl font-semibold tracking-tight text-center text-balance text-white sm:text-5xl uppercase"><%= t('hours.title') %></h2>
           </div>
           <div class="text-center my-4 sm:my-6">
-            <h3 class="text-xl font-semibold tracking-tight text-balance text-white sm:text-3xl uppercase">Restaurant</h3>
+            <h3 class="text-xl font-semibold tracking-tight text-balance text-white sm:text-3xl uppercase"><%= t('hours.restaurant.title') %></h3>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <% friday_saturday_events = @restaurant_events.select { |e| e.start_day == "Friday" && e.end_day == "Saturday" } %>
+            <% friday_events = @restaurant_events.select { |e| e.start_day == "Friday" && e.end_day == "Friday" } %>
+            <% sunday_events = @restaurant_events.select { |e| e.start_day == "Sunday" && e.end_day == "Sunday" } %>
+
             <div class="bg-white rounded-lg p-4">
-              <h2 class="text-lg font-semibold text-center">Friday & Saturday</h2>
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row justify-between">
-                  <p class="text-gray-500">Kitchen:</p>
-                  <p class="text-gray-500">1:00 PM - 9:00 PM</p>
+              <% if friday_saturday_events.any? %>
+                <h2 class="text-lg font-semibold text-center">
+                  <%= friday_saturday_events.first.start_day %> & <%= friday_saturday_events.first.end_day %>
+                </h2>
+                <div class="flex flex-col gap-2">
+                  <% friday_saturday_events.each do |event| %>
+                    <div class="flex flex-row justify-between">
+                      <p class="text-gray-500"><%= event.label %>:</p>
+                      <p class="text-gray-500"><%= event.start_time %> - <%= event.end_time %></p>
+                    </div>
+                  <% end %>
                 </div>
-              </div>
-              <h2 class="text-lg font-semibold text-center pt-4">Friday</h2>
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row justify-between">
-                  <p class="text-gray-500">Sunset Jazz:</p>
-                  <p class="text-gray-500">6:00 PM - 8:00 PM</p>
+              <% end %>
+
+              <% if friday_events.any? %>
+                <h2 class="text-lg font-semibold text-center pt-4">
+                  <%= friday_events.first.start_day %>
+                </h2>
+                <div class="flex flex-col gap-2">
+                  <% friday_events.each do |event| %>
+                    <div class="flex flex-row justify-between">
+                      <p class="text-gray-500"><%= event.label %>:</p>
+                      <p class="text-gray-500"><%= event.start_time %> - <%= event.end_time %></p>
+                    </div>
+                  <% end %>
                 </div>
-              </div>
+              <% end %>
             </div>
             <div class="bg-white rounded-lg p-4">
-              <h2 class="text-lg font-semibold text-center">Sunday</h2>
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row justify-between">
-                  <p class="text-gray-500">Kitchen:</p>
-                  <p class="text-gray-500">9:00 AM - 6:00 PM</p>
+              <% if sunday_events.any? %>
+                <h2 class="text-lg font-semibold text-center">
+                  <%= sunday_events.first.start_day %>
+                </h2>
+                <div class="flex flex-col gap-2">
+                  <% sunday_events.each do |event| %>
+                    <div class="flex flex-row justify-between">
+                      <p class="text-gray-500"><%= event.label %>:</p>
+                      <p class="text-gray-500"><%= event.start_time %> - <%= event.end_time %></p>
+                    </div>
+                  <% end %>
                 </div>
-                <div class="flex flex-row justify-between">
-                  <p class="text-gray-500">Brunch:</p>
-                  <p class="text-gray-500">9:00 AM - 2:00 PM</p>
-                </div>
-              </div>
+              <% end %>
             </div>
           </div>
           <div class="text-center my-4 sm:my-6">
-            <h3 class="text-xl font-semibold tracking-tight text-balance text-white sm:text-3xl uppercase">Cafe & Market</h3>
+            <h3 class="text-xl font-semibold tracking-tight text-balance text-white sm:text-3xl uppercase"><%= @store.name %></h3>
           </div>
           <div class="grid grid-cols-1 gap-4">
+            <% cafe_events = @store_events.select { |e| e.start_day == "Tuesday" && e.end_day == "Sunday" } %>
             <div class="bg-white rounded-lg p-4">
-              <h2 class="text-lg font-semibold text-center">Tuesday - Sunday</h2>
-              <div class="flex flex-col gap-2">
-                <div class="flex flex-row justify-between">
-                  <p class="text-gray-500">Hours:</p>
-                  <p class="text-gray-500">9:00 AM - 5:00 PM</p>
+              <% if cafe_events.any? %>
+                <h2 class="text-lg font-semibold text-center">
+                  <%= cafe_events.first.start_day %> - <%= cafe_events.first.end_day %>
+                </h2>
+                <div class="flex flex-col gap-2">
+                  <% cafe_events.each do |event| %>
+                    <div class="flex flex-row justify-between">
+                      <p class="text-gray-500"><%= event.label %>:</p>
+                      <p class="text-gray-500"><%= event.start_time %> - <%= event.end_time %></p>
+                    </div>
+                  <% end %>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
 <% end %>

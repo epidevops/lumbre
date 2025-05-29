@@ -1,5 +1,6 @@
 class StaticController < ApplicationController
   before_action :set_restaurant
+  before_action :set_store
   before_action :memoized_restaurant
   include TranslationsHelper
 
@@ -15,6 +16,12 @@ class StaticController < ApplicationController
       .first
   end
 
+  def set_store
+    @store ||= Store.primary
+      .includes(:events)
+      .first
+  end
+
   def memoized_restaurant
     @menu_items ||= @restaurant.products.active.category("menu")
     @specialty_cocktails ||= @restaurant.products.active.category("specialty-cocktails")
@@ -25,5 +32,7 @@ class StaticController < ApplicationController
     @restaurant_phone ||= @restaurant.phones.active.first.phone
     @restaurant_email ||= @restaurant.emails.active.first.email
     @events ||= @restaurant.events.active
+    @restaurant_events ||= @restaurant.events.active
+    @store_events ||= @store.events.active
   end
 end

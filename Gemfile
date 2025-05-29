@@ -105,3 +105,5 @@ gem "acts_as_list", "~> 1.2"
 gem "ice_cube", "~> 0.17.0"
 
 gem "simple_calendar", "~> 3.1"
+
+gem "mobility", "~> 1.3"

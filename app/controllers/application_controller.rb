@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-  # include Internationalization
+  include Internationalization
 
   def route_not_found
     redirect_to root_path, flash: { info: t("application.route_not_found") }

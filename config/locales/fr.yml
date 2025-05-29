@@ -30,7 +30,9 @@ fr:
     non_alcoholic_specialties_description: "Aller aux spécialités sans alcool"
   menu:
     title: "Notre Menu"
-    subtitle: "Bonjour du texte du menu"
+    subtitle: "Bonjour depuis le texte du menu"
+    no_items_found: "Aucun élément trouvé"
+    default_recommended_text: "Recommandé par le Chef"
     hot_dishes:
       title: "Plats Chauds"
       description: "Nous sommes un groupe dynamique d'individus passionnés par ce que nous faisons et dédiés à offrir les meilleurs résultats à nos clients."
@@ -42,7 +44,7 @@ fr:
           - "Avec El Tinieblo Mezcal"
           - "* Disponible en version sans alcool"
       non_alcoholic:
-        title: "Spécialités Non Alcoolisées"
+        title: "Spécialités Sans Alcool"
   contact:
     title: "Contactez-nous"
     description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
@@ -60,3 +62,7 @@ fr:
         label: "Message"
         placeholder: "Entrez votre message"
       submit: "Envoyer le message"
+  hours:
+    title: "Horaires"
+    restaurant:
+      title: "Restaurant"

@@ -31,6 +31,8 @@ de:
   menu:
     title: "Unsere Speisekarte"
     subtitle: "Hallo vom Menütext"
+    no_items_found: "Keine Elemente gefunden"
+    default_recommended_text: "Empfohlen vom Chef"
     hot_dishes:
       title: "Warme Gerichte"
       description: "Wir sind eine dynamische Gruppe von Menschen, die leidenschaftlich an dem sind, was wir tun, und bestrebt sind, unseren Kunden die besten Ergebnisse zu liefern."
@@ -60,3 +62,7 @@ de:
         label: "Nachricht"
         placeholder: "Geben Sie Ihre Nachricht ein"
       submit: "Nachricht senden"
+  hours:
+    title: "Öffnungszeiten"
+    restaurant:
+      title: "Restaurant"

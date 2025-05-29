@@ -60,6 +60,8 @@ en:
   menu:
     title: "Our Menu"
     subtitle: "Hello from menu text"
+    no_items_found: "No items found"
+    default_recommended_text: "Chef Recommended"
     hot_dishes:
       title: "Hot Dishes"
       description: "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients."
@@ -89,3 +91,7 @@ en:
         label: "Message"
         placeholder: "Enter your message"
       submit: "Send message"
+  hours:
+    title: "Hours"
+    restaurant:
+      title: "Restaurant"

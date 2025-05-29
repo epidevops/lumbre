@@ -3,6 +3,10 @@ ActiveAdmin.register Restaurant do
 
   # Specify parameters which should be permitted for assignment
   permit_params :name, :slogan, :hero_text, :about_text, :active, :primary,
+  *I18n.available_locales.map { |locale| "name_#{Mobility.normalize_locale(locale)}" },
+  *I18n.available_locales.map { |locale| "slogan_#{Mobility.normalize_locale(locale)}" },
+  *I18n.available_locales.map { |locale| "hero_text_#{Mobility.normalize_locale(locale)}" },
+  *I18n.available_locales.map { |locale| "about_text_#{Mobility.normalize_locale(locale)}" },
   socials_attributes: %i[id socialable_type socialable_id name url icon _destroy],
   addresses_attributes: %i[id addressable_type addressable_id label address url active _destroy],
   phones_attributes: %i[id phoneable_type phoneable_id label phone active _destroy],
@@ -83,14 +87,22 @@ ActiveAdmin.register Restaurant do
     tabs do
       tab "Details" do
         f.inputs do
-          f.input :name
-          f.input :slogan
-          f.input :hero_text
-          f.input :about_text
           f.input :active
           f.input :primary
         end
       end
+
+      I18n.available_locales.each do |locale|
+        tab "Content (#{locale.upcase})" do
+          f.inputs do
+            f.input "name_#{Mobility.normalize_locale(locale)}", as: :string, label: "Name (#{locale.upcase})"
+            f.input "slogan_#{Mobility.normalize_locale(locale)}", as: :string, label: "Slogan (#{locale.upcase})"
+            f.input "hero_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "Hero Text (#{locale.upcase})"
+            f.input "about_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "About Text (#{locale.upcase})"
+          end
+        end
+      end
+
       tab "Socials" do
         f.inputs do
           f.has_many :socials, allow_destroy: true, heading: false do |social|
