@@ -1,0 +1,31 @@
+<%=
+  active_admin_form_for [:admin, resource] do |f|
+    f.semantic_errors(*f.object.errors.attribute_names)
+    tabs do
+      tab "Details" do
+        f.inputs do
+          f.input :productable_type
+          f.input :productable_id
+          f.input :category
+          f.input :price
+          f.input :options
+          f.input :recommended, as: :flowbite_toggle
+          f.input :discount_percent
+          f.input :active, as: :flowbite_toggle
+          f.input :position
+        end
+      end
+
+      I18n.available_locales.each do |locale|
+        tab "Content (#{locale.upcase})" do
+          f.inputs do
+            f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
+            f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
+            f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :string, label: "Recommended Text (#{locale.upcase})", placeholder: "Default: #{t('menu.default_recommended_text')}"
+          end
+        end
+      end
+    end
+    f.actions
+  end
+%>

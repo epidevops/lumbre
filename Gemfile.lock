@@ -115,6 +115,8 @@ GEM
   specs:
     action_text-trix (2.1.15)
       railties
+    active_storage_dashboard (0.1.7)
+      rails (>= 5.2.0)
     activeadmin (4.0.0.beta15)
       arbre (~> 2.0)
       csv
@@ -570,6 +572,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  active_storage_dashboard (~> 0.1.7)
   activeadmin (~> 4.0.0.beta15)
   acts_as_list (~> 1.2)
   blazer (~> 3.3)

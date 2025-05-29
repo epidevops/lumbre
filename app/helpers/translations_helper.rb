@@ -1,10 +1,9 @@
 module TranslationsHelper
   def locale_collection
     I18n.available_locales.map do |locale|
-      [ link_to(url_for(locale: locale), class: "flex flex-row items-center justify-center text-sm/6 gap-x-4 text-gray-700 hover:bg-gray-100") do
-        concat tag.div(flag_for_locale(locale), class: "mr-3")
-        concat "  "
-        concat tag.div(t("locales." + locale.to_s), class: "text-sm/6")
+      [ link_to(url_for(locale: locale), class: "group inline-flex items-center gap-x-4 px-2.5 py-4 text-sm/6 text-gray-700 hover:bg-gray-100") do
+        concat tag.div(flag_for_locale(locale), class: "flex items-center justify-center text-base")
+        concat tag.div(t("locales." + locale.to_s), class: "flex items-center text-sm/6")
       end, locale.to_s ]
     end
   end

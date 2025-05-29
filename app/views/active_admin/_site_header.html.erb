@@ -9,15 +9,15 @@
     </h1>
   </div>
 
-  <% if Flipper.enabled?(:enable_admin_locale, current_admin_user) %>
+  <% if Flipper.enabled?(:enable_admin_locale) %>
     <div class="flex items-center me-1">
-      <%= select_tag :locale, options_for_select(locale_collection), class: "flex flex-row items-center justify-center text-sm/6 gap-x-4 text-gray-700 hover:bg-gray-100" %>
+      <%= render "active_admin/language_dropdown" %>
     </div>
   <% end %>
 
   <% if Flipper.enabled?(:enable_admin_dev_tools, current_admin_user) %>
     <div class="flex items-center me-1">
-      <%= render "layouts/dev_tools_dropdown" %>
+     <%= render "layouts/dev_tools_dropdown" %>
     </div>
   <% end %>
 

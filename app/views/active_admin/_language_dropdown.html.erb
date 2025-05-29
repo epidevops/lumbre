@@ -1,0 +1,21 @@
+<%= button_tag class: "inline-flex w-full justify-center items-center gap-x-2 rounded-md bg-gray-100 dark:bg-gray-700 px-4 py-2 text-sm/6 cursor-pointer text-gray-700 dark:text-white shadow-xs ring-1 ring-gray-300 ring-inset", id: "dropdownLanguageButton", data: { dropdown_toggle: "dropdownLanguage", dropdown_placement: "bottom" } do %>
+  <div class="pt-1" aria-hidden="true"><%= flag_for_locale(I18n.locale) %></div>
+  <%= t('locales.' + I18n.locale.to_s) %>
+  <svg class="size-5 text-gray-400 ml-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+  </svg>
+<% end %>
+
+<!-- Dropdown menu -->
+<div id="dropdownLanguage" class="z-10 hidden bg-gray-100 dark:bg-gray-700 rounded-lg shadow-2xl w-content mx-2">
+  <ul class="py-1 text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLanguageButton">
+    <% I18n.available_locales.each do |locale| %>
+      <li>
+        <%= link_to url_for(locale: locale), class: "flex items-center px-4 py-1 no-underline text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-600" do %>
+          <div class="me-2" aria-hidden="true"><%= flag_for_locale(locale) %></div>
+          <%= t('locales.' + locale.to_s) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
