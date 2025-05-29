@@ -12,10 +12,11 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer", as: :mount_blazer
     mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
     mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
-    mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
+    mount LetterOpenerWeb::Engine, at: "/letter-opener", as: :mount_letter_opener_web
     mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
+    mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard
   end
 
   # direct :fresh_admin_user_avatar do |admin_user, options|
@@ -51,7 +52,7 @@ Rails.application.routes.draw do
   # mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
   # mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
   # mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
-  # mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
+  # mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen_dev
   # mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
   # mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
   # end

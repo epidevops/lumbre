@@ -1,9 +1,9 @@
 <div class="grid border border-gray-200 rounded-lg shadow-2xl dark:border-gray-700 md:grid-cols-2 bg-white dark:bg-gray-800">
   <div class="group relative p-8 odd:border-r border-b border-gray-200 dark:border-gray-700 cursor-pointer">
     <div class="flex flex-col text-center text-balance text-pretty">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Application Routes</h2>
-      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-teal-100 p-3 text-teal-700 dark:bg-teal-50">
-        <%= heroicon "viewfinder-circle", class: "rounded-full size-4 sm:size-7" %>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Routes</h2>
+      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-blue-100 p-3 text-blue-700">
+        <%= heroicon "arrows-right-left", class: "size-4 sm:size-7" %>
       </span>
       <span class="absolute top-6 right-6 inline-flex rounded-lg bg-gray-100/80 dark:bg-gray-100/20 p-3 text-gray-300 group-hover:text-gray-400">
         <%= heroicon "arrow-up-right", class: "rounded-full size-4 sm:size-7" %>
@@ -19,9 +19,9 @@
   </div>
   <div class="group relative p-8 odd:border-r border-b border-gray-200 dark:border-gray-700 cursor-pointer">
     <div class="flex flex-col text-center text-balance text-pretty">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Application Routes</h2>
-      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-teal-100 p-3 text-teal-700 dark:bg-teal-50">
-        <%= heroicon "viewfinder-circle", class: "rounded-full size-4 sm:size-7" %>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Properties</h2>
+      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-indigo-100 p-3 text-indigo-700">
+        <%= heroicon "identification", class: "size-4 sm:size-7" %>
       </span>
       <span class="absolute top-6 right-6 inline-flex rounded-lg bg-gray-100/80 dark:bg-gray-100/20 p-3 text-gray-300 group-hover:text-gray-400">
         <%= heroicon "arrow-up-right", class: "rounded-full size-4 sm:size-7" %>
@@ -30,16 +30,16 @@
     <div class="flex flex-col mt-8 text-start text-balance text-pretty text-gray-500 dark:text-gray-400">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
     </div>
-    <%= link_to rails_info_routes_path, target: :_blank, class: "focus:outline-none" do %>
+    <%= link_to rails_info_properties_path, target: :_blank, class: "focus:outline-none" do %>
       <!-- Extend touch target to entire panel -->
       <span class="absolute inset-0" aria-hidden="true"></span>
     <% end %>
   </div>
   <div class="group relative p-8 odd:border-r border-b border-gray-200 dark:border-gray-700 cursor-pointer">
     <div class="flex flex-col text-center text-balance text-pretty">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Application Routes</h2>
-      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-teal-100 p-3 text-teal-700 dark:bg-teal-50">
-        <%= heroicon "viewfinder-circle", class: "rounded-full size-4 sm:size-7" %>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Notes</h2>
+      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-green-100 p-3 text-green-700">
+        <%= inline_svg_tag "rails-notes", class: "size-4 sm:size-7" %>
       </span>
       <span class="absolute top-6 right-6 inline-flex rounded-lg bg-gray-100/80 dark:bg-gray-100/20 p-3 text-gray-300 group-hover:text-gray-400">
         <%= heroicon "arrow-up-right", class: "rounded-full size-4 sm:size-7" %>
@@ -48,16 +48,16 @@
     <div class="flex flex-col mt-8 text-start text-balance text-pretty text-gray-500 dark:text-gray-400">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
     </div>
-    <%= link_to rails_info_routes_path, target: :_blank, class: "focus:outline-none" do %>
+    <%= link_to rails_info_notes_path, target: :_blank, class: "focus:outline-none" do %>
       <!-- Extend touch target to entire panel -->
       <span class="absolute inset-0" aria-hidden="true"></span>
     <% end %>
   </div>
   <div class="group relative p-8 odd:border-r border-b border-gray-200 dark:border-gray-700 cursor-pointer">
     <div class="flex flex-col text-center text-balance text-pretty">
-      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Application Routes</h2>
-      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-teal-100 p-3 text-teal-700 dark:bg-teal-50">
-        <%= heroicon "viewfinder-circle", class: "rounded-full size-4 sm:size-7" %>
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Mailers</h2>
+      <span class="absolute top-6 left-6 inline-flex rounded-lg bg-blue-100 p-3 text-blue-700">
+        <%= inline_svg_tag "rails-mailers", class: "size-4 sm:size-7" %>
       </span>
       <span class="absolute top-6 right-6 inline-flex rounded-lg bg-gray-100/80 dark:bg-gray-100/20 p-3 text-gray-300 group-hover:text-gray-400">
         <%= heroicon "arrow-up-right", class: "rounded-full size-4 sm:size-7" %>
@@ -66,7 +66,7 @@
     <div class="flex flex-col mt-8 text-start text-balance text-pretty text-gray-500 dark:text-gray-400">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
     </div>
-    <%= link_to rails_info_routes_path, target: :_blank, class: "focus:outline-none" do %>
+    <%= link_to rails_mailers_path, target: :_blank, class: "focus:outline-none" do %>
       <!-- Extend touch target to entire panel -->
       <span class="absolute inset-0" aria-hidden="true"></span>
     <% end %>

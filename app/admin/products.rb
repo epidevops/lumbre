@@ -68,31 +68,35 @@ ActiveAdmin.register Product do
   end
 
   # Add or remove fields to toggle their visibility in the form
-  form do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    tabs do
-      tab "Basic Information" do
-        f.inputs do
-          f.input :productable_type
-          # f.input :productable
-          f.input :price
-          f.input :recommended
-          f.input :discount_percent
-          f.input :active
-          f.input :position
-        end
-      end
+  form partial: "form"
 
-      I18n.available_locales.each do |locale|
-        tab "Content (#{locale.upcase})" do
-          f.inputs do
-            f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
-            f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
-            f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "Recommended Text (#{locale.upcase})"
-          end
-        end
-      end
-    end
-    f.actions
-  end
+
+  # form do |f|
+  #   f.semantic_errors(*f.object.errors.attribute_names)
+  #   tabs do
+  #     tab "Details" do
+  #       f.inputs do
+  #         f.input :productable_type
+  #         # f.input :productable
+  #         f.input :price
+  #         f.input :options
+  #         f.input :recommended
+  #         f.input :discount_percent
+  #         f.input :active, as: :flowbite_toggle
+  #         f.input :position
+  #       end
+  #     end
+
+  #     I18n.available_locales.each do |locale|
+  #       tab "Content (#{locale.upcase})" do
+  #         f.inputs do
+  #           f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
+  #           f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
+  #           f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "Recommended Text (#{locale.upcase})"
+  #         end
+  #       end
+  #     end
+  #   end
+  #   f.actions
+  # end
 end

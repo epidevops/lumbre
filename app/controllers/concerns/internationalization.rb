@@ -4,16 +4,24 @@ module Internationalization
   include TranslationsHelper
 
   included do
-    before_action :set_locale
+    before_action :set_locale # , :set_content_language
     # around_action :switch_locale
     helper_method :flag_for_locale
 
     private
 
+    def derive_locale
+      locale_from_url || locale_from_headers || I18n.default_locale
+    end
+
     def set_locale
-      locale = locale_from_url || locale_from_headers || I18n.default_locale
+      locale = derive_locale
       response.set_header "Content-Language", locale
       I18n.locale = locale
+    end
+
+    def set_content_language
+      Mobility.locale = derive_locale
     end
 
     def switch_locale(&action)

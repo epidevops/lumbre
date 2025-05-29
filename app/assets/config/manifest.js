@@ -3,3 +3,12 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link_tree ../builds
+//= link solid_litequeen/application.css
+//= link solid_litequeen/icons/chevron-left.svg
+//= link solid_litequeen/icons/chevron-right.svg
+//= link solid_litequeen/icons/circle-elipsis.svg
+//= link solid_litequeen/icons/database.svg
+//= link solid_litequeen/icons/info.svg
+//= link solid_litequeen/icons/spline.svg
+//= link solid_litequeen/icons/workflow.svg
+//= link solid_litequeen/icons/x.svg

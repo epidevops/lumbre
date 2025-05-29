@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register_page "DeveloperTools" do
+ActiveAdmin.register_page "Developer Tools" do
   content do
     tabs do
-      tab "Demo" do
+      tab "Tools" do
         div render "admin/developer_tools/index"
       end
-      # tab "Colors" do
-      #   div render "admin/developer_tools/card"
-      # end
-      # tab "Tailwind 3.4 Colors" do
-      #   div render "admin/developer_tools/tailwind_34_colors"
-      # end
-      # tab "activeadmin_assets plugin" do
-      #   div render "admin/developer_tools/plugin_js"
-      # end
-      # tab "Grid List" do
-      #   div render "admin/developer_tools/grid_list"
-      # end
+      tab "Active Admin" do
+        tabs do
+          tab "Gem Colors" do
+            div render "admin/developer_tools/active_admin_colors"
+          end
+          tab "Assets Plugin" do
+            div render "admin/developer_tools/active_admin_plugin_js"
+          end
+          tab "All Tailwind 3.4 Colors" do
+            div render "admin/developer_tools/active_admin_tailwind_34_colors"
+          end
+          tab "Tailwind 3.4 CSS" do
+            div render "admin/developer_tools/tailwind_34_css"
+          end
+        end
+      end
     end
   end
 end

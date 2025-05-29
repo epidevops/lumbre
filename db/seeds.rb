@@ -728,7 +728,13 @@ if Rails.env.development? then
   end
 
   Flipper.enable_group(:super_admin_access, :admin_user)
-  Flipper.enable(:super_admin_access)
+
+  %w[
+    super_admin_access
+    enable_admin_locale
+  ].each do |feature|
+    Flipper.enable(feature)
+  end
 
   %w[
     sign_in
@@ -739,7 +745,6 @@ if Rails.env.development? then
     enable_meet_the_team
     enable_gallery
     enable_testimonials
-    enable_admin_locale
     enable_admin_dev_tools
   ].each do |feature|
     Flipper.disable(feature)
