@@ -1,4 +1,4 @@
-es:
+es-MX:
   application:
     route_not_found: "¡Ups! Parece que la página que buscas no existe."
   locales:
@@ -32,12 +32,12 @@ es:
     title: "Nuestro Menú"
     subtitle: "Hola desde el texto del menú"
     hot_dishes:
-      title: "Platos Calientes"
+      title: "Platillos Calientes"
       description: "Somos un grupo dinámico de individuos apasionados por lo que hacemos y dedicados a entregar los mejores resultados para nuestros clientes."
     beverages:
       title: "Bebidas"
       specialty_cocktails:
-        title: "Cócteles Especiales"
+        title: "Cocteles Especiales"
         additional_info:
           - "Con El Tinieblo Mezcal"
           - "* Disponible como mocktails"

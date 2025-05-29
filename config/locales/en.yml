@@ -28,15 +28,64 @@
 #       enabled: "ON"
 
 en:
+  application:
+    route_not_found: "Oops! Looks like the page you're looking for doesn't exist."
   locales:
     en: "English"
     es: "Spanish"
     fr: "French"
     de: "German"
     pt-BR: "Portuguese"
+    es-MX: "Spanish"
   header:
     home: "Home"
     about: "About"
     menu: "Menu"
     gallery: "Gallery"
     contact: "Contact"
+    sign_in: "Sign in"
+    sign_up: "Sign up"
+    sign_out: "Sign out"
+    open_menu: "Open main menu"
+    close_menu: "Close menu"
+    menu_description: "Get straight to the point"
+    hot_dishes: "Hot Dishes"
+    hot_dishes_description: "Jump to the hot dishes"
+    beverages: "Beverages"
+    beverages_description: "Jump to the beverages"
+    specialty_cocktails: "Specialty Cocktails"
+    specialty_cocktails_description: "Jump to the specialty cocktails"
+    non_alcoholic_specialties: "Non-Alcoholic Specialties"
+    non_alcoholic_specialties_description: "Jump to the non-alcoholic specialties"
+  menu:
+    title: "Our Menu"
+    subtitle: "Hello from menu text"
+    hot_dishes:
+      title: "Hot Dishes"
+      description: "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients."
+    beverages:
+      title: "Beverages"
+      specialty_cocktails:
+        title: "Specialty Cocktails"
+        additional_info:
+          - "With El Tinieblo Mezcal"
+          - "* Available as mocktails"
+      non_alcoholic:
+        title: "Non Alcoholic Specialties"
+  contact:
+    title: "Get in touch"
+    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    address:
+      label: "Address"
+    phone:
+      label: "Telephone"
+    email:
+      label: "Email"
+    form:
+      email:
+        label: "Email"
+        placeholder: "Enter your email"
+      message:
+        label: "Message"
+        placeholder: "Enter your message"
+      submit: "Send message"

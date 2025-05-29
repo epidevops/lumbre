@@ -1,5 +1,6 @@
 {
   "name": "app",
+  "license": "MIT",
   "private": "true",
   "dependencies": {
     "@activeadmin/activeadmin": "4.0.0-beta15",
@@ -8,5 +9,8 @@
   "scripts": {
     "build:css": "tailwindcss -i ./app/assets/stylesheets/active_admin.css -o ./app/assets/builds/active_admin.css --minify -c tailwind-active_admin.config.js"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "yarn@1.22.19",
+  "devDependencies": {
+    "caniuse-lite": "^1.0.30001716"
+  }
 }

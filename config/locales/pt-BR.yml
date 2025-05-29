@@ -1,13 +1,62 @@
 pt-BR:
+  application:
+    route_not_found: "Ops! Parece que a página que você está procurando não existe."
   locales:
-    en: Inglês
-    es: Espanhol
-    fr: Francês
-    de: Alemão
-    pt-BR: Português
+    en: "Inglês"
+    es: "Espanhol"
+    fr: "Francês"
+    de: "Alemão"
+    pt-BR: "Português"
+    es-MX: "Espanhol"
   header:
-    home: Início
-    about: Sobre nós
-    menu: Menu
-    gallery: Galeria
-    contact: Contato
+    home: "Início"
+    about: "Sobre"
+    menu: "Cardápio"
+    gallery: "Galeria"
+    contact: "Contato"
+    sign_in: "Entrar"
+    sign_up: "Cadastrar"
+    sign_out: "Sair"
+    open_menu: "Abrir menu principal"
+    close_menu: "Fechar menu"
+    menu_description: "Ir direto ao ponto"
+    hot_dishes: "Pratos Quentes"
+    hot_dishes_description: "Ir para os pratos quentes"
+    beverages: "Bebidas"
+    beverages_description: "Ir para as bebidas"
+    specialty_cocktails: "Drinks Especiais"
+    specialty_cocktails_description: "Ir para os drinks especiais"
+    non_alcoholic_specialties: "Especialidades Sem Álcool"
+    non_alcoholic_specialties_description: "Ir para as especialidades sem álcool"
+  menu:
+    title: "Nosso Cardápio"
+    subtitle: "Olá do texto do menu"
+    hot_dishes:
+      title: "Pratos Quentes"
+      description: "Somos um grupo dinâmico de indivíduos apaixonados pelo que fazemos e dedicados a entregar os melhores resultados para nossos clientes."
+    beverages:
+      title: "Bebidas"
+      specialty_cocktails:
+        title: "Drinks Especiais"
+        additional_info:
+          - "Com El Tinieblo Mezcal"
+          - "* Disponível como mocktails"
+      non_alcoholic:
+        title: "Especialidades Não Alcoólicas"
+  contact:
+    title: "Entre em contato"
+    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    address:
+      label: "Endereço"
+    phone:
+      label: "Telefone"
+    email:
+      label: "E-mail"
+    form:
+      email:
+        label: "E-mail"
+        placeholder: "Digite seu e-mail"
+      message:
+        label: "Mensagem"
+        placeholder: "Digite sua mensagem"
+      submit: "Enviar mensagem"

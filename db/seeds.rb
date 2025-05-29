@@ -163,11 +163,14 @@ if Rails.env.development? then
   %w[
     sign_in
     sign_up
+    enable_about
     enable_weekly_deals
     enable_subscribe
     enable_meet_the_team
     enable_gallery
     enable_testimonials
+    enable_admin_locale
+    enable_admin_dev_tools
   ].each do |feature|
     Flipper.disable(feature)
   end

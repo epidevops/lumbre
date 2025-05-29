@@ -2,9 +2,11 @@
   <%= render "hero" %>
 </section>
 
-<section id="about">
-  <%= render "about" %>
-</section>
+<% if Flipper.enabled?(:enable_about) %>
+  <section id="about">
+    <%= render "about" %>
+  </section>
+<% end %>
 
 <% if Flipper.enabled?(:enable_weekly_deals) %>
   <section id="our_restaurant">
