@@ -1,5 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :productable, polymorphic: true
+  has_one_attached :product_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [ 100, 100 ], preprocessed: true
+  end
   positioned on: [ :productable, :category ]
 
   scope :active, -> { where(active: true) }

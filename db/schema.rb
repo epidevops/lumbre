@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_05_29_080454) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_30_204847) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -309,7 +309,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_05_29_080454) do
     t.integer "productable_id", null: false
     t.string "productable_type", null: false
     t.boolean "recommended", default: false, null: false
-    t.string "recommended_text", default: "Chef's Selection", null: false
+    t.string "recommended_text"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type", "category", "position"], name: "idx_on_productable_id_productable_type_category_pos_2bfebd940b", unique: true

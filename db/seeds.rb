@@ -1,4 +1,4 @@
-if Rails.env.development? then
+  # if Rails.env.development? then
 
   AdminUser.create!(first_name: "Admin", last_name: "User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   %w[super_admin admin developer new_user].each do |role|
@@ -737,8 +737,8 @@ if Rails.env.development? then
   end
 
   %w[
-    sign_in
-    sign_up
+    user_sign_in
+    user_sign_up
     enable_about
     enable_weekly_deals
     enable_subscribe
@@ -755,4 +755,4 @@ if Rails.env.development? then
   Schedule.first.rules.create!(name: "Open Time Rule MWF", rule_type: "inclusion", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: [ "monday", "wednesday", "friday" ], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "08:00", rule_hour_end: "12:00")
   Schedule.first.rules.create!(name: "Open Time Rule TTH", rule_type: "inclusion", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: [ "tuesday", "thursday" ], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "17:15", rule_hour_end: "20:45")
 
-end
+# end

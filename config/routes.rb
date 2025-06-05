@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    if Flipper.enabled?(:sign_in) && Flipper.enabled?(:sign_up)
+    if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
       devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
     end
     root "static#index"
@@ -48,14 +48,13 @@ Rails.application.routes.draw do
     end
   end
 
-  # authenticate :user, lambda { |u| u.present? } do
-  # mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
-  # mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
-  # mount LetterOpenerWeb::Engine, at: "/letter_opener", as: :mount_letter_opener_web
-  # mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen_dev
-  # mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
-  # mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
-  # end
+  namespace :admin do
+    resources :sections do
+      member do
+        post :toggle_active
+      end
+    end
+  end
 
   match "*unmatched", to: "application#route_not_found", via: :all
 end

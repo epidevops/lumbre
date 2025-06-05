@@ -7,7 +7,7 @@ class CreateProducts < ActiveRecord::Migration[8.1]
       t.text :description
       t.string :price
       t.boolean :recommended, default: false, null: false
-      t.string :recommended_text, default: "Chef's Selection", null: false
+      t.string :recommended_text
       t.string :discount_percent
       t.string :options
       t.boolean :active, default: true, null: false
