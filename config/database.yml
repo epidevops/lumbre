@@ -12,18 +12,18 @@ default: &default
 development:
   primary:
     <<: *default
-    database: storage/db/development_primary.sqlite3
+    database: storage/development_primary.sqlite3
   cache:
     <<: *default
-    database: storage/db/development_cache.sqlite3
+    database: storage/development_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/db/development_queue.sqlite3
+    database: storage/development_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/db/development_cable.sqlite3
+    database: storage/development_cable.sqlite3
     migrations_paths: db/migrate_cable
 
 # Warning: The database defined as "test" will be erased and
@@ -32,18 +32,18 @@ development:
 test:
   primary:
     <<: *default
-    database: storage/db/test_primary.sqlite3
+    database: storage/test_primary.sqlite3
   cache:
     <<: *default
-    database: storage/db/test_cache.sqlite3
+    database: storage/test_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/db/test_queue.sqlite3
+    database: storage/test_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/db/test_cable.sqlite3
+    database: storage/test_cable.sqlite3
     migrations_paths: db/migrate_cable
 
 
@@ -56,16 +56,16 @@ test:
 production:
   primary:
     <<: *default
-    database: storage/db/production_primary.sqlite3
+    database: storage/production_primary.sqlite3
   cache:
     <<: *default
-    database: storage/db/production_cache.sqlite3
+    database: storage/production_cache.sqlite3
     migrations_paths: db/migrate_cache
   queue:
     <<: *default
-    database: storage/db/production_queue.sqlite3
+    database: storage/production_queue.sqlite3
     migrations_paths: db/migrate_queue
   cable:
     <<: *default
-    database: storage/db/production_cable.sqlite3
+    database: storage/production_cable.sqlite3
     migrations_paths: db/migrate_cable

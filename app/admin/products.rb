@@ -2,7 +2,10 @@ ActiveAdmin.register Product do
   menu priority: 4
 
   # Specify parameters which should be permitted for assignment
-  permit_params :productable_type, :productable_id, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :active, :position, *I18n.available_locales.map { |locale| "title_#{Mobility.normalize_locale(locale)}" }, *I18n.available_locales.map { |locale| "description_#{Mobility.normalize_locale(locale)}" }, *I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}" }
+  permit_params :productable_type, :productable_id, :category, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :options, :active, :position, :product_image,
+                I18n.available_locales.map { |locale| "title_#{Mobility.normalize_locale(locale)}".to_sym },
+                I18n.available_locales.map { |locale| "description_#{Mobility.normalize_locale(locale)}".to_sym },
+                I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}".to_sym }
 
 
   # or consider:
@@ -55,10 +58,13 @@ ActiveAdmin.register Product do
       row :id
       row :productable_type
       row :productable
+      row(:product_image) { |resource| image_tag(resource.product_image.variant(:thumb), class: "w-24 h-24") if resource.product_image.attached? }
+      row :category
       row :title
       row :description
       row :price
       row :recommended
+      row :recommended_text
       row :discount_percent
       row :active
       row :position

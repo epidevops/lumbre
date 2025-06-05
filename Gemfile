@@ -20,16 +20,12 @@ gem "sprockets-rails"
 gem "cssbundling-rails"
 gem "tailwindcss-rails", "~> 4.2"
 
-# TODO: Remove look at these issues
-# cssa.1 | yarn run v1.22.19
-# cssa.1 | warning ../../../package.json: No license field
-# cssa.1 | $ tailwindcss -i ./app/assets/stylesheets/active_admin.css -o ./app/assets/builds/active_admin.css --minify -c tailwind-active_admin.config.js --watch
-# cssa.1 | Browserslist: caniuse-lite is outdated. Please run:
-# cssa.1 |   npx update-browserslist-db@latest
-# cssa.1 |   Why you should do it regularly: https://github.com/browserslist/update-db#readme
-# cssa.1 | Browserslist: caniuse-lite is outdated. Please run:
-# cssa.1 |   npx update-browserslist-db@latest
-# cssa.1 |   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "kamal", require: false
+
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
