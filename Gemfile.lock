@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 832554fbf0c7cae7855a8f4afbf4fa88ae327696
+  revision: 606ba30ad4b7663ea5c171cf688cfcddd995b2d7
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -134,10 +134,10 @@ GEM
     arbre (2.2.0)
       activesupport (>= 7.0)
     ast (2.4.3)
-    base64 (0.2.0)
+    base64 (0.3.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
-    benchmark (0.4.0)
+    benchmark (0.4.1)
     better_html (2.1.1)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -145,7 +145,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.9)
+    bigdecimal (3.2.2)
     bindex (0.8.1)
     blazer (3.3.0)
       activerecord (>= 7.1)
@@ -397,7 +397,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.15)
+    rack (3.1.16)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -423,7 +423,7 @@ GEM
       actionview
       railties
     rainbow (3.1.1)
-    rake (13.2.1)
+    rake (13.3.0)
     ransack (4.3.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
