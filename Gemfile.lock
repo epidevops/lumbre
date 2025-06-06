@@ -502,7 +502,7 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_litequeen (0.15.3)
+    solid_litequeen (0.17.2)
       importmap-rails
       rails (>= 8.0.1)
       sqlite3
@@ -639,7 +639,7 @@ DEPENDENCIES
   simple_calendar (~> 3.1)
   solid_cable
   solid_cache
-  solid_litequeen (~> 0.15.2)
+  solid_litequeen (~> 0.17.2)
   solid_queue
   sprockets-rails
   sqlite3 (>= 2.1)
