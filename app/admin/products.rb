@@ -1,5 +1,5 @@
 ActiveAdmin.register Product do
-  menu priority: 4
+  menu parent: "application", priority: 3
 
   # Specify parameters which should be permitted for assignment
   permit_params :productable_type, :productable_id, :category, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :options, :active, :position, :product_image,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_30_204847) do
+ActiveRecord::Schema[8.1].define(version: 2025_06_05_074125) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -78,12 +78,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_30_204847) do
   create_table "admin_users", force: :cascade do |t|
     t.boolean "active", default: true, null: false
     t.text "bio"
+    t.integer "consumed_timestep"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
     t.string "language_preference", default: "en", null: false
     t.string "last_name"
+    t.boolean "otp_required_for_login", default: false, null: false
+    t.string "otp_secret"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"

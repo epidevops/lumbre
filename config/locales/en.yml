@@ -95,3 +95,7 @@ en:
     title: "Hours"
     restaurant:
       title: "Restaurant"
+  active_admin:
+    main_navigation:
+      application: "Application"
+      administration: "Administration"

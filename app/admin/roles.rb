@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Role do
+  menu parent: "administration", priority: 2
   # menu parent: %w[administration security], label: proc { t :roles }
 
   permit_params :id, :name, :resource_type, :resource_id

@@ -66,3 +66,7 @@ es:
     title: "Horario"
     restaurant:
       title: "Restaurante"
+  active_admin:
+    main_navigation:
+      application: "Aplicación"
+      administration: "Administración"

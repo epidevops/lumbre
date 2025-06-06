@@ -1,11 +1,13 @@
 class AdminUser < ApplicationRecord
-  rolify
-  include Avatar, EmailValidations, NoticedAssociations
-  has_person_name
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable,
+  devise :database_authenticatable, # two_factor_authenticatable
          :recoverable, :rememberable, :validatable
+
+  include Avatar # , EmailValidations, NoticedAssociations
+  rolify
+  has_person_name
+
 
   # enum preferred_locale: %w[I18n.available_locales.map(&:to_s).join(" ")]
 

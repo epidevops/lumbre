@@ -63,6 +63,10 @@ pt-BR:
         placeholder: "Digite sua mensagem"
       submit: "Enviar mensagem"
   hours:
-    title: "Horário"
+    title: "Horários"
     restaurant:
       title: "Restaurante"
+  active_admin:
+    main_navigation:
+      application: "Aplicação"
+      administration: "Administração"

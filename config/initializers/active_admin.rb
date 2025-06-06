@@ -151,7 +151,7 @@ ActiveAdmin.setup do |config|
   # config.comments_menu = false
   #
   # You can customize the comment menu:
-  # config.comments_menu = { parent: 'Admin', priority: 1 }
+  config.comments_menu = { parent: "Administration", priority: 99 }
 
   # == Batch Actions
   #
@@ -173,7 +173,7 @@ ActiveAdmin.setup do |config|
   #
   config.filter_attributes = [ :encrypted_password, :password, :password_confirmation ]
 
-  # == Localize Date/Time Format
+  # == Localize Date/Time format
   #
   # Set the localize format to display dates and times.
   # To understand how to localize your app with I18n, read more at
@@ -217,6 +217,13 @@ ActiveAdmin.setup do |config|
   #       menu.add label: "My Great Website", url: "https://mygreatwebsite.example.com", html_options: { target: "_blank" }
   #     end
   #   end
+
+  config.namespace :admin do |admin|
+    admin.build_menu do |menu|
+      menu.add id: :application, label: proc { I18n.t("active_admin.main_navigation.application") }, priority: 2
+      menu.add id: :administration, label: proc { I18n.t("active_admin.main_navigation.administration") }, priority: 3
+    end
+  end
 
   # == Download Links
   #

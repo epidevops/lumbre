@@ -1,5 +1,5 @@
 ActiveAdmin.register Restaurant do
-  menu priority: 2
+  menu parent: "application", priority: 1
 
   # Specify parameters which should be permitted for assignment
   permit_params :name, :slogan, :hero_text, :about_text, :active, :primary,
