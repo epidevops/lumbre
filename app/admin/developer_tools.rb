@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register_page "Developer Tools" do
+  menu parent: "administration", priority: 3
+
   content do
     tabs do
       tab "Tools" do

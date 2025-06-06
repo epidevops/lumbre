@@ -1,4 +1,5 @@
 ActiveAdmin.register Store do
+  menu parent: "application", priority: 2
   # Specify parameters which should be permitted for assignment
   permit_params :active, :primary,
     *I18n.available_locales.map { |locale| "name_#{Mobility.normalize_locale(locale)}" },

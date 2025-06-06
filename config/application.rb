@@ -36,5 +36,8 @@ module Lumbre
     config.view_component.generate.preview_path = "test/components/previews"
     config.view_component.show_previews = true
     config.lookbook.project_name = "Lumbre"
+
+    config.active_record.encryption.support_unencrypted_data = true
+    config.active_record.encryption.extend_queries = true
   end
 end

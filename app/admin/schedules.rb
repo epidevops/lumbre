@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Schedule do
+  menu parent: "application", priority: 4
   # menu parent: 'organization', label: proc { t :schedules }
 
   # config.remove_action_item(:new)

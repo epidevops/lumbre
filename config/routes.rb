@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
-  if Flipper.enabled?(:enable_admin_locale)
-    scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-      ActiveAdmin.routes(self)
-    end
-  else
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     ActiveAdmin.routes(self)
   end
 
@@ -19,13 +15,17 @@ Rails.application.routes.draw do
     mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard
   end
 
+  namespace :admin do
+    resources :sections do
+      member do
+        post :toggle_active
+      end
+    end
+  end
+
   # direct :fresh_admin_user_avatar do |admin_user, options|
   #   route_for :avatar_admin_admin_user, admin_user.avatar_token, v: admin_user.updated_at.to_fs(:number)
   # end
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
@@ -48,13 +48,9 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
-    resources :sections do
-      member do
-        post :toggle_active
-      end
-    end
-  end
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
 
   match "*unmatched", to: "application#route_not_found", via: :all
 end

@@ -66,3 +66,7 @@ de:
     title: "Öffnungszeiten"
     restaurant:
       title: "Restaurant"
+  active_admin:
+    main_navigation:
+      application: "Anwendung"
+      administration: "Verwaltung"

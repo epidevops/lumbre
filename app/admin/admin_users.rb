@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu priority: 5
+  menu parent: "administration", priority: 1
 
   # Specify parameters which should be permitted for assignment
   permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar language_preference active]
@@ -46,6 +46,10 @@ ActiveAdmin.register AdminUser do
   #     end
   #   end
   # end
+
+  action_item :two_factor, only: %i[edit show], priority: 1 do
+    link_to "Two Factor", "#", class: "action-item-button"
+  end
 
   member_action :delete_avatar, method: :get do
     resource.avatar.purge
