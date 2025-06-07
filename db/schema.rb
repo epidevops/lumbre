@@ -83,10 +83,10 @@ ActiveRecord::Schema[8.1].define(version: 2025_06_05_074125) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
-    t.string "language_preference", default: "en", null: false
     t.string "last_name"
     t.boolean "otp_required_for_login", default: false, null: false
     t.string "otp_secret"
+    t.string "preferred_language", default: "en", null: false
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -419,6 +419,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_06_05_074125) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
+    t.string "preferred_language", default: "en", null: false
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"

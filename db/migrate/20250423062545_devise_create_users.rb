@@ -38,6 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.1]
       t.text :bio
       t.string :username
       t.string :phone
+      t.string :preferred_language, null: false, default: :en
 
       t.timestamps null: false
     end

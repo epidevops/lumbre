@@ -70,3 +70,20 @@ fr:
     main_navigation:
       application: "Application"
       administration: "Administration"
+  developer_tools:
+    blazer:
+      description: "Un puissant outil de requêtes SQL qui vous permet de créer, sauvegarder et partager des requêtes SQL. Parfait pour l'analyse de données et les rapports."
+    litequeen:
+      description: "Un moteur Rails qui fournit une interface conviviale pour visualiser et maintenir vos bases de données SQLite directement depuis votre application."
+    mission_control_jobs:
+      description: "Une interface complète de gestion des tâches qui fournit des informations et le contrôle sur les tâches en arrière-plan de votre application."
+    letter_opener:
+      description: "Un outil de développement qui ouvre les e-mails envoyés par votre application dans le navigateur au lieu de les envoyer à de vraies adresses e-mail."
+    lookbook:
+      description: "Un outil de prévisualisation de composants qui vous aide à développer, tester et documenter vos composants d'interface utilisateur de manière isolée."
+    exception_track:
+      description: "Un système de suivi des erreurs qui vous aide à surveiller, déboguer et gérer les exceptions dans votre application Rails."
+    flipper:
+      description: "Un système de gestion des fonctionnalités qui vous permet de contrôler le déploiement des fonctionnalités et les tests A/B dans votre application."
+    active_storage_dashboard:
+      description: "Une interface de gestion pour Active Storage qui vous aide à surveiller et gérer les pièces jointes dans votre application."

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     ActiveAdmin.routes(self)
   end
 
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
       devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
     end
@@ -39,6 +39,17 @@ Rails.application.routes.draw do
     namespace :static do
       resources :contacts, only: [ :create ]
       resources :subscriptions, only: [ :create ]
+    end
+
+    if !Rails.env.production?
+      mount Blazer::Engine, at: "/blazer", as: :mount_blazer_dev
+      mount ExceptionTrack::Engine, at: "/exception-track", as: :mount_exception_track_dev
+      mount Flipper::UI.app(Flipper), at: "/flipper", as: :mount_flipper_dev
+      mount LetterOpenerWeb::Engine, at: "/letter-opener", as: :mount_letter_opener_web_dev
+      mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen_dev
+      mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs_dev
+      mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook_dev
+      mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard_dev
     end
 
     resources :todos do

@@ -2,25 +2,25 @@ ActiveAdmin.register Restaurant do
   menu parent: "application", priority: 1
 
   # Specify parameters which should be permitted for assignment
-  permit_params :name, :slogan, :hero_text, :about_text, :active, :primary,
+  permit_params :name, :slogan, :hero_text, :about_text, :active, :primary, :created_at, :updated_at,
   *I18n.available_locales.map { |locale| "name_#{Mobility.normalize_locale(locale)}" },
   *I18n.available_locales.map { |locale| "slogan_#{Mobility.normalize_locale(locale)}" },
   *I18n.available_locales.map { |locale| "hero_text_#{Mobility.normalize_locale(locale)}" },
   *I18n.available_locales.map { |locale| "about_text_#{Mobility.normalize_locale(locale)}" },
-  socials_attributes: %i[id socialable_type socialable_id name url icon _destroy],
-  addresses_attributes: %i[id addressable_type addressable_id label address url active _destroy],
-  phones_attributes: %i[id phoneable_type phoneable_id label phone active _destroy],
-  emails_attributes: %i[id emailable_type emailable_id label email active _destroy],
-  events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active _destroy],
-  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text position active options _destroy],
-  schedules_attributes: %i[id scheduleable_type scheduleable_id name active capacity exclude_lunch_time beginning_of_week time_zone _destroy]
+  socials_attributes: %i[id socialable_type socialable_id name url icon created_at updated_at _destroy],
+  addresses_attributes: %i[id addressable_type addressable_id label address url active created_at updated_at _destroy],
+  phones_attributes: %i[id phoneable_type phoneable_id label phone active created_at updated_at _destroy],
+  emails_attributes: %i[id emailable_type emailable_id label email active created_at updated_at _destroy],
+  events_attributes: %i[id eventable_type eventable_id label start_day end_day start_time end_time active created_at updated_at _destroy],
+  products_attributes: %i[id productable_type productable_id title description price discount_percent recommended recommended_text position active options created_at updated_at _destroy],
+  schedules_attributes: %i[id scheduleable_type scheduleable_id name active capacity exclude_lunch_time beginning_of_week time_zone created_at updated_at _destroy]
 
   controller do
-    def update
-      with_blocking_on_primary_restaurant do
-        super
-      end
-    end
+    # def update
+    #   with_blocking_on_primary_restaurant do
+    #     super
+    #   end
+    # end
 
     def destroy
       with_blocking_on_primary_restaurant do
@@ -85,12 +85,12 @@ ActiveAdmin.register Restaurant do
   form do |f|
     f.semantic_errors(*f.object.errors.attribute_names)
     tabs do
-      tab "Details" do
-        f.inputs do
-          f.input :active
-          f.input :primary
-        end
-      end
+      # tab "Details" do
+      #   f.inputs do
+      #     f.input :active
+      #     f.input :primary
+      #   end
+      # end
 
       I18n.available_locales.each do |locale|
         tab "Content (#{locale.upcase})" do
