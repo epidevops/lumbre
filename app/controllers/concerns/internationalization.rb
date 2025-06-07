@@ -14,21 +14,45 @@ module Internationalization
       locale_from_url || locale_from_headers || I18n.default_locale
     end
 
+    def admin_path?
+      admin_path = "/admin"
+      localized_admin_paths = I18n.available_locales.map { |locale| "/#{locale}/admin" }
+      request.path.start_with?(admin_path) || localized_admin_paths.any? { |path| request.path.start_with?(path) }
+    end
+
+    def derive_user_locale
+      locale_for_current_user || derive_locale
+    end
+
+    def derive_admin_user_locale
+      locale_from_current_admin_user || derive_locale
+    end
+
     def set_locale
-      locale = derive_locale
-      response.set_header "Content-Language", locale
-      I18n.locale = locale
+      if admin_path?
+        locale = derive_admin_user_locale
+        response.set_header "Content-Language", locale
+        I18n.locale = locale
+      else
+        locale = derive_user_locale
+        response.set_header "Content-Language", locale
+        I18n.locale = locale
+      end
     end
 
     def set_content_language
-      Mobility.locale = derive_locale
+      if admin_path?
+        Mobility.locale = derive_admin_user_locale
+      else
+        Mobility.locale = derive_user_locale
+      end
     end
 
-    def switch_locale(&action)
-      locale = locale_from_url || locale_from_headers || I18n.default_locale
-      response.set_header "Content-Language", locale
-      I18n.with_locale(locale, &action)
-    end
+    # def switch_locale(&action)
+    #   locale = locale_from_url || locale_from_headers || I18n.default_locale
+    #   response.set_header "Content-Language", locale
+    #   I18n.with_locale(locale, &action)
+    # end
 
     def locale_from_url
       locale = params[:locale]
@@ -63,10 +87,6 @@ module Internationalization
       str1.to_s.casecmp(str2.to_s).zero?
     end
 
-    def default_url_options
-      # return {} if skip_locale_switch?
-      { locale: I18n.locale }
-    end
 
     # Get locale from top-level domain or return +nil+ if such locale is not available
     # You have to put something like:
@@ -91,10 +111,29 @@ module Internationalization
       I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
     end
 
-    def extract_locale_for_current_user
-      return nil unless current_user && user_signed_in? && current_user.locale.present?
-      current_user.locale
+    def locale_for_current_user
+      return nil unless respond_to?(:current_user)
+      return nil unless user_signed_in?
+      return nil unless current_user.preferred_language.present?
+      current_user.preferred_language
     end
+
+    def locale_from_current_admin_user
+      return nil unless respond_to?(:current_admin_user)
+      return nil unless admin_user_signed_in?
+      return nil unless current_admin_user.preferred_language.present?
+      current_admin_user.preferred_language
+    end
+
+    def default_url_options(options = {})
+      if admin_path?
+        { locale: derive_admin_user_locale }.merge(options).compact_blank
+      else
+        { locale: derive_user_locale }.merge(options).compact_blank
+      end
+    end
+
+
 
     def skip_locale_switch?
       # Skip locale switching for mounted engines

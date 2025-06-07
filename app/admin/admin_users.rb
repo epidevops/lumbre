@@ -2,7 +2,17 @@ ActiveAdmin.register AdminUser do
   menu parent: "administration", priority: 1
 
   # Specify parameters which should be permitted for assignment
-  permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar language_preference active]
+  permit_params :first_name, :last_name, :title, :bio,
+                :active, :username, :email, :encrypted_password, # :password, :password_confirmation,
+                :reset_password_token, :reset_password_sent_at, :remember_created_at,
+                :otp_required_for_login, :otp_secret, :consumed_timestep,
+                :password, :password_confirmation,
+                :preferred_language, :created_at, :updated_at,
+                # :avatar,
+                admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
+                roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
+
+  # permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar preferred_language active]
   # preference_attributes: %i[id preferenceable_id preferenceable_type email_notifications sms_notifications mobile_push_notifications web_push_notifications language timezone theme]
 
   # controller do
@@ -47,6 +57,10 @@ ActiveAdmin.register AdminUser do
   #   end
   # end
 
+  # controller do
+  #   skip_before_action :set_locale, only: %i[create update]
+  # end
+
   action_item :two_factor, only: %i[edit show], priority: 1 do
     link_to "Two Factor", "#", class: "action-item-button"
   end
@@ -62,17 +76,11 @@ ActiveAdmin.register AdminUser do
   # Add or remove filters to toggle their visibility
   filter :id
   filter :email
-  filter :encrypted_password
-  filter :reset_password_token
-  filter :reset_password_sent_at
-  filter :remember_created_at
   filter :first_name
   filter :last_name
   filter :title
-  filter :bio
-  filter :username
-  filter :created_at
-  filter :updated_at
+  filter :preferred_language
+  filter :active
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -82,10 +90,8 @@ ActiveAdmin.register AdminUser do
     column :first_name
     column :last_name
     column :title
-    column :bio
-    column :username
-    column :created_at
-    column :updated_at
+    column :preferred_language
+    column :active
     actions
   end
 
@@ -97,10 +103,8 @@ ActiveAdmin.register AdminUser do
       row :first_name
       row :last_name
       row :title
-      row :bio
-      row :username
-      row :created_at
-      row :updated_at
+      row :preferred_language
+      row :active
     end
   end
 

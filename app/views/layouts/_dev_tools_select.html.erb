@@ -25,10 +25,10 @@
                   role: "menuitem",
                   tabindex: "-1",
                   data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= inline_svg_tag("ferris-wheel", class: "mr-4 size-5 text-gray-400") %>
         <%= "Playground" %>
       <% end %>
-      <%= link_to mount_solid_litequeen_path,
+      <%= link_to mount_solid_litequeen_dev_path,
                   id: "dev-tool-button-2",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
@@ -38,7 +38,7 @@
         <%= heroicon("circle-stack", class: "mr-4 size-5 text-gray-400") %>
         <%= "Litequeen" %>
       <% end %>
-      <%= link_to mount_mission_control_jobs_path,
+      <%= link_to mount_mission_control_jobs_dev_path,
                   id: "dev-tool-button-3",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
@@ -48,7 +48,7 @@
         <%= heroicon("rocket-launch", class: "mr-4 size-5 text-gray-400") %>
         <%= "Jobs" %>
       <% end %>
-      <%= link_to mount_letter_opener_web_path,
+      <%= link_to mount_letter_opener_web_dev_path,
                   id: "dev-tool-button-4",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
@@ -58,7 +58,7 @@
         <%= heroicon("envelope", class: "mr-4 size-5 text-gray-400") %>
         <%= "Letter Opener" %>
       <% end %>
-      <%= link_to mount_lookbook_path,
+      <%= link_to mount_lookbook_dev_path,
                   id: "dev-tool-button-5",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
@@ -68,7 +68,7 @@
         <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
         <%= "Lookbook" %>
       <% end %>
-      <%= link_to mount_exception_track_path,
+      <%= link_to mount_exception_track_dev_path,
                   id: "dev-tool-button-6",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
@@ -78,31 +78,31 @@
         <%= heroicon("exclamation-triangle", class: "mr-4 size-5 text-gray-400") %>
         <%= "Exception Track" %>
       <% end %>
-      <%= link_to mount_flipper_path,
+      <%= link_to mount_flipper_dev_path,
                   id: "dev-tool-button-7",
                   class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                   target: '_blank',
                   role: "menuitem",
                   tabindex: "-1",
                   data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
+        <%= heroicon("flag", class: "mr-4 size-5 text-gray-400") %>
         <%= "Flipper".to_s %>
       <% end %>
       <% if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user) %>
-        <%= link_to mount_blazer_path,
+        <%= link_to mount_blazer_dev_path,
                     id: "dev-tool-button-8",
                     class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
                     target: '_blank',
                     role: "menuitem",
                     tabindex: "-1",
                     data: { action: 'toggle#toggleDropdownItem' } do %>
-          <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
+          <%= heroicon("chart-bar", class: "mr-4 size-5 text-gray-400") %>
           <%= "Blazer" %>
         <% end %>
       <% end %>
       <div id="dev-tool-button-8" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Mobile: #{hotwire_native_app?}" %>
+        <%= "Mobile: #{hotwire_native_app?.to_s.titleize}" %>
       </div>
     </div>
   </div>

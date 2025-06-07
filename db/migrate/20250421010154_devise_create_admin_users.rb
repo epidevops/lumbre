@@ -37,7 +37,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[8.1]
       t.string :title
       t.text :bio
       t.string :username
-      t.string :language_preference, null: false, default: "en"
+      t.string :preferred_language, null: false, default: :en
       t.boolean :active, null: false, default: true
 
 
