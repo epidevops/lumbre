@@ -8,7 +8,7 @@ ActiveAdmin.register AdminUser do
                 :otp_required_for_login, :otp_secret, :consumed_timestep,
                 :password, :password_confirmation,
                 :preferred_language, :created_at, :updated_at,
-                # :avatar,
+                :avatar,
                 admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
                 roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
 
@@ -99,6 +99,20 @@ ActiveAdmin.register AdminUser do
   show do
     attributes_table_for(resource) do
       row :id
+      row(:avatar) do |admin_user|
+        div do
+          if admin_user.avatar.attached?
+            begin
+              # image_tag(rails_blob_path(admin_user.avatar.variant(resize_to_limit: [100, 100]), only_path: true), class: "admin-avatar", alt: "Admin avatar")
+              image_tag(rails_blob_path(admin_user.avatar_thumb), class: "admin-avatar", alt: "Admin avatar")
+            rescue => e
+              "Error loading avatar: #{e.message}"
+            end
+          else
+            "No avatar"
+          end
+        end
+      end
       row :email
       row :first_name
       row :last_name

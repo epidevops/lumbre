@@ -39,5 +39,8 @@ module Lumbre
 
     config.active_record.encryption.support_unencrypted_data = true
     config.active_record.encryption.extend_queries = true
+
+    # config.action_controller.default_url_options = { locale: I18n.locale }
+    # config.action_mailer.default_url_options = { locale: I18n.locale }
   end
 end
