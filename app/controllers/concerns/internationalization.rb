@@ -125,28 +125,28 @@ module Internationalization
       current_admin_user.preferred_language
     end
 
-    def default_url_options(options = {})
-      if admin_path?
-        { locale: derive_admin_user_locale }.merge(options).compact_blank
-      else
-        { locale: derive_user_locale }.merge(options).compact_blank
-      end
-    end
+    # def default_url_options(options = {})
+    #   if admin_path?
+    #     { locale: derive_admin_user_locale }.merge(options).compact_blank
+    #   else
+    #     { locale: derive_user_locale }.merge(options).compact_blank
+    #   end
+    # end
 
 
 
-    def skip_locale_switch?
-      # Skip locale switching for mounted engines
-      Rails.application.routes.routes.any? do |route|
-        next false unless route.app.respond_to?(:instance_variable_get)
+    # def skip_locale_switch?
+    #   # Skip locale switching for mounted engines
+    #   Rails.application.routes.routes.any? do |route|
+    #     next false unless route.app.respond_to?(:instance_variable_get)
 
-        app = route.app.instance_variable_get(:@app)
-        next false unless app
+    #     app = route.app.instance_variable_get(:@app)
+    #     next false unless app
 
-        # Check if it's an engine or if the path matches
-        (app.to_s.include?("::Engine") || app.is_a?(Rails::Engine)) &&
-          route.path.match?(request.path)
-      end
-    end
+    #     # Check if it's an engine or if the path matches
+    #     (app.to_s.include?("::Engine") || app.is_a?(Rails::Engine)) &&
+    #       route.path.match?(request.path)
+    #   end
+    # end
   end
 end

@@ -3,6 +3,7 @@ active_admin_form_for [ :admin, resource ] do |f|
   tabs do
     tab "Profile" do
       inputs do
+        f.input :avatar, as: :file
         f.input :first_name
         f.input :last_name
         f.input :title

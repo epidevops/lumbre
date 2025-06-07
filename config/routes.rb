@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
+
+  # Mount Active Storage routes outside of locale scope
+  # mount ActiveStorage::Engine => "/rails/active_storage"
+
   scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     ActiveAdmin.routes(self)
   end
@@ -63,5 +67,5 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  match "*unmatched", to: "application#route_not_found", via: :all
+  # match "*unmatched", to: "application#route_not_found", via: :all
 end
