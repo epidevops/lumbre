@@ -1,0 +1,17 @@
+paths:
+  - app/admin/
+  - app/channels/
+  - app/controllers/
+  - app/components/
+  - app/helpers/
+  - app/inputs/
+  - app/jobs/
+  - app/mailers/
+  - app/models/
+  - app/notifiers/
+  - app/policies/
+  - app/services/
+  - app/views/
+  - lib/
+  - scripts/
+coverage_path: "/tmp/coverage"
