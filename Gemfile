@@ -63,6 +63,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "erb_lint", "~> 0.9.0", require: false
+  gem "rdoc", "~> 6.14", require: false # rdoc --root="app/"
 end
 
 group :test do
