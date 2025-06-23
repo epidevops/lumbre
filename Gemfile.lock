@@ -191,7 +191,7 @@ GEM
       reline (>= 0.3.8)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise-i18n (1.13.0)
+    devise-i18n (1.14.0)
       devise (>= 4.9.0)
       rails-i18n
     docile (1.4.1)
@@ -697,7 +697,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise!
-  devise-i18n (~> 1.13)
+  devise-i18n (~> 1.14)
   dotenv (~> 3.1)
   erb_lint (~> 0.9.0)
   exception-track (~> 1.3)
