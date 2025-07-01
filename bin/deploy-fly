@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+echo "🚀 Starting Fly.io deployment..."
+
+echo "0️⃣ Destroying existing app (if any)..."
+fly apps destroy lumbre --yes || echo "App didn't exist, continuing..."
+
+echo "1️⃣ Creating Fly.io app..."
+fly apps create lumbre
+
+echo "2️⃣ Creating persistent volume..."
+fly volumes create lumbre_data --region iad --size 10 --yes
+
+echo "3️⃣ Setting Rails master key..."
+fly secrets set RAILS_MASTER_KEY=$(cat config/master.key)
+
+echo "4️⃣ Deploying application..."
+fly deploy
+
+echo "✅ Deployment complete!"
+echo "🌐 Your app is available at: https://lumbre.fly.dev"

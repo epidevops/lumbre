@@ -5,13 +5,13 @@
 
 data_sources:
   primary:
-    url: sqlite:storage/db/development_primary.sqlite3?mode=ro
+    url: <%= Rails.env.production? ? "sqlite:storage/production_primary.sqlite3?mode=ro" : "sqlite:storage/development_primary.sqlite3?mode=ro" %>
   cache:
-    url: sqlite:storage/db/development_cache.sqlite3?mode=ro
+    url: <%= Rails.env.production? ? "sqlite:storage/production_cache.sqlite3?mode=ro" : "sqlite:storage/development_cache.sqlite3?mode=ro" %>
   queue:
-    url: sqlite:storage/db/development_queue.sqlite3?mode=ro
+    url: <%= Rails.env.production? ? "sqlite:storage/production_queue.sqlite3?mode=ro" : "sqlite:storage/development_queue.sqlite3?mode=ro" %>
   cable:
-    url: sqlite:storage/db/development_cable.sqlite3?mode=ro
+    url: <%= Rails.env.production? ? "sqlite:storage/production_cable.sqlite3?mode=ro" : "sqlite:storage/development_cable.sqlite3?mode=ro" %>
   # url: <%= ENV["BLAZER_DATABASE_URL"] %>
 
     # statement timeout, in seconds

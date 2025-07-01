@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   end
 
   authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do
-    mount Blazer::Engine, at: "blazer", as: :mount_blazer
-    mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
-    mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
+    mount Blazer::Engine, at: "/blazer", as: :mount_blazer
+    mount ExceptionTrack::Engine, at: "/exception-track", as: :mount_exception_track
+    mount Flipper::UI.app(Flipper), at: "/flipper", as: :mount_flipper
     mount LetterOpenerWeb::Engine, at: "/letter-opener", as: :mount_letter_opener_web
     mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
@@ -36,8 +36,12 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
-      devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+    begin
+      if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
+        devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+      end
+    rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+      # Skip Flipper checks during database setup
     end
     root "static#index"
     namespace :static do
