@@ -103,7 +103,9 @@
       <%= link_to t('header.contact'), '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
-      <%= render 'layouts/dev_tools_select' %>
+      <% if Flipper.enabled?(:enable_admin_dev_tools) %>
+        <%= render 'layouts/dev_tools_select' %>
+      <% end %>
       <%= render 'layouts/language_select' %>
       <% if Flipper.enabled?(:user_sign_in) || Flipper.enabled?(:user_sign_in) %>
         <% if user_signed_in? %>

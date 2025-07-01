@@ -20,6 +20,9 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore rubycritic
+/tmp/rubycritic/*
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/.keep
@@ -49,3 +52,6 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+.DS_Store
+.git/

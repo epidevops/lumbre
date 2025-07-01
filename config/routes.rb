@@ -9,14 +9,27 @@ Rails.application.routes.draw do
   end
 
   authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do
-    mount Blazer::Engine, at: "blazer", as: :mount_blazer
-    mount ExceptionTrack::Engine, at: "/exception-track", as: "mount_exception_track"
-    mount Flipper::UI.app(Flipper), at: "/flipper", as: "mount_flipper"
+    # Core admin tools - always available in production
+    mount Blazer::Engine, at: "/blazer", as: :mount_blazer
+    mount ExceptionTrack::Engine, at: "/exception-track", as: :mount_exception_track
+    mount Flipper::UI.app(Flipper), at: "/flipper", as: :mount_flipper
     mount LetterOpenerWeb::Engine, at: "/letter-opener", as: :mount_letter_opener_web
     mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
     mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard
+
+    # Rails info routes - available when dev tools are enabled
+    # begin
+    #   if Flipper.enabled?(:enable_admin_dev_tools)
+    #     get "/rails/info/routes", to: "rails/info#routes", as: :rails_info_routes
+    #     get "/rails/info/properties", to: "rails/info#properties", as: :rails_info_properties
+    #     get "/rails/info/notes", to: "rails/info#notes", as: :rails_info_notes
+    #     get "/rails/mailers", to: "rails/mailers#index", as: :rails_mailers
+    #   end
+    # rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+    #   # Skip Flipper checks during database setup
+    # end
   end
 
   namespace :admin do
@@ -36,8 +49,12 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
-      devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+    begin
+      if Flipper.enabled?(:user_sign_in) && Flipper.enabled?(:user_sign_up)
+        devise_for :users, module: "users", path: "", path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" }
+      end
+    rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+      # Skip Flipper checks during database setup
     end
     root "static#index"
     namespace :static do
@@ -45,15 +62,19 @@ Rails.application.routes.draw do
       resources :subscriptions, only: [ :create ]
     end
 
-    if !Rails.env.production?
-      mount Blazer::Engine, at: "/blazer", as: :mount_blazer_dev
-      mount ExceptionTrack::Engine, at: "/exception-track", as: :mount_exception_track_dev
-      mount Flipper::UI.app(Flipper), at: "/flipper", as: :mount_flipper_dev
-      mount LetterOpenerWeb::Engine, at: "/letter-opener", as: :mount_letter_opener_web_dev
-      mount SolidLitequeen::Engine, at: "/litequeen", as: :mount_solid_litequeen_dev
-      mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs_dev
-      mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook_dev
-      mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard_dev
+    begin
+      if Flipper.enabled?(:enable_admin_dev_tools)
+        mount Blazer::Engine, at: "/dev/blazer", as: :mount_blazer_dev
+        mount ExceptionTrack::Engine, at: "/dev/exception-track", as: :mount_exception_track_dev
+        mount Flipper::UI.app(Flipper), at: "/dev/flipper", as: :mount_flipper_dev
+        mount LetterOpenerWeb::Engine, at: "/dev/letter-opener", as: :mount_letter_opener_web_dev
+        mount SolidLitequeen::Engine, at: "/dev/litequeen", as: :mount_solid_litequeen_dev
+        mount MissionControl::Jobs::Engine, at: "/dev/jobs", as: :mount_mission_control_jobs_dev
+        mount Lookbook::Engine, at: "/dev/lookbook", as: :mount_lookbook_dev
+        mount ActiveStorageDashboard::Engine, at: "/dev/active-storage-dashboard", as: :mount_active_storage_dashboard_dev
+      end
+    rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+      # Skip Flipper checks during database setup
     end
 
     resources :todos do

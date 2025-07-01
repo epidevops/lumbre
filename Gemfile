@@ -56,7 +56,6 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "dotenv", "~> 3.1"
-  gem "letter_opener_web", "~> 3.0"
 end
 
 group :development do
@@ -100,6 +99,7 @@ gem "blazer", "~> 3.3"
 gem "active_storage_dashboard", "~> 0.1.7"
 gem "vernier", "~> 1.0"
 gem "profile-viewer", "~> 0.0.5"
+  gem "letter_opener_web", "~> 3.0"
 
 gem "sequenced", "~> 4.0"
 gem "positioning", "~> 0.4.5"
@@ -109,3 +109,9 @@ gem "ice_cube", "~> 0.17.0"
 gem "simple_calendar", "~> 3.1"
 
 gem "rubycritic", require: false
+
+gem "dockerfile-rails", ">= 1.7", group: :development
+
+gem "litestream", "~> 0.14.0"
+
+gem "aws-sdk-s3", "~> 1.191", require: false
