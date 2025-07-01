@@ -1,74 +1,105 @@
-# syntax = docker/dockerfile:1
+# syntax=docker/dockerfile:1
+# check=error=true
+
+# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
+# docker build -t demo .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name demo demo
+
+# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.4.3
-FROM docker.io/library/ruby:$RUBY_VERSION-slim as base
+FROM ruby:$RUBY_VERSION-slim AS base
 
 LABEL fly_launch_runtime="rails"
 
 # Rails app lives here
 WORKDIR /rails
 
-# Set production environment
-ENV RAILS_ENV="production" \
-    BUNDLE_WITHOUT="development:test" \
-    BUNDLE_DEPLOYMENT="1"
-
 # Update gems and bundler
 RUN gem update --system --no-document && \
     gem install -N bundler
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
-# Install packages needed to build gems and Node.js for assets
+# Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config curl && \
-    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g yarn && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Set production environment
+ENV BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development:test" \
+    RAILS_ENV="production"
+
+
+# Throw-away build stage to reduce size of final image
+FROM base AS build
+
+# Install packages needed to build gems and node modules
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libffi-dev libyaml-dev node-gyp pkg-config python-is-python3 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install JavaScript dependencies
+ARG NODE_VERSION=24.1.0
+ARG YARN_VERSION=1.22.19
+ENV PATH=/usr/local/node/bin:$PATH
+RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+    npm install -g yarn@$YARN_VERSION && \
+    rm -rf /tmp/node-build-master
+
 # Install application gems
-COPY --link Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
-    rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-# Copy application code
-COPY --link . .
-
-# Install node modules and build assets
+# Install node modules
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# Bootsnap precompilation skipped (optimization only)
+# Copy application code
+COPY . .
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
+
 # Final stage for app image
 FROM base
 
+# Install, configure litefs
+COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+COPY config/litefs.yml /etc/litefs.yml
+
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl sqlite3 && \
+    apt-get install --no-install-recommends -y ca-certificates fuse3 imagemagick libvips sudo && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
-COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    mkdir /data /litefs && \
+    chown -R 1000:1000 db log storage tmp /data /litefs
+
+# Authorize rails user to launch litefs
+COPY <<-"EOF" /etc/sudoers.d/rails
+rails ALL=(root) /usr/local/bin/litefs
+EOF
 
 # Deployment options
-ENV RAILS_LOG_TO_STDOUT="1" \
-    RAILS_SERVE_STATIC_FILES="true"
+ENV DATABASE_URL="sqlite3:///litefs/production.sqlite3" \
+    PORT="3001"
 
-# Entrypoint sets up the container.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Entrypoint prepares the database.
+ENTRYPOINT ["litefs", "mount"]
 
-# Start the server by default, this can be overwritten at runtime
+# LiteFS proxy serves on port 3000, Rails on 3001
 EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+VOLUME /data
+CMD []

@@ -109,3 +109,9 @@ gem "ice_cube", "~> 0.17.0"
 gem "simple_calendar", "~> 3.1"
 
 gem "rubycritic", require: false
+
+gem "dockerfile-rails", ">= 1.7", group: :development
+
+gem "litestream", "~> 0.14.0"
+
+gem "aws-sdk-s3", "~> 1.191", require: false

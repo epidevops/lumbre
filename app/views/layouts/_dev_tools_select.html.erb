@@ -1,111 +1,130 @@
-<div class="relative text-left" data-controller="toggle">
-  <div>
-    <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm/6 cursor-pointer font-semibold text-white shadow-xs ring-1 ring-gray-300 ring-inset", id: "dev-tool-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
-      <%= heroicon("cog-8-tooth", class: "size-5 text-gray-400") %>
-      <%= "Dev Tools" %>
-      <%= heroicon("chevron-down", class: "size-5 text-gray-400") %>
-    <% end %>
-  </div>
-
-  <div class="absolute right-0 z-10 w-48 gap-x-4 px-4 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="dev-tool-button" tabindex="-1" data-toggle-target="dropdownMenu">
-    <div class="py-1" role="none">
-      <%= link_to new_admin_user_session_path,
-                  id: "dev-tool-button-0",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Admin Login" %>
-      <% end %>
-      <%= link_to todos_path,
-                  id: "dev-tool-button-1",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= inline_svg_tag("ferris-wheel", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Playground" %>
-      <% end %>
-      <%= link_to mount_solid_litequeen_dev_path,
-                  id: "dev-tool-button-2",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("circle-stack", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Litequeen" %>
-      <% end %>
-      <%= link_to mount_mission_control_jobs_dev_path,
-                  id: "dev-tool-button-3",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("rocket-launch", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Jobs" %>
-      <% end %>
-      <%= link_to mount_letter_opener_web_dev_path,
-                  id: "dev-tool-button-4",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("envelope", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Letter Opener" %>
-      <% end %>
-      <%= link_to mount_lookbook_dev_path,
-                  id: "dev-tool-button-5",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Lookbook" %>
-      <% end %>
-      <%= link_to mount_exception_track_dev_path,
-                  id: "dev-tool-button-6",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("exclamation-triangle", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Exception Track" %>
-      <% end %>
-      <%= link_to mount_flipper_dev_path,
-                  id: "dev-tool-button-7",
-                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                  target: '_blank',
-                  role: "menuitem",
-                  tabindex: "-1",
-                  data: { action: 'toggle#toggleDropdownItem' } do %>
-        <%= heroicon("flag", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Flipper".to_s %>
-      <% end %>
-      <% if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user) %>
-        <%= link_to mount_blazer_dev_path,
-                    id: "dev-tool-button-8",
-                    class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
-                    target: '_blank',
-                    role: "menuitem",
-                    tabindex: "-1",
-                    data: { action: 'toggle#toggleDropdownItem' } do %>
-          <%= heroicon("chart-bar", class: "mr-4 size-5 text-gray-400") %>
-          <%= "Blazer" %>
+<%# Dev tools - controlled by Flipper flag :enable_admin_dev_tools %>
+<% begin %>
+  <% if Flipper.enabled?(:enable_admin_dev_tools) %>
+    <div class="relative text-left" data-controller="toggle">
+      <div>
+        <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm/6 cursor-pointer font-semibold text-white shadow-xs ring-1 ring-gray-300 ring-inset", id: "dev-tool-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
+          <%= heroicon("cog-8-tooth", class: "size-5 text-gray-400") %>
+          <%= "Dev Tools" %>
+          <%= heroicon("chevron-down", class: "size-5 text-gray-400") %>
         <% end %>
-      <% end %>
-      <div id="dev-tool-button-8" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
-        <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
-        <%= "Mobile: #{hotwire_native_app?.to_s.titleize}" %>
+      </div>
+
+      <div class="absolute right-0 z-10 w-64 gap-x-4 p-2 mt-1 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="dev-tool-button" tabindex="-1" data-toggle-target="dropdownMenu">
+        <div class="py-1" role="none">
+          <%= link_to new_admin_user_session_path,
+                      id: "dev-tool-button-0",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Admin Login" %>
+          <% end %>
+          <%= link_to todos_path,
+                      id: "dev-tool-button-1",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= inline_svg_tag("ferris-wheel", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Playground" %>
+          <% end %>
+          <%= link_to mount_solid_litequeen_dev_path,
+                      id: "dev-tool-button-2",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("circle-stack", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Litequeen" %>
+          <% end %>
+          <%= link_to mount_mission_control_jobs_dev_path,
+                      id: "dev-tool-button-3",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("rocket-launch", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Jobs" %>
+          <% end %>
+          <%= link_to mount_letter_opener_web_dev_path,
+                      id: "dev-tool-button-4",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("envelope", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Letter Opener" %>
+          <% end %>
+          <%= link_to mount_lookbook_dev_path,
+                      id: "dev-tool-button-5",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Lookbook" %>
+          <% end %>
+          <%= link_to mount_exception_track_dev_path,
+                      id: "dev-tool-button-6",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("exclamation-triangle", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Exception Track" %>
+          <% end %>
+          <%= link_to mount_flipper_dev_path,
+                      id: "dev-tool-button-7",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("flag", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Flipper".to_s %>
+          <% end %>
+          <%= link_to mount_blazer_dev_path,
+                      id: "dev-tool-button-8",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("chart-bar", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Blazer" %>
+          <% end %>
+          <%= link_to mount_active_storage_dashboard_dev_path,
+                      id: "dev-tool-button-9",
+                      class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                      target: '_blank',
+                      role: "menuitem",
+                      tabindex: "-1",
+                      data: { action: 'toggle#toggleDropdownItem' } do %>
+            <%= heroicon("paper-clip", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Active Storage" %>
+          <% end %>
+          <div id="dev-tool-button-10" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+            <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
+            <%= "Mobile: #{hotwire_native_app?.to_s.titleize}" %>
+          </div>
+          <div id="dev-tool-button-11" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+            <%= inline_svg_tag("shell", class: "mr-4 size-5 text-gray-400") %>
+            <%= "ENV: #{Rails.env.to_s.titleize}" %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>
+<% rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError => e %>
+  <%# Skip dev tools during database setup %>
+<% end %>
 
 

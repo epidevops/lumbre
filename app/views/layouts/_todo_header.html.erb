@@ -37,7 +37,9 @@
         </div>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center gap-4 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <%#= render 'layouts/dev_tools_select' %>
+        <% if Flipper.enabled?(:enable_admin_dev_tools) %>
+          <%= render 'layouts/dev_tools_select' %>
+        <% end %>
         <%#= render 'layouts/language_select' %>
       </div>
     </div>

@@ -68,6 +68,8 @@ Rails.application.configure do
 
   config.mission_control.jobs.http_basic_auth_enabled = false
 
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
+
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),

@@ -6,7 +6,13 @@
       "Bash(rm:*)",
       "Bash(chmod:*)",
       "Bash(grep:*)",
-      "Bash(fly logs:*)"
+      "Bash(fly logs:*)",
+      "Bash(fly ssh console:*)",
+      "Bash(fly status:*)",
+      "Bash(fly deploy:*)",
+      "Bash(fly machine restart:*)",
+      "Bash(fly machine start:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }
