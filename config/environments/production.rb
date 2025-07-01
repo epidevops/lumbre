@@ -112,6 +112,8 @@ end
 
 # authenticate admin for Rails info controllers
 class ::Rails::InfoController
+  include Rails.application.routes.url_helpers if Rails.env.production?
+
   skip_before_action :require_local! if Rails.env.production?
   before_action :authenticate_admin_user!
   before_action :ensure_super_admin!
