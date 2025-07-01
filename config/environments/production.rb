@@ -109,3 +109,16 @@ end
 class ::Rails::MailersController
   before_action :authenticate_admin_user!
 end
+
+# authenticate admin for Rails info controllers
+class ::Rails::InfoController
+  skip_before_action :require_local! if Rails.env.production?
+  before_action :authenticate_admin_user!
+  before_action :ensure_super_admin!
+
+  private
+
+  def ensure_super_admin!
+    redirect_to main_app.root_path unless current_admin_user&.has_role?(:super_admin)
+  end
+end
