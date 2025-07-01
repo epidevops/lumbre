@@ -104,3 +104,8 @@ Rails.application.configure do
     config.banner_class = "danger"
   end
 end
+
+# authenticate admin before redirecting to previewers
+class ::Rails::MailersController
+  before_action :authenticate_admin_user!
+end

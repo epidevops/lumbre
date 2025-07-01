@@ -18,18 +18,16 @@ Rails.application.routes.draw do
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
     mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard
-
-    # Rails info routes - available when dev tools are enabled
-    # begin
-    #   if Flipper.enabled?(:enable_admin_dev_tools)
-    #     get "/rails/info/routes", to: "rails/info#routes", as: :rails_info_routes
-    #     get "/rails/info/properties", to: "rails/info#properties", as: :rails_info_properties
-    #     get "/rails/info/notes", to: "rails/info#notes", as: :rails_info_notes
-    #     get "/rails/mailers", to: "rails/mailers#index", as: :rails_mailers
-    #   end
-    # rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
-    #   # Skip Flipper checks during database setup
-    # end
+    # Rails info routes - available for authenticated admin users in production
+    begin
+      if Rails.env.production?
+        get "/rails/info/routes", to: "rails/info#routes", as: :rails_info_routes
+        get "/rails/info/properties", to: "rails/info#properties", as: :rails_info_properties
+        get "/rails/info/notes", to: "rails/info#notes", as: :rails_info_notes
+      end
+    rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
+      # Skip Flipper checks during database setup
+    end
   end
 
   namespace :admin do
