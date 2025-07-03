@@ -70,6 +70,19 @@ ActiveAdmin.register AdminUser do
     redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
   end
 
+  member_action :switch_language, method: :get do
+    resource.update(preferred_language: params[:preferred_language])
+
+    if request.referer.present?
+      referer_params = Rails.application.routes.recognize_path(URI.parse(request.referer).path)
+      redirect_to url_for(referer_params.merge(locale: params[:preferred_language]))
+    else
+      redirect_to admin_root_path(locale: params[:preferred_language])
+    end
+  rescue ActionController::RoutingError
+    redirect_to admin_root_path(locale: params[:preferred_language])
+  end
+
   # For security, limit the actions that should be available
   actions :all, except: []
 
