@@ -18,7 +18,7 @@ gem "stimulus-rails"
 # gem "tailwindcss-rails"
 gem "sprockets-rails"
 gem "cssbundling-rails"
-gem "tailwindcss-rails", "~> 4.2"
+gem "tailwindcss-rails", "~> 4.3"
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
 gem "kamal", require: false
