@@ -70,6 +70,50 @@ fr:
     main_navigation:
       application: "Application"
       administration: "Administration"
+    otp:
+      setup:
+        title: "Configurer l'Authentification à Usage Unique"
+        scan_qr_title: "Scanner le Code QR"
+        scan_qr_description: "Utilisez votre application d'authentification (Google Authenticator, Authy, 1Password, etc.) pour scanner ce code QR :"
+        manual_entry_label: "Clé de Saisie Manuelle"
+        manual_entry_description: "Utilisez cette clé si vous ne pouvez pas scanner le code QR"
+        verification_title: "Entrez le Code de Vérification"
+        verification_label: "Code à 6 chiffres de l'application d'authentification"
+        verification_placeholder: "123456"
+        verification_description: "Entrez le code à 6 chiffres affiché dans votre application d'authentification"
+        security_notice_title: "Avis de Sécurité"
+        security_notice_description: "Après avoir activé l'OTP, vous pouvez éventuellement générer des codes de sauvegarde pour la récupération de compte."
+        enable_button: "Activer l'OTP"
+        cancel_button: "Annuler"
+      backup_codes:
+        title: "OTP Activé avec Succès"
+        success_title: "Authentification à Usage Unique Activée"
+        success_description: "Votre compte est maintenant protégé par l'authentification OTP. Vous devrez fournir un code de vérification lors de la connexion."
+        save_codes_title: "Important : Sauvegardez Vos Codes de Récupération"
+        save_codes_description: "Ces codes à usage unique peuvent être utilisés pour accéder à votre compte si votre appareil d'authentification est perdu ou indisponible. Stockez-les en sécurité - ils ne seront plus affichés."
+        no_codes_title: "Codes de Récupération"
+        no_codes_description: "Les codes de récupération sont disponibles avec cette implémentation OTP. Vous pouvez les générer séparément si nécessaire pour la récupération de compte."
+        next_steps_title: "Prochaines Étapes"
+        next_steps:
+          - "Déconnectez-vous et testez votre configuration OTP pour vous assurer qu'elle fonctionne correctement"
+          - "Installez votre application d'authentification sur plusieurs appareils pour la redondance"
+          - "Gardez vos codes de récupération dans un endroit sûr et accessible"
+        security_guidelines_title: "Directives de Sécurité"
+        security_guidelines:
+          - "Sauvegardez ces codes dans un endroit sécurisé (gestionnaire de mots de passe, fichier chiffré)"
+          - "Chaque code ne peut être utilisé qu'une seule fois"
+          - "Ne partagez ces codes avec personne"
+          - "Considérez les imprimer et les stocker dans un endroit sûr"
+        saved_codes_button: "J'ai Sauvegardé Mes Codes de Récupération"
+        continue_button: "Continuer"
+      admin_users:
+        enable_otp: "Activer l'OTP"
+        disable_otp: "Désactiver l'OTP"
+        disable_confirm: "Êtes-vous sûr de vouloir désactiver l'OTP ?"
+        enabled_notice: "L'OTP a été activé avec succès."
+        disabled_notice: "L'OTP a été désactivé."
+        setup_error: "Configuration OTP introuvable. Veuillez réessayer."
+        verification_error: "Code de vérification OTP invalide. Veuillez réessayer."
   developer_tools:
     blazer:
       description: "Un puissant outil de requêtes SQL qui vous permet de créer, sauvegarder et partager des requêtes SQL. Parfait pour l'analyse de données et les rapports."

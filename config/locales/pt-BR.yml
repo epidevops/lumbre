@@ -70,6 +70,50 @@ pt-BR:
     main_navigation:
       application: "Aplicação"
       administration: "Administração"
+    otp:
+      setup:
+        title: "Configurar Autenticação de Senha Única"
+        scan_qr_title: "Escanear Código QR"
+        scan_qr_description: "Use seu aplicativo de autenticação (Google Authenticator, Authy, 1Password, etc.) para escanear este código QR:"
+        manual_entry_label: "Chave de Entrada Manual"
+        manual_entry_description: "Use esta chave se não conseguir escanear o código QR"
+        verification_title: "Digite o Código de Verificação"
+        verification_label: "Código de 6 dígitos do aplicativo de autenticação"
+        verification_placeholder: "123456"
+        verification_description: "Digite o código de 6 dígitos mostrado no seu aplicativo de autenticação"
+        security_notice_title: "Aviso de Segurança"
+        security_notice_description: "Após ativar o OTP, você pode opcionalmente gerar códigos de backup para recuperação da conta."
+        enable_button: "Ativar OTP"
+        cancel_button: "Cancelar"
+      backup_codes:
+        title: "OTP Ativado com Sucesso"
+        success_title: "Autenticação de Senha Única Ativada"
+        success_description: "Sua conta agora está protegida com autenticação OTP. Você precisará fornecer um código de verificação ao fazer login."
+        save_codes_title: "Importante: Salve Seus Códigos de Backup"
+        save_codes_description: "Estes códigos de uso único podem ser usados para acessar sua conta se seu dispositivo autenticador for perdido ou não estiver disponível. Armazene-os com segurança - eles não serão mostrados novamente."
+        no_codes_title: "Códigos de Backup"
+        no_codes_description: "Os códigos de backup estão disponíveis com esta implementação OTP. Você pode gerá-los separadamente se necessário para recuperação da conta."
+        next_steps_title: "Próximos Passos"
+        next_steps:
+          - "Faça logout e teste sua configuração OTP para garantir que está funcionando corretamente"
+          - "Instale seu aplicativo de autenticação em múltiplos dispositivos para redundância"
+          - "Mantenha seus códigos de backup em um local seguro e acessível"
+        security_guidelines_title: "Diretrizes de Segurança"
+        security_guidelines:
+          - "Salve estes códigos em um local seguro (gerenciador de senhas, arquivo criptografado)"
+          - "Cada código só pode ser usado uma vez"
+          - "Não compartilhe estes códigos com ninguém"
+          - "Considere imprimi-los e armazená-los em um local seguro"
+        saved_codes_button: "Eu Salvei Meus Códigos de Backup"
+        continue_button: "Continuar"
+      admin_users:
+        enable_otp: "Ativar OTP"
+        disable_otp: "Desativar OTP"
+        disable_confirm: "Tem certeza de que deseja desativar o OTP?"
+        enabled_notice: "OTP foi ativado com sucesso."
+        disabled_notice: "OTP foi desativado."
+        setup_error: "Configuração OTP não encontrada. Por favor, tente novamente."
+        verification_error: "Código de verificação OTP inválido. Por favor, tente novamente."
   developer_tools:
     blazer:
       description: "Uma poderosa ferramenta de consultas SQL que permite criar, salvar e compartilhar consultas SQL. Perfeita para análise de dados e relatórios."

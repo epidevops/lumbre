@@ -99,6 +99,50 @@ en:
     main_navigation:
       application: "Application"
       administration: "Administration"
+    otp:
+      setup:
+        title: "Setup One-Time Password Authentication"
+        scan_qr_title: "Scan QR Code"
+        scan_qr_description: "Use your authenticator app (Google Authenticator, Authy, 1Password, etc.) to scan this QR code:"
+        manual_entry_label: "Manual Entry Key"
+        manual_entry_description: "Use this key if you can't scan the QR code"
+        verification_title: "Enter Verification Code"
+        verification_label: "6-digit code from authenticator app"
+        verification_placeholder: "123456"
+        verification_description: "Enter the 6-digit code shown in your authenticator app"
+        security_notice_title: "Security Notice"
+        security_notice_description: "After enabling OTP, you can optionally generate backup codes for account recovery."
+        enable_button: "Enable OTP"
+        cancel_button: "Cancel"
+      backup_codes:
+        title: "OTP Enabled Successfully"
+        success_title: "One-Time Password Authentication Enabled"
+        success_description: "Your account is now protected with OTP authentication. You'll need to provide a verification code when signing in."
+        save_codes_title: "Important: Save Your Backup Codes"
+        save_codes_description: "These one-time use codes can be used to access your account if your authenticator device is lost or unavailable. Store them securely - they will not be shown again."
+        no_codes_title: "Backup Codes"
+        no_codes_description: "Backup codes are available with this OTP implementation. You can generate them separately if needed for account recovery."
+        next_steps_title: "Next Steps"
+        next_steps:
+          - "Sign out and test your OTP setup to ensure it's working properly"
+          - "Install your authenticator app on multiple devices for redundancy"
+          - "Keep your backup codes in a safe, accessible location"
+        security_guidelines_title: "Security Guidelines"
+        security_guidelines:
+          - "Save these codes in a secure location (password manager, encrypted file)"
+          - "Each code can only be used once"
+          - "Do not share these codes with anyone"
+          - "Consider printing them and storing in a safe place"
+        saved_codes_button: "I've Saved My Backup Codes"
+        continue_button: "Continue"
+      admin_users:
+        enable_otp: "Enable OTP"
+        disable_otp: "Disable OTP"
+        disable_confirm: "Are you sure you want to disable OTP?"
+        enabled_notice: "OTP has been enabled successfully."
+        disabled_notice: "OTP has been disabled."
+        setup_error: "OTP setup not found. Please try again."
+        verification_error: "Invalid OTP verification code. Please try again."
   developer_tools:
     blazer:
       description: "A powerful SQL query tool that allows you to create, save, and share SQL queries. Perfect for data analysis and reporting."

@@ -63,11 +63,11 @@ ActiveAdmin.register AdminUser do
 
   action_item :otp_toggle, only: %i[edit], priority: 1 do
     if resource.otp_required_for_login?
-      link_to "Disable OTP", otp_disable_admin_admin_user_path(resource), method: :delete,
-              confirm: "Are you sure you want to disable OTP?",
+      link_to t("active_admin.otp.admin_users.disable_otp"), otp_disable_admin_admin_user_path(resource), method: :delete,
+              confirm: t("active_admin.otp.admin_users.disable_confirm"),
               class: "action-item-button btn-danger"
     else
-      link_to "Enable OTP", "#",
+      link_to t("active_admin.otp.admin_users.enable_otp"), "#",
               class: "action-item-button btn-primary",
               data: { modal_target: "otp-setup-modal", modal_toggle: "otp-setup-modal" }
     end
@@ -75,7 +75,7 @@ ActiveAdmin.register AdminUser do
 
   member_action :otp_disable, method: :delete do
     resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil)
-    redirect_to edit_admin_admin_user_path(resource), notice: "OTP has been disabled."
+    redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.disabled_notice")
   end
 
   controller do
@@ -86,7 +86,7 @@ ActiveAdmin.register AdminUser do
 
         # OTP secret should already be set from the setup view
         unless resource.otp_secret.present?
-          flash[:alert] = "OTP setup not found. Please try again."
+          flash[:alert] = t("active_admin.otp.admin_users.setup_error")
           redirect_to edit_admin_admin_user_path(resource)
           return
         end
@@ -105,11 +105,11 @@ ActiveAdmin.register AdminUser do
             flash[:otp_backup_codes] = backup_codes
           end
 
-          redirect_to edit_admin_admin_user_path(resource), notice: "OTP has been enabled successfully."
+          redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.enabled_notice")
         else
           # Reset the secret if validation failed
           resource.update!(otp_secret: nil)
-          flash[:alert] = "Invalid OTP verification code. Please try again."
+          flash[:alert] = t("active_admin.otp.admin_users.verification_error")
           redirect_to edit_admin_admin_user_path(resource)
         end
       else

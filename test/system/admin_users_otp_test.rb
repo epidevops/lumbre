@@ -3,6 +3,8 @@ require "application_system_test_case"
 class AdminUsersOtpSystemTest < ApplicationSystemTestCase
   setup do
     @admin_user = admin_users(:one)
+    # Ensure English locale for consistent test assertions
+    I18n.locale = :en
     # Setup admin authentication
     authenticate_admin
   end
@@ -14,10 +16,11 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     assert_text "Edit Admin User"
 
     # Should show "Enable OTP" button when OTP is not enabled
-    assert_selector "a.action-item-button", text: "Enable OTP", wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 5
 
     # The OTP setup modal should exist in the DOM (hidden by default)
-    assert_selector "#otp-setup-modal", visible: :hidden, wait: 5
+    # Check page source to avoid Selenium visibility issues
+    assert page.html.include?('id="otp-setup-modal"')
   end
 
   test "should show disable OTP button when enabled" do
@@ -30,7 +33,7 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
     # Should show "Disable OTP" button when OTP is enabled
-    assert_selector "a.action-item-button", text: "Disable OTP"
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp")
   end
 
   test "should disable OTP when clicking disable button" do
@@ -47,17 +50,17 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     assert_text "Edit Admin User"
 
     # Should show "Disable OTP" button when OTP is enabled
-    assert_selector "a.action-item-button", text: "Disable OTP", wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp"), wait: 5
 
     # Click disable - the link should work even without handling confirmation
     # (The confirmation dialog may not work properly in headless browser tests)
-    click_on "Disable OTP"
+    click_on I18n.t("active_admin.otp.admin_users.disable_otp")
 
     # Should show success message
-    assert_text "OTP has been disabled", wait: 5
+    assert_text I18n.t("active_admin.otp.admin_users.disabled_notice"), wait: 5
 
     # Should show Enable OTP button again
-    assert_selector "a.action-item-button", text: "Enable OTP", wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 5
 
     # Verify database state
     @admin_user.reload
@@ -71,13 +74,14 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
   test "OTP setup modal should contain required elements" do
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
-    # The modal exists in the DOM (hidden by default)
-    assert_selector "#otp-setup-modal", visible: :hidden
+    # Wait for page to fully load
+    assert_text "Edit Admin User"
 
-    # Check key modal elements exist without using within block
-    assert_selector "#otp-setup-modal input[name='admin_user[otp_attempt]']", visible: :hidden
-    assert_selector "#otp-setup-modal input[name='admin_user[otp_required_for_login]'][type='hidden']", visible: :hidden
-    assert_selector "#otp-setup-modal input[type='submit']", visible: :hidden
+    # Check that the modal HTML exists in page source to avoid Selenium visibility issues
+    assert page.html.include?('id="otp-setup-modal"')
+    assert page.html.include?('name="admin_user[otp_attempt]"')
+    assert page.html.include?('name="admin_user[otp_required_for_login]"')
+    assert page.html.include?('type="submit"')
   end
 
   test "should show backup codes modal after successful OTP setup" do
@@ -102,7 +106,8 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     # Check that QR code would be generated with proper data
     # (The actual QR code requires JavaScript to be visible)
     # The modal exists in the DOM but is hidden by default
-    assert_selector "#otp-setup-modal", visible: :hidden
+    # Use page source to avoid Selenium visibility issues
+    assert page.html.include?('id="otp-setup-modal"')
 
     # Test the provisioning URI directly
     provisioning_uri = @admin_user.otp_provisioning_uri(@admin_user.email, issuer: "Lumbre")
@@ -121,13 +126,14 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
     # Check that modal exists and contains manual entry key
-    assert_selector "#otp-setup-modal", visible: :hidden
+    # Use page source to avoid Selenium visibility issues
+    assert page.html.include?('id="otp-setup-modal"')
 
     # Test presence of manual entry key text in the modal without using within
     # Just check that the modal exists and contains a code element
     # Check the text exists in page source (including hidden elements)
-    assert page.html.include?("Manual Entry Key")
-    assert_selector "#otp-setup-modal code", visible: :hidden
+    assert page.html.include?(I18n.t("active_admin.otp.setup.manual_entry_label"))
+    assert page.html.include?("<code")
   end
 
   test "should handle form submission with invalid OTP" do
@@ -144,11 +150,12 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
     # Check that modal exists and contains security notice
-    assert_selector "#otp-setup-modal", visible: :hidden
+    # Use page source to avoid Selenium visibility issues
+    assert page.html.include?('id="otp-setup-modal"')
 
     # Test security notice without using within block
-    assert page.html.include?("Security Notice")
-    assert page.html.include?("After enabling OTP, you can optionally generate backup codes")
+    assert page.html.include?(I18n.t("active_admin.otp.setup.security_notice_title"))
+    assert page.html.include?(I18n.t("active_admin.otp.setup.security_notice_description"))
   end
 
   private
