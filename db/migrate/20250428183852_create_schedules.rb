@@ -1,4 +1,4 @@
-class CreateSchedules < ActiveRecord::Migration[8.1]
+class CreateSchedules < ActiveRecord::Migration[8.0]
   def change
     create_table :schedules do |t|
       t.references :scheduleable, polymorphic: true, null: false

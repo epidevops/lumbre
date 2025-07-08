@@ -729,7 +729,6 @@ end
 Flipper.enable_group(:super_admin_access, :admin_user)
 
 %w[
-  super_admin_access
   enable_admin_locale
 ].each do |feature|
   Flipper.enable(feature)

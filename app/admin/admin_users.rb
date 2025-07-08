@@ -5,10 +5,10 @@ ActiveAdmin.register AdminUser do
   permit_params :first_name, :last_name, :title, :bio,
                 :active, :username, :email, :encrypted_password, # :password, :password_confirmation,
                 :reset_password_token, :reset_password_sent_at, :remember_created_at,
-                :otp_required_for_login, :otp_secret, :consumed_timestep,
                 :password, :password_confirmation,
                 :preferred_language, :created_at, :updated_at,
                 :avatar,
+                :otp_secret, :otp_backup_codes, :consumed_timestep, :otp_required_for_login, :otp_attempt,
                 admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
                 roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
 
@@ -61,8 +61,62 @@ ActiveAdmin.register AdminUser do
   #   skip_before_action :set_locale, only: %i[create update]
   # end
 
-  action_item :two_factor, only: %i[edit show], priority: 1 do
-    link_to "Two Factor", "#", class: "action-item-button"
+  action_item :otp_toggle, only: %i[edit], priority: 1 do
+    if resource.otp_required_for_login?
+      link_to t("active_admin.otp.admin_users.disable_otp"), otp_disable_admin_admin_user_path(resource), method: :delete,
+              confirm: t("active_admin.otp.admin_users.disable_confirm"),
+              class: "action-item-button btn-danger"
+    else
+      link_to t("active_admin.otp.admin_users.enable_otp"), "#",
+              class: "action-item-button btn-primary",
+              data: { modal_target: "otp-setup-modal", modal_toggle: "otp-setup-modal" }
+    end
+  end
+
+  member_action :otp_disable, method: :delete do
+    resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil)
+    redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.disabled_notice")
+  end
+
+  controller do
+    def update
+      # Handle MFA setup verification
+      if params[:admin_user] && params[:admin_user][:otp_required_for_login] == "true" && params[:admin_user][:otp_attempt].present?
+        verification_code = params[:admin_user][:otp_attempt]
+
+        # OTP secret should already be set from the setup view
+        unless resource.otp_secret.present?
+          flash[:alert] = t("active_admin.otp.admin_users.setup_error")
+          redirect_to edit_admin_admin_user_path(resource)
+          return
+        end
+
+        # Verify OTP code using devise-two-factor validation
+        if resource.validate_and_consume_otp!(verification_code)
+          # Enable OTP
+          resource.update!(otp_required_for_login: true)
+
+          # Generate backup codes if supported
+          if resource.respond_to?(:generate_otp_backup_codes!)
+            backup_codes = resource.generate_otp_backup_codes!
+            resource.save!
+
+            # Store backup codes in flash for one-time display
+            flash[:otp_backup_codes] = backup_codes
+          end
+
+          redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.enabled_notice")
+        else
+          # Reset the secret if validation failed
+          resource.update!(otp_secret: nil)
+          flash[:alert] = t("active_admin.otp.admin_users.verification_error")
+          redirect_to edit_admin_admin_user_path(resource)
+        end
+      else
+        # Regular update
+        super
+      end
+    end
   end
 
   member_action :delete_avatar, method: :get do
@@ -94,6 +148,7 @@ ActiveAdmin.register AdminUser do
   filter :title
   filter :preferred_language
   filter :active
+  filter :mfa_enabled
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -105,6 +160,7 @@ ActiveAdmin.register AdminUser do
     column :title
     column :preferred_language
     column :active
+    column :mfa_enabled
     actions
   end
 
@@ -132,14 +188,9 @@ ActiveAdmin.register AdminUser do
       row :title
       row :preferred_language
       row :active
+      row :mfa_enabled
     end
   end
 
   form partial: "form"
-
-  # form do |f|
-  #   # f.template.render partial: "admin/restaurants/products/table", locals: { restaurant: resource }
-  #   f.template.render partial: "form", locals: { resource: self, f: f }
-  #   # render partial: "form", locals: { resource: resource, f: f }
-  # end
 end

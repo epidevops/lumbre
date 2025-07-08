@@ -1,0 +1,148 @@
+<!-- OTP Backup Codes Modal -->
+<div id="otp-backup-codes-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white p-4 rounded-lg shadow-sm dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <svg class="w-5 h-5 inline-block mr-2 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <%= t('active_admin.otp.backup_codes.title') %>
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="otp-backup-codes-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="p-4 md:p-5">
+                <div class="grid gap-4 mb-4 grid-cols-1">
+                    <!-- Success Message -->
+                    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">✓</span>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white"><%= t('active_admin.otp.backup_codes.success_title') %></h4>
+                        </div>
+                        <p class="text-sm text-green-700 dark:text-green-300"><%= t('active_admin.otp.backup_codes.success_description') %></p>
+                    </div>
+
+                    <!-- Backup Codes Section (if available) -->
+                    <% if flash[:otp_backup_codes].present? %>
+                        <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <span class="bg-amber-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">!</span>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white"><%= t('active_admin.otp.backup_codes.save_codes_title') %></h4>
+                            </div>
+                            <p class="text-sm text-amber-700 dark:text-amber-300 mb-4"><%= t('active_admin.otp.backup_codes.save_codes_description') %></p>
+
+                            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-300 mb-4">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <% flash[:otp_backup_codes].each do |code| %>
+                                        <div class="bg-gray-50 dark:bg-gray-700 p-2 rounded text-center">
+                                            <code class="text-sm font-mono text-gray-800 dark:text-gray-200 select-all"><%= code %></code>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <svg class="w-4 h-4 text-amber-400 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                                <div>
+                                    <h5 class="text-sm font-medium text-amber-800 dark:text-amber-200"><%= t('active_admin.otp.backup_codes.security_guidelines_title') %></h5>
+                                    <ul class="text-xs text-amber-700 dark:text-amber-300 mt-1 space-y-1">
+                                        <% t('active_admin.otp.backup_codes.security_guidelines').each do |guideline| %>
+                                            <li>• <%= guideline %></li>
+                                        <% end %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <% else %>
+                        <!-- No Backup Codes Available -->
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">i</span>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white"><%= t('active_admin.otp.backup_codes.no_codes_title') %></h4>
+                            </div>
+                            <p class="text-sm text-blue-700 dark:text-blue-300"><%= t('active_admin.otp.backup_codes.no_codes_description') %></p>
+                        </div>
+                    <% end %>
+
+                    <!-- Instructions -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">i</span>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white"><%= t('active_admin.otp.backup_codes.next_steps_title') %></h4>
+                        </div>
+                        <div class="text-sm text-blue-700 dark:text-blue-300 space-y-2">
+                            <% t('active_admin.otp.backup_codes.next_steps').each_with_index do |step, index| %>
+                                <% if index == 2 && flash[:otp_backup_codes].blank? %>
+                                    <% next %>
+                                <% end %>
+                                <p>• <%= step %></p>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end">
+                    <button type="button" data-modal-toggle="otp-backup-codes-modal" class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <% if flash[:otp_backup_codes].present? %>
+                            <%= t('active_admin.otp.backup_codes.saved_codes_button') %>
+                        <% else %>
+                            <%= t('active_admin.otp.backup_codes.continue_button') %>
+                        <% end %>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize and auto-show modal when page loads if backup codes are present
+    const $targetEl = document.getElementById('otp-backup-codes-modal');
+
+    if ($targetEl && typeof window.Modal !== 'undefined') {
+        // Options with default values
+        const options = {
+            placement: 'center',
+            backdrop: 'dynamic',
+            backdropClasses: 'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
+            closable: true,
+            onHide: () => {
+                console.log('OTP backup codes modal is hidden');
+            },
+            onShow: () => {
+                console.log('OTP backup codes modal is shown');
+            },
+            onToggle: () => {
+                console.log('OTP backup codes modal has been toggled');
+            },
+        };
+
+        // Instance options object
+        const instanceOptions = {
+            id: 'otp-backup-codes-modal',
+            override: true
+        };
+
+        // Initialize the modal with Flowbite
+        const modalInstance = new window.Modal($targetEl, options, instanceOptions);
+
+        // Show the modal
+        modalInstance.show();
+    }
+});
+</script>
