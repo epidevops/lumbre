@@ -1,4 +1,4 @@
-class CreateSocials < ActiveRecord::Migration[8.1]
+class CreateSocials < ActiveRecord::Migration[8.0]
   def change
     create_table :socials do |t|
       t.references :socialable, polymorphic: true, null: false

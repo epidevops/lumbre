@@ -121,6 +121,6 @@ class ::Rails::InfoController
   private
 
   def ensure_super_admin!
-    redirect_to main_app.root_path unless current_admin_user&.has_role?(:super_admin)
+    redirect_to main_app.root_path unless current_admin_user&.super_admin?
   end
 end

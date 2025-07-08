@@ -1,4 +1,4 @@
-class CreateRules < ActiveRecord::Migration[8.1]
+class CreateRules < ActiveRecord::Migration[8.0]
   def change
     create_table :rules do |t|
       t.belongs_to :schedule, null: false, foreign_key: true

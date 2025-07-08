@@ -1,0 +1,51 @@
+<div class="p-6 sm:p-8 space-y-4 md:space-y-6 w-full sm:max-w-md bg-white sm:rounded-md shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+  <h2 class="text-xl text-balance text-pretty font-bold text-gray-900 md:text-2xl dark:text-white">
+    <%= site_title %> <%= set_page_title t('active_admin.otp.session.title') %>
+  </h2>
+
+  <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+    <div class="flex items-center">
+      <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <div>
+        <p class="text-sm text-blue-700 dark:text-blue-300">
+          <strong><%= t('active_admin.otp.session.required') %></strong>
+        </p>
+        <p class="text-xs text-blue-600 dark:text-blue-400">
+          <%= t('active_admin.otp.session.code_help') %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <%= active_admin_form_for(resource, url: admin_user_otp_verify_path, method: :post) do |f|
+    f.inputs do
+      f.input :otp_attempt,
+              label: t('active_admin.otp.session.code_label'),
+              placeholder: t('active_admin.otp.setup.verification_placeholder'),
+              input_html: {
+                autocomplete: "off",
+                autofocus: true,
+                required: true,
+                class: "text-center font-mono tracking-widest"
+              }
+    end
+    f.actions do
+      f.action :submit,
+               label: t('active_admin.otp.session.verify_button'),
+               wrapper_html: { class: "grow" },
+               button_html: { class: "w-full", value: t('active_admin.otp.session.verify_button') }
+    end
+  end
+  %>
+
+  <div class="flex items-center justify-between text-sm">
+    <% scope = Devise::Mapping.find_scope!(resource_name) %>
+    <%= link_to t('active_admin.devise.links.sign_in'), main_app.send(:"new_#{scope}_session_path") %>
+    <%= link_to t('active_admin.otp.session.cancel'),
+                admin_user_otp_cancel_path,
+                method: :delete,
+                class: "text-gray-600 hover:underline dark:text-gray-400" %>
+  </div>
+</div>

@@ -15,7 +15,7 @@ ActiveAdmin.register_page "Dashboard" do
     end
 
     panel "Admin Tools" do
-      if current_admin_user && Flipper.enabled?(:super_admin_access, current_admin_user)
+      if Flipper.enabled?(:super_admin_access, current_admin_user)
         h3 { b { link_to("Blazer", mount_blazer_path, target: "_blank") } }
         h3 { b { link_to("Litequeen", mount_solid_litequeen_path, target: "_blank") } }
         h3 { b { link_to("Mission Control Jobs", mount_mission_control_jobs_path, target: "_blank") } }

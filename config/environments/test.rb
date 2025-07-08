@@ -61,4 +61,9 @@ Rails.application.configure do
 
   # Use perform_enqueued_jobs to run active jobs in test
   config.active_job.queue_adapter = :test
+
+  # Use deterministic encryption keys for testing
+  config.active_record.encryption.primary_key = "test_primary_key_for_encryption_32_chars_long"
+  config.active_record.encryption.deterministic_key = "test_deterministic_key_for_encrypt32"
+  config.active_record.encryption.key_derivation_salt = "test_key_derivation_salt_32_chars_long"
 end

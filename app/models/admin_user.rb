@@ -1,15 +1,17 @@
 class AdminUser < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, # two_factor_authenticatable
-         :recoverable, :rememberable, :validatable
+  devise :two_factor_authenticatable, :two_factor_backupable, :database_authenticatable,
+         :recoverable, :rememberable, :validatable,
+         otp_backup_code_length: 6,
+         otp_number_of_backup_codes: 10,
+         otp_allowed_drift: 30
+
+  serialize :otp_backup_codes, coder: JSON
 
   include Avatar # , EmailValidations, NoticedAssociations
   rolify
   has_person_name
-
-
-  # enum preferred_locale: %w[I18n.available_locales.map(&:to_s).join(" ")]
 
   def initials
     name.initials
@@ -24,6 +26,10 @@ class AdminUser < ApplicationRecord
         url: custom_public_avatar_url
       }
     }.to_json
+  end
+
+  def super_admin?
+    has_role?(:super_admin)
   end
 
   private
