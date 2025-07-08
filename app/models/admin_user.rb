@@ -1,8 +1,10 @@
 class AdminUser < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, # two_factor_authenticatable
+  devise :two_factor_authenticatable, :two_factor_backupable, :database_authenticatable,
          :recoverable, :rememberable, :validatable
+
+  serialize :otp_backup_codes, coder: JSON
 
   include Avatar # , EmailValidations, NoticedAssociations
   rolify

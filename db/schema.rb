@@ -91,6 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "otp_secret"
+    t.text "otp_backup_codes"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login", default: false, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true

@@ -8,6 +8,7 @@ ActiveAdmin.register AdminUser do
                 :password, :password_confirmation,
                 :preferred_language, :created_at, :updated_at,
                 :avatar,
+                :otp_secret, :otp_backup_codes, :consumed_timestep, :otp_required_for_login, :otp_attempt,
                 admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
                 roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
 
@@ -60,6 +61,61 @@ ActiveAdmin.register AdminUser do
   #   skip_before_action :set_locale, only: %i[create update]
   # end
 
+  action_item :otp_toggle, only: %i[edit], priority: 1 do
+    if resource.otp_required_for_login?
+      link_to "Disable OTP", otp_disable_admin_admin_user_path(resource), method: :delete,
+              confirm: "Are you sure you want to disable OTP?",
+              class: "action-item-button btn-danger"
+    else
+      link_to "Enable OTP", "#",
+              class: "action-item-button btn-primary",
+              data: { modal_target: "otp-setup-modal", modal_toggle: "otp-setup-modal" }
+    end
+  end
+
+  member_action :otp_disable, method: :delete do
+    resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil)
+    redirect_to edit_admin_admin_user_path(resource), notice: "OTP has been disabled."
+  end
+
+  controller do
+    def update
+      # Handle MFA setup verification
+      debugger
+      if params[:admin_user] && params[:admin_user][:otp_required_for_login] == "true" && params[:admin_user][:otp_attempt].present?
+        verification_code = params[:admin_user][:otp_attempt]
+
+        # Set the secret temporarily for validation (from _setup view)
+        # resource.otp_secret = params[:admin_user][:otp_secret]
+
+        # Verify OTP code by comparing with current OTP
+        if resource.current_otp == verification_code
+          # Enable OTP and save the secret (already set in memory above)
+          resource.update!(otp_required_for_login: true)
+
+          # Generate backup codes if supported
+          if resource.respond_to?(:generate_otp_backup_codes!)
+            resource.generate_otp_backup_codes!
+            resource.save!
+
+            # Store backup codes in flash for one-time display
+            if resource.respond_to?(:otp_backup_codes) && resource.otp_backup_codes.present?
+              flash[:otp_backup_codes] = resource.otp_backup_codes
+            end
+          end
+
+          redirect_to edit_admin_admin_user_path(resource), notice: "OTP has been enabled successfully."
+        else
+          flash[:alert] = "Invalid OTP verification code. Please try again."
+          redirect_to edit_admin_admin_user_path(resource)
+        end
+      else
+        # Regular update
+        super
+      end
+    end
+  end
+
   member_action :delete_avatar, method: :get do
     resource.avatar.purge
     redirect_to admin_admin_user_path(params[:id]), notice: "Your avatar has been removed."
@@ -89,6 +145,7 @@ ActiveAdmin.register AdminUser do
   filter :title
   filter :preferred_language
   filter :active
+  filter :mfa_enabled
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -100,6 +157,7 @@ ActiveAdmin.register AdminUser do
     column :title
     column :preferred_language
     column :active
+    column :mfa_enabled
     actions
   end
 
@@ -127,14 +185,9 @@ ActiveAdmin.register AdminUser do
       row :title
       row :preferred_language
       row :active
+      row :mfa_enabled
     end
   end
 
   form partial: "form"
-
-  # form do |f|
-  #   # f.template.render partial: "admin/restaurants/products/table", locals: { restaurant: resource }
-  #   f.template.render partial: "form", locals: { resource: self, f: f }
-  #   # render partial: "form", locals: { resource: resource, f: f }
-  # end
 end

@@ -1,0 +1,100 @@
+<!-- OTP Setup Modal -->
+<div id="otp-setup-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white p-4 rounded-lg shadow-sm dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <svg class="w-5 h-5 inline-block mr-2 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m0 0a2 2 0 012 2m-2-2a2 2 0 00-2 2m2-2V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2M7 7v3a4 4 0 004 4m0-8V5a2 2 0 00-2-2H9a2 2 0 00-2 2v14l4-2 4 2V5z"></path>
+                    </svg>
+                    Setup One-Time Password Authentication
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="otp-setup-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <%= form_with model: [:admin, resource], url: admin_admin_user_path(resource), method: :patch, local: true, class: "p-4 md:p-5" do |f| %>
+                <%= f.hidden_field :otp_required_for_login, value: true %>
+
+                <div class="grid gap-4 mb-4 grid-cols-1">
+                    <!-- QR Code Section -->
+                    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">1</span>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">Scan QR Code</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Use your authenticator app (Google Authenticator, Authy, 1Password, etc.) to scan this QR code:</p>
+
+                        <div class="bg-white dark:bg-gray-100 p-4 rounded-lg border border-gray-300 text-center mb-4">
+                            <%
+                              # Generate OTP secret if not present
+                              resource.otp_secret = AdminUser.generate_otp_secret unless resource.otp_secret.present?
+
+                              # Generate QR code for the provisioning URI
+                              provisioning_uri = resource.otp_provisioning_uri(resource.email, issuer: "Lumbre")
+                              qr_code = RQRCode::QRCode.new(provisioning_uri)
+                            %>
+                            <%= qr_code.as_svg(module_size: 3).html_safe %>
+                        </div>
+
+                        <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                            <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-gray-300">Manual Entry Key</label>
+                            <div class="bg-white dark:bg-gray-800 p-2 rounded border text-center">
+                                <code class="text-xs font-mono text-gray-800 dark:text-gray-200 break-all select-all"><%= resource.otp_secret %></code>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Use this key if you can't scan the QR code</p>
+                        </div>
+                    </div>
+
+                    <!-- Verification Code Section -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-semibold mr-2">2</span>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">Enter Verification Code</h4>
+                        </div>
+
+                        <div>
+                            <%= f.label :otp_attempt, "6-digit code from authenticator app", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                            <%= f.text_field :otp_attempt,
+                                placeholder: "123456",
+                                maxlength: 6,
+                                class: "bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 text-center font-mono tracking-widest dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500",
+                                autocomplete: "off",
+                                inputmode: "numeric",
+                                pattern: "[0-9]{6}",
+                                required: true %>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Enter the 6-digit code shown in your authenticator app</p>
+                        </div>
+                    </div>
+
+                    <!-- Security Notice -->
+                    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3">
+                        <div class="flex items-start">
+                            <svg class="w-4 h-4 text-amber-400 mt-0.5 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <div>
+                                <h4 class="text-sm font-medium text-amber-800 dark:text-amber-200">Security Notice</h4>
+                                <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">After enabling OTP, you can optionally generate backup codes for account recovery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <button type="button" data-modal-toggle="otp-setup-modal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        Cancel
+                    </button>
+                    <%= f.submit "Enable OTP", class: "text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
