@@ -2,14 +2,16 @@ class AdminUser < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :two_factor_authenticatable, :two_factor_backupable, :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         otp_backup_code_length: 6,
+         otp_number_of_backup_codes: 10,
+         otp_allowed_drift: 30
 
   serialize :otp_backup_codes, coder: JSON
 
   include Avatar # , EmailValidations, NoticedAssociations
   rolify
   has_person_name
-
 
   def initials
     name.initials

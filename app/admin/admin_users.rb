@@ -81,31 +81,34 @@ ActiveAdmin.register AdminUser do
   controller do
     def update
       # Handle MFA setup verification
-      debugger
       if params[:admin_user] && params[:admin_user][:otp_required_for_login] == "true" && params[:admin_user][:otp_attempt].present?
         verification_code = params[:admin_user][:otp_attempt]
 
-        # Set the secret temporarily for validation (from _setup view)
-        # resource.otp_secret = params[:admin_user][:otp_secret]
+        # OTP secret should already be set from the setup view
+        unless resource.otp_secret.present?
+          flash[:alert] = "OTP setup not found. Please try again."
+          redirect_to edit_admin_admin_user_path(resource)
+          return
+        end
 
-        # Verify OTP code by comparing with current OTP
-        if resource.current_otp == verification_code
-          # Enable OTP and save the secret (already set in memory above)
+        # Verify OTP code using devise-two-factor validation
+        if resource.validate_and_consume_otp!(verification_code)
+          # Enable OTP
           resource.update!(otp_required_for_login: true)
 
           # Generate backup codes if supported
           if resource.respond_to?(:generate_otp_backup_codes!)
-            resource.generate_otp_backup_codes!
+            backup_codes = resource.generate_otp_backup_codes!
             resource.save!
 
             # Store backup codes in flash for one-time display
-            if resource.respond_to?(:otp_backup_codes) && resource.otp_backup_codes.present?
-              flash[:otp_backup_codes] = resource.otp_backup_codes
-            end
+            flash[:otp_backup_codes] = backup_codes
           end
 
           redirect_to edit_admin_admin_user_path(resource), notice: "OTP has been enabled successfully."
         else
+          # Reset the secret if validation failed
+          resource.update!(otp_secret: nil)
           flash[:alert] = "Invalid OTP verification code. Please try again."
           redirect_to edit_admin_admin_user_path(resource)
         end

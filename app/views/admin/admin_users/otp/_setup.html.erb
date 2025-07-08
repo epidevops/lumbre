@@ -34,9 +34,12 @@
 
                         <div class="bg-white dark:bg-gray-100 p-4 rounded-lg border border-gray-300 text-center mb-4">
                             <%
-                              # Generate OTP secret if not present
-                              resource.otp_secret = AdminUser.generate_otp_secret unless resource.otp_secret.present?
-
+                              # Ensure OTP secret exists for QR code generation
+                              unless resource.otp_secret.present?
+                                resource.otp_secret = AdminUser.generate_otp_secret
+                                resource.save!
+                              end
+                              
                               # Generate QR code for the provisioning URI
                               provisioning_uri = resource.otp_provisioning_uri(resource.email, issuer: "Lumbre")
                               qr_code = RQRCode::QRCode.new(provisioning_uri)
