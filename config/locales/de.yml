@@ -117,10 +117,10 @@ de:
       session:
         title: "Zwei-Faktor-Authentifizierung"
         description: "Geben Sie den Verifikationscode aus Ihrer Authentifizierungs-App ein, um die Anmeldung abzuschließen."
+        required: "Zwei-Faktor-Authentifizierung Erforderlich"
         code_label: "Verifikationscode"
         code_help: "Geben Sie den 6-stelligen Code aus Ihrer Authentifizierungs-App ein oder verwenden Sie einen Backup-Code"
         verify_button: "Verifizieren und Anmelden"
-        back_to_login: "← Zurück zur Anmeldung"
         cancel: "Abbrechen"
         success: "Erfolgreich mit Zwei-Faktor-Authentifizierung angemeldet."
         invalid_code: "Ungültiger Verifikationscode. Bitte versuchen Sie es erneut."

@@ -28,6 +28,10 @@ class AdminUser < ApplicationRecord
     }.to_json
   end
 
+  def super_admin?
+    has_role?(:super_admin)
+  end
+
   private
 
     def custom_public_avatar_url

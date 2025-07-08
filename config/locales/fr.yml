@@ -117,10 +117,10 @@ fr:
       session:
         title: "Authentification à Deux Facteurs"
         description: "Entrez le code de vérification de votre application d'authentification pour terminer la connexion."
+        required: "Authentification à Deux Facteurs Requise"
         code_label: "Code de Vérification"
         code_help: "Entrez le code à 6 chiffres de votre application d'authentification ou utilisez un code de sauvegarde"
         verify_button: "Vérifier et Se Connecter"
-        back_to_login: "← Retour à la Connexion"
         cancel: "Annuler"
         success: "Connexion réussie avec l'authentification à deux facteurs."
         invalid_code: "Code de vérification invalide. Veuillez réessayer."

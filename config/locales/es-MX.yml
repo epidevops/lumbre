@@ -117,10 +117,10 @@ es-MX:
       session:
         title: "Autenticación de Dos Factores"
         description: "Ingresa el código de verificación de tu app de autenticación para completar el inicio de sesión."
+        required: "Autenticación de Dos Factores Requerida"
         code_label: "Código de Verificación"
         code_help: "Ingresa el código de 6 dígitos de tu app de autenticación o usa un código de backup"
         verify_button: "Verificar e Iniciar Sesión"
-        back_to_login: "← Volver al Login"
         cancel: "Cancelar"
         success: "Inicio de sesión exitoso con autenticación de dos factores."
         invalid_code: "Código de verificación inválido. Por favor intenta de nuevo."

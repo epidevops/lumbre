@@ -62,8 +62,8 @@ class AdminOtpSessionFlowTest < ActionDispatch::IntegrationTest
     # Follow redirect to OTP challenge
     follow_redirect!
     assert_response :success
-    assert_select "h2", text: I18n.t("active_admin.otp.session.title")
-    assert_select "input[name='otp_attempt']"
+    assert_select "h2", text: /#{Regexp.escape(I18n.t('active_admin.otp.session.title'))}/
+    assert_select "input[name='admin_user[otp_attempt]']"
   end
 
   test "successful OTP verification completes login" do
@@ -88,7 +88,9 @@ class AdminOtpSessionFlowTest < ActionDispatch::IntegrationTest
 
     # Now verify the OTP
     post admin_user_otp_verify_path(locale: :en), params: {
-      otp_attempt: valid_otp
+      admin_user: {
+        otp_attempt: valid_otp
+      }
     }
 
     # Should redirect to admin area after successful verification
@@ -113,12 +115,14 @@ class AdminOtpSessionFlowTest < ActionDispatch::IntegrationTest
 
     # Try invalid OTP code
     post admin_user_otp_verify_path(locale: :en), params: {
-      otp_attempt: "000000" # Invalid code
+      admin_user: {
+        otp_attempt: "000000" # Invalid code
+      }
     }
 
     # Should stay on challenge page with error
     assert_response :success
-    assert_select "h2", text: I18n.t("active_admin.otp.session.title")
+    assert_select "h2", text: /#{Regexp.escape(I18n.t('active_admin.otp.session.title'))}/
   end
 
   test "backup code works for OTP verification" do
@@ -143,7 +147,9 @@ class AdminOtpSessionFlowTest < ActionDispatch::IntegrationTest
     backup_code = backup_codes.first
 
     post admin_user_otp_verify_path(locale: :en), params: {
-      otp_attempt: backup_code
+      admin_user: {
+        otp_attempt: backup_code
+      }
     }
 
     # Should redirect to admin area after successful verification

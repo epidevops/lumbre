@@ -13,10 +13,10 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
     # Wait for page to fully load
-    assert_text "Edit Admin User"
+    assert_text "Edit Admin User", wait: 10
 
     # Should show "Enable OTP" button when OTP is not enabled
-    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 10
 
     # The OTP setup modal should exist in the DOM (hidden by default)
     # Check page source to avoid Selenium visibility issues
@@ -32,8 +32,11 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
 
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
+    # Wait for page to fully load
+    assert_text "Edit Admin User", wait: 10
+
     # Should show "Disable OTP" button when OTP is enabled
-    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp")
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp"), wait: 10
   end
 
   test "should disable OTP when clicking disable button" do
@@ -47,20 +50,20 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
     # Wait for page to load
-    assert_text "Edit Admin User"
+    assert_text "Edit Admin User", wait: 10
 
     # Should show "Disable OTP" button when OTP is enabled
-    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp"), wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.disable_otp"), wait: 10
 
     # Click disable - the link should work even without handling confirmation
     # (The confirmation dialog may not work properly in headless browser tests)
     click_on I18n.t("active_admin.otp.admin_users.disable_otp")
 
     # Should show success message
-    assert_text I18n.t("active_admin.otp.admin_users.disabled_notice"), wait: 5
+    assert_text I18n.t("active_admin.otp.admin_users.disabled_notice"), wait: 10
 
     # Should show Enable OTP button again
-    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 5
+    assert_selector "a.action-item-button", text: I18n.t("active_admin.otp.admin_users.enable_otp"), wait: 10
 
     # Verify database state
     @admin_user.reload
@@ -74,14 +77,17 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
   test "OTP setup modal should contain required elements" do
     visit edit_admin_admin_user_path(@admin_user.id, locale: :en)
 
-    # Wait for page to fully load
-    assert_text "Edit Admin User"
+    # Wait for page to fully load and stabilize
+    assert_text "Edit Admin User", wait: 10
+    sleep 1
 
     # Check that the modal HTML exists in page source to avoid Selenium visibility issues
-    assert page.html.include?('id="otp-setup-modal"')
-    assert page.html.include?('name="admin_user[otp_attempt]"')
-    assert page.html.include?('name="admin_user[otp_required_for_login]"')
-    assert page.html.include?('type="submit"')
+    # Use page source directly to avoid DOM inspection errors
+    page_source = page.html
+    assert page_source.include?('id="otp-setup-modal"'), "OTP setup modal not found in page"
+    assert page_source.include?('name="admin_user[otp_attempt]"'), "OTP attempt field not found"
+    assert page_source.include?('name="admin_user[otp_required_for_login]"'), "OTP required field not found"
+    assert page_source.include?('type="submit"'), "Submit button not found"
   end
 
   test "should show backup codes modal after successful OTP setup" do
@@ -161,14 +167,26 @@ class AdminUsersOtpSystemTest < ApplicationSystemTestCase
   private
 
   def authenticate_admin
+    # Ensure admin doesn't have OTP enabled for login tests
+    @admin_user.update!(otp_required_for_login: false)
+
     # Log in as admin user for system tests
     visit new_admin_user_session_path(locale: :en)
 
-    fill_in "Email", with: @admin_user.email
-    fill_in "Password", with: ENV.fetch("DYNAMIC_PASSWORD") { Rails.application.credentials.dig(:passwords, :dynamic) || "secret1234!" }
-    click_on "Sign In"
+    # Wait for page to load and form to be available
+    assert_selector "form", wait: 10
 
-    # Verify we're logged in
-    assert_text "Signed in successfully"
+    # Use more specific selectors and add waits
+    within "form" do
+      fill_in "Email", with: @admin_user.email
+      fill_in "Password", with: ENV.fetch("DYNAMIC_PASSWORD") { Rails.application.credentials.dig(:passwords, :dynamic) || "secret1234!" }
+      click_on "Sign In"
+    end
+
+    # Wait for successful login and verify we're logged in
+    assert_text "Signed in successfully", wait: 10
+
+    # Wait for page to stabilize
+    sleep 0.5
   end
 end

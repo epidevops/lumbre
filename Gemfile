@@ -64,6 +64,7 @@ group :development do
   gem "web-console"
   gem "erb_lint", "~> 0.9.0", require: false
   gem "rdoc", "~> 6.14", require: false # rdoc --root="app/"
+  gem "dockerfile-rails", ">= 1.7"
 end
 
 group :test do
@@ -73,8 +74,6 @@ group :test do
 end
 
 gem "activeadmin", "~> 4.0.0.beta15"
-# gem "activeadmin_assets"
-# gem "activeadmin_assets", path: "/Users/jasonrossi/Sandbox/forked_repo/activeadmin_assets"
 gem "devise", "~> 4.9"
 gem "devise-two-factor", "~> 6.0"
 gem "rqrcode", "~> 2.2"
@@ -102,19 +101,14 @@ gem "blazer", "~> 3.3"
 gem "active_storage_dashboard", "~> 0.1.7"
 gem "vernier", "~> 1.0"
 gem "profile-viewer", "~> 0.0.5"
-  gem "letter_opener_web", "~> 3.0"
+gem "letter_opener_web", "~> 3.0"
+gem "rubycritic", require: false
 
 gem "sequenced", "~> 4.0"
 gem "positioning", "~> 0.4.5"
 gem "acts_as_list", "~> 1.2"
 gem "ice_cube", "~> 0.17.0"
-
 gem "simple_calendar", "~> 3.1"
 
-gem "rubycritic", require: false
-
-gem "dockerfile-rails", ">= 1.7", group: :development
-
 gem "litestream", "~> 0.14.0"
-
 gem "aws-sdk-s3", "~> 1.191", require: false

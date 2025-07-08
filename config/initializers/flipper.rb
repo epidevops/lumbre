@@ -1,7 +1,7 @@
 Rails.application.configure do
   ## Memoization ensures that only one adapter call is made per feature per request.
   ## For more info, see https://www.flippercloud.io/docs/optimization#memoization
-  # config.flipper.memoize = true
+  config.flipper.memoize = true
 
   ## Flipper preloads all features before each request, which is recommended if:
   ##   * you have a limited number of features (< 100?)
@@ -41,5 +41,5 @@ end
 ## See https://www.flippercloud.io/docs/features#enablement-group
 #
 Flipper.register(:admin_user) do |actor|
-  actor.respond_to?(:has_role?) && actor.has_role?(:super_admin)
+  actor.super_admin?
 end

@@ -146,10 +146,10 @@ en:
       session:
         title: "Two-Factor Authentication"
         description: "Enter the verification code from your authenticator app to complete sign in."
+        required: "Two-Factor Authentication Required"
         code_label: "Verification Code"
         code_help: "Enter the 6-digit code from your authenticator app or use a backup code"
         verify_button: "Verify & Sign In"
-        back_to_login: "← Back to Login"
         cancel: "Cancel"
         success: "Successfully signed in with two-factor authentication."
         invalid_code: "Invalid verification code. Please try again."

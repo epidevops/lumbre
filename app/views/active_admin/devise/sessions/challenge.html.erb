@@ -10,7 +10,7 @@
       </svg>
       <div>
         <p class="text-sm text-blue-700 dark:text-blue-300">
-          <strong>Two-Factor Authentication Required</strong>
+          <strong><%= t('active_admin.otp.session.required') %></strong>
         </p>
         <p class="text-xs text-blue-600 dark:text-blue-400">
           <%= t('active_admin.otp.session.code_help') %>
@@ -41,9 +41,8 @@
   %>
 
   <div class="flex items-center justify-between text-sm">
-    <%= link_to t('active_admin.otp.session.back_to_login'),
-                new_admin_user_session_path,
-                class: "text-blue-600 hover:underline dark:text-blue-500" %>
+    <% scope = Devise::Mapping.find_scope!(resource_name) %>
+    <%= link_to t('active_admin.devise.links.sign_in'), main_app.send(:"new_#{scope}_session_path") %>
     <%= link_to t('active_admin.otp.session.cancel'),
                 admin_user_otp_cancel_path,
                 method: :delete,

@@ -2,11 +2,14 @@ Rails.application.routes.draw do
   # Mount Active Storage routes outside of locale scope
   # mount ActiveStorage::Engine => "/rails/active_storage"
 
+  # Active Admin Devise routes (outside locale scope to maintain AA defaults)
+
+
   scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :admin_users, ActiveAdmin::Devise.config.merge(
-      controllers: {
+      controllers: ActiveAdmin::Devise.config[:controllers].merge(
         sessions: "admin_users/sessions"
-      }
+      )
     )
 
     ActiveAdmin.routes(self)
@@ -18,7 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do
+  authenticate :admin_user, lambda { |admin_user| admin_user.super_admin? } do
     # Core admin tools - always available in production
     mount Blazer::Engine, at: "/blazer", as: :mount_blazer
     mount ExceptionTrack::Engine, at: "/exception-track", as: :mount_exception_track
