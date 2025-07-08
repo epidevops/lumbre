@@ -114,6 +114,21 @@ de:
         disabled_notice: "OTP wurde deaktiviert."
         setup_error: "OTP-Setup nicht gefunden. Bitte versuchen Sie es erneut."
         verification_error: "Ungültiger OTP-Verifikationscode. Bitte versuchen Sie es erneut."
+      session:
+        title: "Zwei-Faktor-Authentifizierung"
+        description: "Geben Sie den Verifikationscode aus Ihrer Authentifizierungs-App ein, um die Anmeldung abzuschließen."
+        code_label: "Verifikationscode"
+        code_help: "Geben Sie den 6-stelligen Code aus Ihrer Authentifizierungs-App ein oder verwenden Sie einen Backup-Code"
+        verify_button: "Verifizieren und Anmelden"
+        back_to_login: "← Zurück zur Anmeldung"
+        cancel: "Abbrechen"
+        success: "Erfolgreich mit Zwei-Faktor-Authentifizierung angemeldet."
+        invalid_code: "Ungültiger Verifikationscode. Bitte versuchen Sie es erneut."
+        code_required: "Verifikationscode ist erforderlich."
+        expired: "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+        cancelled: "Zwei-Faktor-Authentifizierung abgebrochen."
+        backup_codes_title: "Gerät verloren?"
+        backup_code_info: "Sie können auch einen Backup-Code verwenden, falls Ihr Authentifizierungsgerät nicht verfügbar ist."
   developer_tools:
     blazer:
       description: "Ein leistungsstarkes SQL-Abfragewerkzeug, mit dem Sie SQL-Abfragen erstellen, speichern und teilen können. Perfekt für Datenanalyse und Berichterstattung."

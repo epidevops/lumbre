@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
-
   # Mount Active Storage routes outside of locale scope
   # mount ActiveStorage::Engine => "/rails/active_storage"
 
   scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    devise_for :admin_users, ActiveAdmin::Devise.config.merge(
+      controllers: {
+        sessions: "admin_users/sessions"
+      }
+    )
+
     ActiveAdmin.routes(self)
+
+    devise_scope :admin_user do
+      get "admin/mfa", to: "admin_users/sessions/otp#challenge", as: :admin_user_otp_challenge
+      post "admin/mfa", to: "admin_users/sessions/otp#verify", as: :admin_user_otp_verify
+      delete "admin/mfa", to: "admin_users/sessions/otp#cancel", as: :admin_user_otp_cancel
+    end
   end
 
   authenticate :admin_user, lambda { |admin_user| admin_user.has_role?(:super_admin) } do

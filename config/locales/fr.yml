@@ -114,6 +114,21 @@ fr:
         disabled_notice: "L'OTP a été désactivé."
         setup_error: "Configuration OTP introuvable. Veuillez réessayer."
         verification_error: "Code de vérification OTP invalide. Veuillez réessayer."
+      session:
+        title: "Authentification à Deux Facteurs"
+        description: "Entrez le code de vérification de votre application d'authentification pour terminer la connexion."
+        code_label: "Code de Vérification"
+        code_help: "Entrez le code à 6 chiffres de votre application d'authentification ou utilisez un code de sauvegarde"
+        verify_button: "Vérifier et Se Connecter"
+        back_to_login: "← Retour à la Connexion"
+        cancel: "Annuler"
+        success: "Connexion réussie avec l'authentification à deux facteurs."
+        invalid_code: "Code de vérification invalide. Veuillez réessayer."
+        code_required: "Le code de vérification est requis."
+        expired: "Votre session a expiré. Veuillez vous reconnecter."
+        cancelled: "Authentification à deux facteurs annulée."
+        backup_codes_title: "Appareil perdu ?"
+        backup_code_info: "Vous pouvez aussi utiliser un code de sauvegarde si votre authentificateur n'est pas disponible."
   developer_tools:
     blazer:
       description: "Un puissant outil de requêtes SQL qui vous permet de créer, sauvegarder et partager des requêtes SQL. Parfait pour l'analyse de données et les rapports."

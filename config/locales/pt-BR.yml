@@ -114,6 +114,21 @@ pt-BR:
         disabled_notice: "OTP foi desativado."
         setup_error: "Configuração OTP não encontrada. Por favor, tente novamente."
         verification_error: "Código de verificação OTP inválido. Por favor, tente novamente."
+      session:
+        title: "Autenticação de Dois Fatores"
+        description: "Digite o código de verificação do seu aplicativo de autenticação para completar o login."
+        code_label: "Código de Verificação"
+        code_help: "Digite o código de 6 dígitos do seu aplicativo de autenticação ou use um código de backup"
+        verify_button: "Verificar e Fazer Login"
+        back_to_login: "← Voltar ao Login"
+        cancel: "Cancelar"
+        success: "Login realizado com sucesso com autenticação de dois fatores."
+        invalid_code: "Código de verificação inválido. Por favor, tente novamente."
+        code_required: "Código de verificação é obrigatório."
+        expired: "Sua sessão expirou. Por favor, faça login novamente."
+        cancelled: "Autenticação de dois fatores cancelada."
+        backup_codes_title: "Perdeu seu dispositivo?"
+        backup_code_info: "Você também pode usar um código de backup se seu autenticador não estiver disponível."
   developer_tools:
     blazer:
       description: "Uma poderosa ferramenta de consultas SQL que permite criar, salvar e compartilhar consultas SQL. Perfeita para análise de dados e relatórios."
