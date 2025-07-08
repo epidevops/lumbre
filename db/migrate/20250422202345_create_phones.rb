@@ -1,4 +1,4 @@
-class CreatePhones < ActiveRecord::Migration[8.1]
+class CreatePhones < ActiveRecord::Migration[8.0]
   def change
     create_table :phones do |t|
       t.references :phoneable, polymorphic: true, null: false

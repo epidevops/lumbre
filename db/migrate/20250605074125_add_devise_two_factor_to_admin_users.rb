@@ -1,4 +1,4 @@
-class AddDeviseTwoFactorToAdminUsers < ActiveRecord::Migration[8.1]
+class AddDeviseTwoFactorToAdminUsers < ActiveRecord::Migration[8.0]
   def change
     add_column :admin_users, :otp_secret, :string
     add_column :admin_users, :consumed_timestep, :integer

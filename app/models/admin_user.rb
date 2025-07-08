@@ -9,8 +9,6 @@ class AdminUser < ApplicationRecord
   has_person_name
 
 
-  # enum preferred_locale: %w[I18n.available_locales.map(&:to_s).join(" ")]
-
   def initials
     name.initials
   end

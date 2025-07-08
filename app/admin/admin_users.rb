@@ -5,7 +5,6 @@ ActiveAdmin.register AdminUser do
   permit_params :first_name, :last_name, :title, :bio,
                 :active, :username, :email, :encrypted_password, # :password, :password_confirmation,
                 :reset_password_token, :reset_password_sent_at, :remember_created_at,
-                :otp_required_for_login, :otp_secret, :consumed_timestep,
                 :password, :password_confirmation,
                 :preferred_language, :created_at, :updated_at,
                 :avatar,
@@ -60,10 +59,6 @@ ActiveAdmin.register AdminUser do
   # controller do
   #   skip_before_action :set_locale, only: %i[create update]
   # end
-
-  action_item :two_factor, only: %i[edit show], priority: 1 do
-    link_to "Two Factor", "#", class: "action-item-button"
-  end
 
   member_action :delete_avatar, method: :get do
     resource.avatar.purge

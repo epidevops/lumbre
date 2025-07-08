@@ -1,7 +1,8 @@
 source "https://rubygems.org"
 
 # Use main development branch of Rails
-gem "rails", github: "rails/rails", branch: "main"
+# gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.0", ">= 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 # gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -74,7 +75,8 @@ end
 gem "activeadmin", "~> 4.0.0.beta15"
 # gem "activeadmin_assets"
 # gem "activeadmin_assets", path: "/Users/jasonrossi/Sandbox/forked_repo/activeadmin_assets"
-gem "devise", github: "heartcombo/devise", branch: "main"
+gem "devise", "~> 4.9"
+gem "devise-two-factor", "~> 6.0"
 gem "devise-i18n", "~> 1.14"
 gem "rails-i18n", "~> 8.0"
 gem "mobility", "~> 1.3"
