@@ -12,3 +12,4 @@
 //= link solid_litequeen/icons/spline.svg
 //= link solid_litequeen/icons/workflow.svg
 //= link solid_litequeen/icons/x.svg
+//= link solid_litequeen/icons/copy-clipboard.svg
