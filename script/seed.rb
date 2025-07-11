@@ -1,9 +1,11 @@
+system("bin/rails db:fixtures:load FIXTURES=system_contact_type_labels")
 
 AdminUser.create!(first_name: "Admin", last_name: "User", email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 %w[super_admin admin developer new_user].each do |role|
   Role.create!(name: role)
 end
 AdminUser.first.add_role :super_admin
+AdminUser.first.emails.create!(label: "authentication", email: "admin@example.com", active: true)
 
 User.create!(first_name: "User", last_name: "User", email: 'user@example.com', password: 'password', password_confirmation: 'password')
 

@@ -7,7 +7,17 @@ class AdminUser < ApplicationRecord
          otp_number_of_backup_codes: 10,
          otp_allowed_drift: 30
 
+  has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :phones, as: :phoneable, dependent: :destroy
+  has_many :emails, as: :emailable, dependent: :destroy
+
+  accepts_nested_attributes_for :addresses, allow_destroy: true
+  accepts_nested_attributes_for :phones, allow_destroy: true
+  accepts_nested_attributes_for :emails, allow_destroy: true
+
   serialize :otp_backup_codes, coder: JSON
+
+  before_validation :password_required?
 
   include Avatar # , EmailValidations, NoticedAssociations
   rolify
@@ -33,6 +43,12 @@ class AdminUser < ApplicationRecord
   end
 
   private
+
+    def password_required?
+      # Don't require password for existing records unless password is being changed
+      return false if persisted? && password.blank? && password_confirmation.blank?
+      true
+    end
 
     def custom_public_avatar_url
       return nil unless avatar.attached?

@@ -20,7 +20,7 @@
             </div>
 
             <!-- Modal body -->
-            <%= form_with model: [:admin, resource], url: admin_admin_user_path(resource), method: :patch, local: true, class: "p-4 md:p-5" do |f| %>
+            <%= form_with model: [:admin, resource], url: edit_admin_admin_user_path(resource), method: :patch, local: true, class: "p-4 md:p-5" do |f| %>
                 <%= f.hidden_field :otp_required_for_login, value: true %>
 
 

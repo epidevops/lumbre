@@ -1,0 +1,111 @@
+phone_mobile:
+  contact_type: phone
+  label: mobile
+
+phone_restaurant:
+  contact_type: phone
+  label: "Restaurant Phone WhatsApp"
+
+phone_billing:
+  contact_type: phone
+  label: billing
+
+phone_home:
+  contact_type: phone
+  label: home
+
+phone_work:
+  contact_type: phone
+  label: work
+
+phone_main:
+  contact_type: phone
+  label: main
+
+phone_work_fax:
+  contact_type: phone
+  label: work_fax
+
+phone_home_fax:
+  contact_type: phone
+  label: home_fax
+
+phone_pager:
+  contact_type: phone
+  label: pager
+
+phone_other:
+  contact_type: phone
+  label: other
+
+phone_authentication:
+  contact_type: phone
+  label: authentication
+
+email_home:
+  contact_type: email
+  label: home
+
+email_work:
+  contact_type: email
+  label: work
+
+email_other:
+  contact_type: email
+  label: other
+
+email_main:
+  contact_type: email
+  label: main
+
+email_custom:
+  contact_type: email
+  label: custom
+
+email_office:
+  contact_type: email
+  label: office
+
+email_authentication:
+  contact_type: email
+  label: authentication
+
+email_restaurant:
+  contact_type: email
+  label: "General Email"
+
+address_billing:
+  contact_type: address
+  label: billing
+
+address_shipping:
+  contact_type: address
+  label: shipping
+
+address_work:
+  contact_type: address
+  label: work
+
+address_home:
+  contact_type: address
+  label: home
+
+address_office:
+  contact_type: address
+  label: office
+
+address_main:
+  contact_type: address
+  label: main
+
+address_satellite:
+  contact_type: address
+  label: satellite
+
+address_restaurant:
+  contact_type: address
+  label: "Restaurant Address"
+
+address_restaurant_embedded_map:
+  contact_type: address
+  label: "Restaurant Embedded Map"

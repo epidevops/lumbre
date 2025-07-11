@@ -66,9 +66,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
   create_table "addresses", force: :cascade do |t|
     t.string "addressable_type", null: false
     t.integer "addressable_id", null: false
-    t.string "label", null: false
-    t.string "address", null: false
+    t.string "label"
+    t.string "address"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "country", default: "US", null: false
+    t.string "time_zone", default: "Central Time (US & Canada)", null: false
     t.string "url"
+    t.boolean "default", default: false, null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -181,8 +189,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
   create_table "emails", force: :cascade do |t|
     t.string "emailable_type", null: false
     t.integer "emailable_id", null: false
-    t.string "label", null: false
-    t.string "email", null: false
+    t.string "label"
+    t.string "email"
+    t.boolean "default", default: false, null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -278,8 +287,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
   create_table "phones", force: :cascade do |t|
     t.string "phoneable_type", null: false
     t.integer "phoneable_id", null: false
-    t.string "label", null: false
-    t.string "phone", null: false
+    t.string "label"
+    t.string "phone"
+    t.boolean "default", default: false, null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -401,6 +411,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
     t.boolean "primary", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "system_contact_type_labels", force: :cascade do |t|
+    t.string "contact_type", null: false
+    t.string "label", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_type", "label"], name: "index_system_contact_type_labels_on_contact_type_and_label", unique: true
   end
 
   create_table "todos", force: :cascade do |t|
