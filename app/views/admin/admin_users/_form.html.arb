@@ -16,10 +16,8 @@ active_admin_form_for [ :admin, resource ] do |f|
         f.input :active, as: :boolean
         f.input :username
         f.input :email
-        if f.object.new_record?
-          f.input :password
-          f.input :password_confirmation
-        end
+        f.input :password
+        f.input :password_confirmation
       end
 
       # MFA Section
@@ -46,6 +44,61 @@ active_admin_form_for [ :admin, resource ] do |f|
       # end
     end
 
+    tab "Contact" do
+      tabs do
+        tab "Addresses" do
+          f.inputs do
+            # f.has_many :addresses, heading: false, allow_destroy: policy(resource).delete_address? do |a|
+            f.has_many :addresses, heading: false, allow_destroy: true do |a|
+              a.input :id, as: :hidden
+              a.input :label, as: :select, collection: SystemContactTypeLabel.address.pluck(:label).map { |l| [ l.humanize, l ] }
+              a.input :address
+              a.input :address_line_1
+              a.input :address_line_2
+              a.input :city
+              a.input :state, as: :select, collection: CS.states(:US).invert
+              a.input :zip
+              a.input :country, as: :select, collection: CS.countries.invert
+              a.input :time_zone
+              a.input :url
+              a.input :default
+              a.input :active
+            end
+          end
+        end
+        tab "Emails" do
+          f.inputs do
+            # f.has_many :emails, heading: false, allow_destroy: policy(resource).delete_email? do |e|
+            f.has_many :emails, heading: false, allow_destroy: true do |e|
+              disabled = e.object.label == "authentication" && !e.object.new_record?
+              e.input :id, as: :hidden
+              e.input :label, as: :select, collection: SystemContactTypeLabel.email.pluck(:label).map { |l| [ l.humanize, l ] }, input_html: { disabled: disabled }
+              e.input :email, input_html: { autocomplete: "off", disabled: disabled }
+              unless disabled
+                e.input :default
+                e.input :active
+              end
+            end
+          end
+        end
+        tab "Phones" do
+          f.inputs do
+            # f.has_many :phones, heading: false, allow_destroy: policy(resource).delete_phone? do |ph|
+            f.has_many :phones, heading: false, allow_destroy: true do |ph|
+              disabled = ph.object.label == "authentication" && !ph.object.new_record?
+              ph.input :id, as: :hidden
+              ph.input :label, as: :select, collection: SystemContactTypeLabel.phone.pluck(:label).map { |l| [ l.humanize, l ] }, input_html: { disabled: disabled }
+              ph.input :phone, input_html: { disabled: disabled }
+              unless disabled
+                ph.input :default
+                ph.input :active
+              end
+            end
+          end
+        end
+      end
+    end
+
     tab "Preferences" do
       inputs do
         f.input :preferred_language, as: :select,
@@ -59,15 +112,18 @@ active_admin_form_for [ :admin, resource ] do |f|
   f.actions
 
   # Include OTP Setup Modal
-  unless resource.otp_required_for_login?
-    div do
-      render partial: "admin/admin_users/otp/setup", locals: { resource: resource }
+  if resource.persisted?
+    unless resource.otp_required_for_login?
+      div do
+        render partial: "admin/admin_users/otp/setup", locals: { resource: resource }
+      end
     end
-  end
 
-  if flash[:otp_backup_codes].present?
-    div do
-      render partial: "admin/admin_users/otp/backup_codes", locals: { backup_codes: flash[:otp_backup_codes] }
+
+    if flash[:otp_backup_codes].present?
+      div do
+        render partial: "admin/admin_users/otp/backup_codes", locals: { backup_codes: flash[:otp_backup_codes] }
+      end
     end
   end
 end

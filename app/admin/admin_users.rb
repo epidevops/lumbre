@@ -9,6 +9,9 @@ ActiveAdmin.register AdminUser do
                 :preferred_language, :created_at, :updated_at,
                 :avatar,
                 :otp_secret, :otp_backup_codes, :consumed_timestep, :otp_required_for_login, :otp_attempt,
+                addresses_attributes: %i[id label address address_line_1 address_line_2 city state zip country time_zone url default active _destroy],
+                emails_attributes: %i[id label email default active _destroy],
+                phones_attributes: %i[id label phone default active _destroy],
                 admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
                 roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
 
