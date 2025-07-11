@@ -109,6 +109,7 @@
     </div>
 </div>
 
+<% if flash[:otp_backup_codes].present? %>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize and auto-show modal when page loads if backup codes are present
@@ -141,8 +142,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize the modal with Flowbite
         const modalInstance = new window.Modal($targetEl, options, instanceOptions);
 
-        // Show the modal
+        // Show the modal immediately
         modalInstance.show();
     }
 });
 </script>
+<% end %>

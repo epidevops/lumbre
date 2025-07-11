@@ -61,7 +61,7 @@ ActiveAdmin.register AdminUser do
   #   skip_before_action :set_locale, only: %i[create update]
   # end
 
-  action_item :otp_toggle, only: %i[edit], priority: 1 do
+  action_item :otp_toggle, only: %i[edit], priority: 2 do
     if resource.otp_required_for_login?
       link_to t("active_admin.otp.admin_users.disable_otp"), otp_disable_admin_admin_user_path(resource), method: :get,
               confirm: t("active_admin.otp.admin_users.disable_confirm"),
@@ -76,6 +76,23 @@ ActiveAdmin.register AdminUser do
   member_action :otp_disable, method: :get do
     resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil, consumed_timestep: 0)
     redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.disabled_notice")
+  end
+
+
+  action_item :otp_generate_new_backup_codes, only: %i[edit], priority: 1 do
+    if resource.otp_required_for_login?
+      link_to t("active_admin.otp.admin_users.generate_new_backup_codes"), otp_generate_new_backup_codes_admin_admin_user_path(resource), method: :get,
+                class: "action-item-button btn-primary"
+    end
+  end
+
+  member_action :otp_generate_new_backup_codes, method: :get do
+    backup_codes = resource.generate_otp_backup_codes!
+    resource.save!
+
+    # Store backup codes in flash for one-time display
+    flash[:otp_backup_codes] = backup_codes
+    redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.new_backup_codes_notice")
   end
 
   controller do
@@ -145,7 +162,7 @@ ActiveAdmin.register AdminUser do
   filter :title
   filter :preferred_language
   filter :active
-  filter :mfa_enabled
+  filter :otp_required_for_login
 
   # Add or remove columns to toggle their visibility in the index action
   index do
@@ -157,7 +174,7 @@ ActiveAdmin.register AdminUser do
     column :title
     column :preferred_language
     column :active
-    column :mfa_enabled
+    column :otp_required_for_login
     actions
   end
 
@@ -170,7 +187,7 @@ ActiveAdmin.register AdminUser do
           if admin_user.avatar.attached?
             begin
               # image_tag(rails_blob_path(admin_user.avatar.variant(resize_to_limit: [100, 100]), only_path: true), class: "admin-avatar", alt: "Admin avatar")
-              image_tag(rails_blob_path(admin_user.avatar_thumb), class: "admin-avatar", alt: "Admin avatar")
+              image_tag(rails_blob_path(admin_user.avatar_thumb), class: "rounded-full", alt: "Admin avatar")
             rescue => e
               "Error loading avatar: #{e.message}"
             end
@@ -185,7 +202,7 @@ ActiveAdmin.register AdminUser do
       row :title
       row :preferred_language
       row :active
-      row :mfa_enabled
+      row :otp_required_for_login
     end
   end
 

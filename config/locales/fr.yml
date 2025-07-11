@@ -110,8 +110,10 @@ fr:
         enable_otp: "Activer l'OTP"
         disable_otp: "Désactiver l'OTP"
         disable_confirm: "Êtes-vous sûr de vouloir désactiver l'OTP ?"
+        generate_new_backup_codes: "Nouveaux Codes de Sauvegarde OTP"
         enabled_notice: "L'OTP a été activé avec succès."
         disabled_notice: "L'OTP a été désactivé."
+        new_backup_codes_notice: "Nouveaux codes de sauvegarde générés avec succès."
         setup_error: "Configuration OTP introuvable. Veuillez réessayer."
         verification_error: "Code de vérification OTP invalide. Veuillez réessayer."
       session:

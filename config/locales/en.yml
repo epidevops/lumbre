@@ -139,8 +139,10 @@ en:
         enable_otp: "Enable OTP"
         disable_otp: "Disable OTP"
         disable_confirm: "Are you sure you want to disable OTP?"
+        generate_new_backup_codes: "New OTP Backup Codes"
         enabled_notice: "OTP has been enabled successfully."
         disabled_notice: "OTP has been disabled."
+        new_backup_codes_notice: "New backup codes generated successfully."
         setup_error: "OTP setup not found. Please try again."
         verification_error: "Invalid OTP verification code. Please try again."
       session:
