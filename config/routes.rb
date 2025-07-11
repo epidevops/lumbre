@@ -40,13 +40,13 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
-    resources :sections do
-      member do
-        post :toggle_active
-      end
-    end
-  end
+  # namespace :admin do
+  #   resources :sections do
+  #     member do
+  #       post :toggle_active
+  #     end
+  #   end
+  # end
 
   # direct :fresh_admin_user_avatar do |admin_user, options|
   #   route_for :avatar_admin_admin_user, admin_user.avatar_token, v: admin_user.updated_at.to_fs(:number)
@@ -80,15 +80,15 @@ Rails.application.routes.draw do
         mount MissionControl::Jobs::Engine, at: "/dev/jobs", as: :mount_mission_control_jobs_dev
         mount Lookbook::Engine, at: "/dev/lookbook", as: :mount_lookbook_dev
         mount ActiveStorageDashboard::Engine, at: "/dev/active-storage-dashboard", as: :mount_active_storage_dashboard_dev
+
+        resources :todos do
+          member do
+            patch :move
+          end
+        end
       end
     rescue ActiveRecord::StatementInvalid, ActiveRecord::NoDatabaseError
       # Skip Flipper checks during database setup
-    end
-
-    resources :todos do
-      member do
-        patch :move
-      end
     end
   end
 

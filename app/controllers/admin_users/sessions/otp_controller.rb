@@ -14,7 +14,7 @@ class AdminUsers::Sessions::OtpController < ActiveAdmin::Devise::SessionsControl
     if resource.validate_and_consume_otp!(params[:admin_user][:otp_attempt]) || resource.invalidate_otp_backup_code!(params[:admin_user][:otp_attempt])
       session.delete(:pending_admin_user_id)
       sign_in(resource_name, resource)
-      redirect_to admin_root_path, notice: t("active_admin.otp.session.success")
+      redirect_to admin_dashboard_path, notice: t("active_admin.otp.session.success")
     else
       render :challenge, alert: t("active_admin.otp.session.invalid_code")
     end

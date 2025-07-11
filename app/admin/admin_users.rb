@@ -63,18 +63,18 @@ ActiveAdmin.register AdminUser do
 
   action_item :otp_toggle, only: %i[edit], priority: 1 do
     if resource.otp_required_for_login?
-      link_to t("active_admin.otp.admin_users.disable_otp"), otp_disable_admin_admin_user_path(resource), method: :delete,
+      link_to t("active_admin.otp.admin_users.disable_otp"), otp_disable_admin_admin_user_path(resource), method: :get,
               confirm: t("active_admin.otp.admin_users.disable_confirm"),
               class: "action-item-button btn-danger"
     else
       link_to t("active_admin.otp.admin_users.enable_otp"), "#",
               class: "action-item-button btn-primary",
-              data: { modal_target: "otp-setup-modal", modal_toggle: "otp-setup-modal" }
+              data: { modal_target: "otp-setup-modal", modal_show: "otp-setup-modal" }
     end
   end
 
-  member_action :otp_disable, method: :delete do
-    resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil)
+  member_action :otp_disable, method: :get do
+    resource.update(otp_required_for_login: false, otp_secret: nil, otp_backup_codes: nil, consumed_timestep: 0)
     redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.disabled_notice")
   end
 
@@ -83,18 +83,15 @@ ActiveAdmin.register AdminUser do
       # Handle MFA setup verification
       if params[:admin_user] && params[:admin_user][:otp_required_for_login] == "true" && params[:admin_user][:otp_attempt].present?
         verification_code = params[:admin_user][:otp_attempt]
+        temp_otp_secret = params[:admin_user][:otp_secret]
 
-        # OTP secret should already be set from the setup view
-        unless resource.otp_secret.present?
-          flash[:alert] = t("active_admin.otp.admin_users.setup_error")
-          redirect_to edit_admin_admin_user_path(resource)
-          return
-        end
+        # Set the temp secret for verification (don't save yet)
+        resource.otp_secret = temp_otp_secret
 
         # Verify OTP code using devise-two-factor validation
         if resource.validate_and_consume_otp!(verification_code)
-          # Enable OTP
-          resource.update!(otp_required_for_login: true)
+          # Enable OTP and save the secret
+          resource.update!(otp_required_for_login: true, otp_secret: temp_otp_secret)
 
           # Generate backup codes if supported
           if resource.respond_to?(:generate_otp_backup_codes!)
@@ -107,8 +104,8 @@ ActiveAdmin.register AdminUser do
 
           redirect_to edit_admin_admin_user_path(resource), notice: t("active_admin.otp.admin_users.enabled_notice")
         else
-          # Reset the secret if validation failed
-          resource.update!(otp_secret: nil)
+          # Don't save anything if validation failed
+          resource.reload # Reset any changes
           flash[:alert] = t("active_admin.otp.admin_users.verification_error")
           redirect_to edit_admin_admin_user_path(resource)
         end
@@ -131,10 +128,10 @@ ActiveAdmin.register AdminUser do
       referer_params = Rails.application.routes.recognize_path(URI.parse(request.referer).path)
       redirect_to url_for(referer_params.merge(locale: params[:preferred_language]))
     else
-      redirect_to admin_root_path(locale: params[:preferred_language])
+      redirect_to admin_dashboard_path(locale: params[:preferred_language])
     end
   rescue ActionController::RoutingError
-    redirect_to admin_root_path(locale: params[:preferred_language])
+    redirect_to admin_dashboard_path(locale: params[:preferred_language])
   end
 
   # For security, limit the actions that should be available

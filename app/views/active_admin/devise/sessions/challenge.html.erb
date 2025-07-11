@@ -19,7 +19,8 @@
     </div>
   </div>
 
-  <%= active_admin_form_for(resource, url: admin_user_otp_verify_path, method: :post) do |f|
+  <% scope = Devise::Mapping.find_scope!(resource_name) %>
+  <%= active_admin_form_for(resource, as: resource_name, url: admin_user_otp_verify_path, method: :post) do |f|
     f.inputs do
       f.input :otp_attempt,
               label: t('active_admin.otp.session.code_label'),
@@ -41,7 +42,6 @@
   %>
 
   <div class="flex items-center justify-between text-sm">
-    <% scope = Devise::Mapping.find_scope!(resource_name) %>
     <%= link_to t('active_admin.devise.links.sign_in'), main_app.send(:"new_#{scope}_session_path") %>
     <%= link_to t('active_admin.otp.session.cancel'),
                 admin_user_otp_cancel_path,

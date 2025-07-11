@@ -16,6 +16,33 @@ export default {
     './app/javascript/**/*.js'
   ],
   darkMode: "selector",
+  theme: {
+    extend: {
+      keyframes: {
+        "appear-then-fade": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(-10px)",
+          },
+          "15%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+          "70%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translateY(-10px)",
+          },
+        },
+      },
+      animation: {
+        "appear-then-fade": "appear-then-fade 6s 300ms both ease-out",
+      },
+    },
+  },
   plugins: [
     activeAdminPlugin
   ]
