@@ -110,8 +110,10 @@ es:
         enable_otp: "Habilitar OTP"
         disable_otp: "Deshabilitar OTP"
         disable_confirm: "¿Estás seguro de que quieres deshabilitar OTP?"
+        generate_new_backup_codes: "Nuevos Códigos de Respaldo OTP"
         enabled_notice: "OTP ha sido habilitado exitosamente."
         disabled_notice: "OTP ha sido deshabilitado."
+        new_backup_codes_notice: "Nuevos códigos de respaldo generados exitosamente."
         setup_error: "Configuración OTP no encontrada. Por favor intenta de nuevo."
         verification_error: "Código de verificación OTP inválido. Por favor intenta de nuevo."
       session:
