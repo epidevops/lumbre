@@ -11,7 +11,7 @@
                     </svg>
                     <%= t('active_admin.otp.setup.title') %>
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="otp-setup-modal">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="otp-setup-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -22,6 +22,7 @@
             <!-- Modal body -->
             <%= form_with model: [:admin, resource], url: admin_admin_user_path(resource), method: :patch, local: true, class: "p-4 md:p-5" do |f| %>
                 <%= f.hidden_field :otp_required_for_login, value: true %>
+
 
                 <div class="grid gap-4 mb-4 grid-cols-1">
                     <!-- QR Code Section -->
@@ -34,23 +35,22 @@
 
                         <div class="bg-white dark:bg-gray-100 p-4 rounded-lg border border-gray-300 text-center mb-4">
                             <%
-                              # Ensure OTP secret exists for QR code generation
-                              unless resource.otp_secret.present?
-                                resource.otp_secret = AdminUser.generate_otp_secret
-                                resource.save!
-                              end
-                              
+                              # Generate temporary OTP secret for QR code (don't save until verified)
+                              temp_otp_secret = resource.otp_secret.presence || AdminUser.generate_otp_secret
+
                               # Generate QR code for the provisioning URI
-                              provisioning_uri = resource.otp_provisioning_uri(resource.email, issuer: "Lumbre")
+                              issuer = Rails.env.production? ? "Lumbre" : "Lumbre-#{Rails.env.upcase.first(3)}"
+                              provisioning_uri = resource.otp_provisioning_uri(resource.email, issuer: issuer, otp_secret: temp_otp_secret)
                               qr_code = RQRCode::QRCode.new(provisioning_uri)
                             %>
+                            <%= f.hidden_field :otp_secret, value: temp_otp_secret %>
                             <%= qr_code.as_svg(module_size: 3).html_safe %>
                         </div>
 
                         <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
                             <label class="block mb-2 text-xs font-medium text-gray-700 dark:text-gray-300"><%= t('active_admin.otp.setup.manual_entry_label') %></label>
                             <div class="bg-white dark:bg-gray-800 p-2 rounded border text-center">
-                                <code class="text-xs font-mono text-gray-800 dark:text-gray-200 break-all select-all"><%= resource.otp_secret %></code>
+                                <code class="text-xs font-mono text-gray-800 dark:text-gray-200 break-all select-all"><%= temp_otp_secret %></code>
                             </div>
                             <p class="text-xs text-gray-500 dark:text-gray-400 mt-1"><%= t('active_admin.otp.setup.manual_entry_description') %></p>
                         </div>
@@ -92,8 +92,8 @@
                 </div>
 
                 <div class="flex items-center space-x-3">
-                    <button type="button" data-modal-toggle="otp-setup-modal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-<%= t('active_admin.otp.setup.cancel_button') %>
+                    <button type="button" data-modal-hide="otp-setup-modal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                      <%= t('active_admin.otp.setup.cancel_button') %>
                     </button>
                     <%= f.submit t('active_admin.otp.setup.enable_button'), class: "text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" %>
                 </div>
