@@ -1,20 +1,20 @@
 <!-- Hero section -->
 <div class="bg-gray-900 h-dvh">
-  <div class="relative isolate overflow-hidden h-dvh flex flex-col justify-center">
+  <div class="relative isolate overflow-hidden h-dvh flex flex-col">
     <%= video_tag 'lumbreyhumo.mp4', autoplay: true, loop: true, muted: true, type: 'video/mp4', class: 'absolute inset-0 -z-10 size-full object-cover' %>
 
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-24 lg:mt-32">
       <div class="mx-auto max-w-2xl py-4 sm:py-8 lg:py-10">
         <% if @announcement %>
           <%= render "hero_announcement", local_assigns: { announcement: @announcement } %>
         <% end %>
-        <div class="text-center bg-gray-900/50 rounded-lg p-4 position-center">
+        <div class="text-center bg-gray-900/50 rounded-lg p-4">
           <h1 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-7xl uppercase"><%= @restaurant.name %></h1>
           <p class="text-lg font-semibold tracking-widest text-white sm:text-xl uppercase"><%= @restaurant.slogan %></p>
           <p class="hidden sm:block mt-4 text-lg font-medium text-pretty text-white sm:text-xl/8"><%= @restaurant.hero_text %></p>
         </div>
 
-        <div class="text-center bg-gray-900/50 rounded-lg p-4 position-center mt-4">
+        <div class="text-center bg-gray-900/50 rounded-lg p-4 mt-4">
           <%= render "hero_hours" %>
         </div>
 
