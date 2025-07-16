@@ -3,8 +3,7 @@
 one:
   first_name: Admin
   last_name: User
-  title: Admin
-  bio: Admin User Bio
   email: admin@example.com
   encrypted_password: <%= encrypted_password %>
   preferred_language: en
+  roles: super_admin
