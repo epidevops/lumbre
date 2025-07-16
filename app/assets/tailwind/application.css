@@ -42,8 +42,16 @@
   }
 }
 
-@custom-variants {
-  hotwire-native: &:where(html[data-hotwire-native-app] &);
-  not-hotwire-native: &:where(html:not([data-hotwire-native-app]) &);
+/* example usage: hotwire-native:hidden */
+@custom-variant hotwire-native {
+  &:where(html[data-hotwire-native-app] *) {
+    @slot;
+  }
 }
 
+/* example usage: not-hotwire-native:bg-gray-900/20 */
+@custom-variant not-hotwire-native {
+  &:where(html:not([data-hotwire-native-app]) *) {
+    @slot;
+  }
+}
