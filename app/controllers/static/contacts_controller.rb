@@ -13,6 +13,8 @@ class Static::ContactsController < ApplicationController
     flash.now[:notice] = CONTACT_MESSAGE_SUCCESS_MESSAGE
 
     if @contact.save
+      NewContactUsContactNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message).deliver(@contact)
+      NewContactUsAdminNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message).deliver(AdminUser.super_admin_users)
       respond_to do |format|
         format.html { redirect_to root_path, notice: CONTACT_MESSAGE_SUCCESS_MESSAGE }
         format.turbo_stream
