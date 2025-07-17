@@ -7,6 +7,7 @@ class AdminUser < ApplicationRecord
          otp_number_of_backup_codes: 10,
          otp_allowed_drift: 30
 
+  include NoticedAssociations
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phones, as: :phoneable, dependent: :destroy
   has_many :emails, as: :emailable, dependent: :destroy
@@ -22,6 +23,8 @@ class AdminUser < ApplicationRecord
   include Avatar # , EmailValidations, NoticedAssociations
   rolify
   has_person_name
+
+  scope :super_admin_users, -> { AdminUser.with_role(:super_admin).select(:id, :email) }
 
   def initials
     name.initials

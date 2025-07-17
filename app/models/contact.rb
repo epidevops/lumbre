@@ -1,5 +1,5 @@
 class Contact < ApplicationRecord
-  include EmailValidations, NoticedAssociations
+  include NoticedAssociations
   has_many :contact_messages, dependent: :destroy
   accepts_nested_attributes_for :contact_messages
 end
