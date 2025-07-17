@@ -1,4 +1,5 @@
 class Static::ContactsController < ApplicationController
+  rate_limit to: 3, within: 2.seconds, by: -> { request.domain }, with: -> { redirect_to root_path, alert: "Try again later." }, only: :create
   CONTACT_MESSAGE_SUCCESS_MESSAGE = "Your message has been sent. We will get back to you as soon as possible."
 
   def create
