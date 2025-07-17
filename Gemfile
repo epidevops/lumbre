@@ -38,7 +38,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 gem "solid_litequeen", "~> 0.18.1"
-gem "mission_control-jobs", "~> 1.0"
+gem "mission_control-jobs", "~> 1.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
