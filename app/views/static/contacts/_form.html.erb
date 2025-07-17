@@ -11,7 +11,7 @@
         <label for="contact_message" class="block text-sm/6 font-semibold text-gray-900"><%= t('contact.form.message.label') %></label>
         <div class="mt-2.5">
           <%= f.fields_for :contact_messages, contact.contact_messages.build do |message_form| %>
-            <%= message_form.text_area :message, rows: 4, class: "block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600", required: true, placeholder: t('contact.form.message.placeholder') %>
+            <%= message_form.text_area :message, rows: 4, maxlength: 5000, class: "block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600", required: true, placeholder: t('contact.form.message.placeholder') %>
           <% end %>
         </div>
       </div>
