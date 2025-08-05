@@ -1,32 +1,261 @@
-<%=
-  active_admin_form_for [:admin, resource] do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    tabs do
-      tab "Details" do
-        f.inputs do
-          f.input :productable_type
-          f.input :productable_id
-          f.input :category
-          f.input :product_image, as: :file
-          f.input :price
-          f.input :options
-          f.input :recommended, as: :flowbite_toggle
-          f.input :discount_percent
-          f.input :active, as: :flowbite_toggle
-          f.input :position
-        end
-      end
+<%= form_with(model: [:admin, resource], local: true, class: "space-y-6") do |form| %>
+  <% if resource.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <h2 class="font-bold"><%= pluralize(resource.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <ul class="list-disc ml-6 mt-2">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-      I18n.available_locales.each do |locale|
-        tab "Content (#{locale.upcase})" do
-          f.inputs do
-            f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
-            f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
-            f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :string, label: "Recommended Text (#{locale.upcase})", placeholder: "Default: #{t('menu.default_recommended_text')}"
-          end
-        end
-      end
-    end
-    f.actions
-  end
-%>
+  <!-- Flowbite Tabs with Active Tab Style -->
+  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="product-tabs" data-tabs-toggle="#product-tab-content" data-tabs-active-classes="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
+      <li class="me-2" role="presentation">
+        <button class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg"
+                id="details-tab"
+                data-tabs-target="#details"
+                type="button"
+                role="tab"
+                aria-controls="details"
+                aria-selected="true">
+          <%= heroicon("information-circle", variant: "solid", class: "me-2") %>
+          Details
+        </button>
+      </li>
+      <li class="me-2" role="presentation">
+        <button class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg"
+                id="content-tab"
+                data-tabs-target="#content"
+                type="button"
+                role="tab"
+                aria-controls="content"
+                aria-selected="false">
+          <%= heroicon("language", class: "me-2") %>
+          Internationalized Content
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Flowbite Tab Content -->
+  <div id="product-tab-content">
+    <!-- Details Tab -->
+    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+         id="details"
+         role="tabpanel"
+         aria-labelledby="details-tab">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+        <!-- Productable Type -->
+        <div>
+          <%= form.label :productable_type, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.select :productable_type,
+              options_for_select([['Restaurant', 'Restaurant'], ['Store', 'Store']], resource.productable_type),
+              { include_blank: "Select type" },
+              { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" } %>
+        </div>
+
+        <!-- Productable ID -->
+        <div>
+          <%= form.label :productable_id, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.number_field :productable_id,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <%= form.label :category, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.text_field :category,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <%= form.label :price, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.text_field :price,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Options -->
+        <div>
+          <%= form.label :options, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.text_field :options,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Discount Percent -->
+        <div>
+          <%= form.label :discount_percent, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.text_field :discount_percent,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Position -->
+        <div>
+          <%= form.label :position, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.number_field :position,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+
+        <!-- Product Image -->
+        <div class="sm:col-span-2">
+          <%= form.label :product_image, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md dark:border-gray-600">
+            <div class="space-y-1 text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <div class="flex text-sm text-gray-600 dark:text-gray-400">
+                <label for="product_product_image" class="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                  <span>Upload a file</span>
+                  <%= form.file_field :product_image, { class: "sr-only", accept: "image/*" } %>
+                </label>
+                <p class="pl-1">or drag and drop</p>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF up to 10MB</p>
+            </div>
+          </div>
+          <% if resource.product_image.attached? %>
+            <div class="mt-2">
+              <%= image_tag resource.product_image.variant(:thumb), class: "h-20 w-20 object-cover rounded-lg" %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Product Image -->
+        <!--
+        <div class="sm:col-span-2">
+          <%#= form.label :product_image, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+
+          <div class="flex items-center justify-center w-full">
+              <div class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                      <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                      </svg>
+                      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                  </div>
+                  <%#= form.file_field :product_image, { class: "sr-only", accept: "image/*" } %>
+              </div>
+          </div>
+
+          <% if resource.product_image.attached? %>
+            <div class="mt-2">
+              <%#= image_tag resource.product_image.variant(:thumb), class: "h-20 w-20 object-cover rounded-lg" %>
+            </div>
+          <% end %>
+        </div>
+        -->
+
+
+
+        <!-- Recommended Toggle -->
+        <div class="sm:col-span-2">
+          <label class="inline-flex items-center cursor-pointer">
+            <%= form.check_box :recommended,
+                { class: "sr-only peer" } %>
+            <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Recommended</span>
+          </label>
+        </div>
+
+        <!-- Active Toggle -->
+        <div class="sm:col-span-2">
+          <label class="inline-flex items-center cursor-pointer">
+            <%= form.check_box :active,
+                { class: "sr-only peer" } %>
+            <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Active</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Internationalized Content Tab with Vertical Tabs -->
+    <div
+         id="content"
+         role="tabpanel"
+         aria-labelledby="content-tab">
+
+      <div class="md:flex">
+        <!-- Vertical Tabs Navigation -->
+        <ul class="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0"
+            id="locale-tabs"
+            data-tabs-toggle="#locale-tab-content"
+            data-tabs-active-classes="!inline-flex !items-center !px-4 !py-3 !text-white !bg-blue-700 !rounded-lg !active !w-full !dark:bg-blue-600"
+            data-tabs-inactive-classes="inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+            role="tablist">
+          <% I18n.available_locales.each_with_index do |locale, index| %>
+            <li role="presentation">
+              <button
+                      id="locale-<%= locale.to_s %>-tab"
+                      data-tabs-target="#locale-<%= locale.to_s %>"
+                      type="button"
+                      role="tab"
+                      aria-controls="locale-<%= locale.to_s %>"
+                      aria-selected="false">
+                <div class="me-2" aria-hidden="true"><%= flag_for_locale(locale) %></div>
+                <div><%= t('locales.' + locale.to_s) %></div>
+              </button>
+            </li>
+          <% end %>
+        </ul>
+
+        <!-- Vertical Tabs Content -->
+        <div class="p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full" id="locale-tab-content">
+          <% I18n.available_locales.each_with_index do |locale, index| %>
+            <div
+                 id="locale-<%= locale.to_s %>"
+                 role="tabpanel"
+                 aria-labelledby="locale-<%= locale.to_s %>-tab">
+
+              <div class="grid grid-cols-1 gap-6">
+
+                <!-- Title -->
+                <div>
+                  <%= form.label "title_#{Mobility.normalize_locale(locale)}", "Title (#{locale.upcase})",
+                      class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= form.text_field "title_#{Mobility.normalize_locale(locale)}",
+                      class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+                </div>
+
+                <!-- Description -->
+                <div>
+                  <%= form.label "description_#{Mobility.normalize_locale(locale)}", "Description (#{locale.upcase})",
+                      class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= form.text_area "description_#{Mobility.normalize_locale(locale)}",
+                      rows: 4,
+                      class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+                </div>
+
+                <!-- Recommended Text -->
+                <div>
+                  <%= form.label "recommended_text_#{Mobility.normalize_locale(locale)}", "Recommended Text (#{locale.upcase})",
+                      class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+                  <%= form.text_field "recommended_text_#{Mobility.normalize_locale(locale)}",
+                      placeholder: "Default: #{t('menu.default_recommended_text')}",
+                      class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+                </div>
+
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Form Actions -->
+  <div class="flex justify-start space-x-4">
+    <%= form.submit class: "px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    <%= link_to "Cancel", admin_products_path, class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600" %>
+  </div>
+
+<% end %>
