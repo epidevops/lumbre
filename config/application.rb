@@ -28,14 +28,23 @@ module Lumbre
     config.i18n.available_locales = %i[en es fr de pt-BR es-MX]
     config.i18n.fallbacks = true
 
-    config.view_component.component_parent_class = "ApplicationComponent"
+    config.view_component.generate.parent_class = "ApplicationComponent"
     config.view_component.generate.sidecar = true
     config.view_component.generate.stimulus_controller = true
+    config.view_component.generate.locale = true
     config.view_component.generate.distinct_locale_files = true
     config.view_component.generate.preview = true
     config.view_component.generate.preview_path = "test/components/previews"
-    config.view_component.show_previews = true
+    config.view_component.preview_paths = [ "test/components/previews", "app/views" ]
+    config.view_component.previews.enabled = true
+    config.view_component.previews.default_layout = "component_preview"
+
+    config.lookbook.preview_display_options = {
+      theme: [ "light", "dark" ]
+    }
     config.lookbook.project_name = "Lumbre"
+    config.lookbook.preview_embeds.policy = "ALLOWALL"
+    # config.preview_layout = "component_preview"
 
     config.active_record.encryption.support_unencrypted_data = true
     config.active_record.encryption.extend_queries = true

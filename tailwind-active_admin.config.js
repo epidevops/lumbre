@@ -10,9 +10,12 @@ export default {
     `${activeAdminPath}/app/views/**/*.{arb,erb,html,rb}`,
     './app/admin/**/*.{arb,erb,html,rb}',
     './app/inputs/**/*.{arb,erb,html,rb}',
+    './app/components/**/*.{arb,erb,html,rb}',
+    './test/components/**/*.{arb,erb,html,rb}',
     './app/views/active_admin/**/*.{arb,erb,html,rb}',
     './app/views/admin/**/*.{arb,erb,html,rb}',
     './app/views/layouts/active_admin*.{erb,html}',
+    './app/views/layouts/component_preview*.{erb,html}',
     './app/javascript/**/*.js'
   ],
   darkMode: "selector",
