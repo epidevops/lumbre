@@ -394,7 +394,6 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
-    method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
       logger
@@ -702,10 +701,9 @@ GEM
     uri (1.0.3)
     useragent (0.16.11)
     vernier (1.8.0)
-    view_component (3.23.2)
-      activesupport (>= 5.2.0, < 8.1)
+    view_component (4.0.0)
+      activesupport (>= 7.1.0, < 8.1)
       concurrent-ruby (~> 1)
-      method_source (~> 1.0)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -801,7 +799,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   vernier (~> 1.0)
-  view_component (~> 3.23)
+  view_component (~> 4.0)
   web-console
 
 BUNDLED WITH
