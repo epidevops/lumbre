@@ -111,7 +111,7 @@ gem "ice_cube", "~> 0.17.0"
 gem "simple_calendar", "~> 3.1"
 
 gem "litestream", "~> 0.14.0"
-gem "aws-sdk-s3", "~> 1.191", require: false
+gem "aws-sdk-s3", "~> 1.196", require: false
 
 gem "city-state", "~> 1.1"
 gem "country_select", "~> 11.0"
