@@ -1,9 +1,13 @@
 <%= stylesheet_link_tag "active_admin" %>
-<%#= javascript_include_tag "https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js" %>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 <%= current_admin_user_meta_tags %>
+
+<%= javascript_include_tag "activestorage" %>
+
+<%= dropzone_head_tags %>
+
 
 <% # On page load or when changing themes, best to add inline in `head` to avoid FOUC %>
 <%= javascript_tag nonce: true do %>
@@ -14,6 +18,8 @@
   }
 <% end %>
 <%= javascript_importmap_tags "active_admin", importmap: ActiveAdmin.importmap %>
+
+<%#= tag.meta name: "direct-upload-url", content: rails_direct_uploads_url %>
 
 
 

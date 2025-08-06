@@ -5,7 +5,8 @@ ActiveAdmin.register Product do
   permit_params :productable_type, :productable_id, :category, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :options, :active, :position, :product_image,
                 I18n.available_locales.map { |locale| "title_#{Mobility.normalize_locale(locale)}".to_sym },
                 I18n.available_locales.map { |locale| "description_#{Mobility.normalize_locale(locale)}".to_sym },
-                I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}".to_sym }
+                I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}".to_sym },
+                photos: []
 
 
   # or consider:

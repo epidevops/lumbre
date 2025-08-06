@@ -3,6 +3,12 @@ class Product < ApplicationRecord
   has_one_attached :product_image do |attachable|
     attachable.variant :thumb, resize_to_limit: [ 100, 100 ], preprocessed: true
   end
+
+  # has_many :images, as: :imageable, dependent: :destroy
+  has_many_attached :photos do |attachable|
+    attachable.variant :thumb, resize_to_limit: [ 100, 100 ], preprocessed: true
+  end
+
   positioned on: [ :productable, :category ]
 
   scope :active, -> { where(active: true) }
