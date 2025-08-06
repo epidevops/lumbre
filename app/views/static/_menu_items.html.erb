@@ -33,8 +33,8 @@
               <p class="text-sm/6 font-semibold text-gray-900 bg-gray-200 py-1 px-6 w-fit"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
             </div>
           <% end %>
-          <% if item.product_image.attached? %>
-            <%= image_tag(item.product_image, class: "mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 rounded-full") %>
+          <% if item.photos.attached? %>
+            <%= image_tag(item.photos.first.variant(:thumb), class: "mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 object-cover rounded-full aspect-square") %>
           <% else %>
             <img class="mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 rounded-full" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
           <% end %>

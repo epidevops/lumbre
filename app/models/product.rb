@@ -1,13 +1,7 @@
 class Product < ApplicationRecord
-  belongs_to :productable, polymorphic: true
-  has_one_attached :product_image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [ 100, 100 ], preprocessed: true
-  end
+  include Photos
 
-  # has_many :images, as: :imageable, dependent: :destroy
-  has_many_attached :photos do |attachable|
-    attachable.variant :thumb, resize_to_limit: [ 100, 100 ], preprocessed: true
-  end
+  belongs_to :productable, polymorphic: true
 
   positioned on: [ :productable, :category ]
 

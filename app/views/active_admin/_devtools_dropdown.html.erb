@@ -1,0 +1,103 @@
+<div class="relative text-left">
+  <div>
+    <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm/6 cursor-pointer font-semibold text-white shadow-xs ring-1 ring-gray-300 ring-inset", id: "dropdownToolsButton", aria: { expanded: "false" }, data: { dropdown_toggle: "dropdownTools", dropdown_placement: "bottom-end", dropdown_trigger: "hover" } do %>
+      <%= heroicon("cog-8-tooth", class: "size-5 text-gray-400") %>
+      <%= "Tools" %>
+      <%= heroicon("chevron-down", class: "size-5 text-gray-400") %>
+    <% end %>
+  </div>
+
+  <div class="absolute right-0 z-10 w-52 gap-x-4 p-2 mt-1 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdownToolsButton" tabindex="-1" id="dropdownTools">
+    <div class="py-1" role="none">
+      <%= link_to root_path,
+                  id: "dev-tool-button-0",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("arrow-right-start-on-rectangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Site" %>
+      <% end %>
+      <%= link_to mount_solid_litequeen_path,
+                  id: "dev-tool-button-2",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("circle-stack", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Litequeen" %>
+      <% end %>
+      <%= link_to mount_mission_control_jobs_path,
+                  id: "dev-tool-button-3",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("rocket-launch", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Jobs" %>
+      <% end %>
+      <%= link_to mount_letter_opener_web_path,
+                  id: "dev-tool-button-4",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("envelope", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Letter Opener" %>
+      <% end %>
+      <%= link_to mount_lookbook_path,
+                  id: "dev-tool-button-5",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("book-open", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Lookbook" %>
+      <% end %>
+      <%= link_to mount_exception_track_path,
+                  id: "dev-tool-button-6",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("exclamation-triangle", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Exception Track" %>
+      <% end %>
+      <%= link_to mount_flipper_path,
+                  id: "dev-tool-button-7",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("flag", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Flipper".to_s %>
+      <% end %>
+      <%= link_to mount_blazer_path,
+                  id: "dev-tool-button-8",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("chart-bar", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Blazer" %>
+      <% end %>
+      <%= link_to mount_active_storage_dashboard_path,
+                  id: "dev-tool-button-9",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("paper-clip", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Active Storage" %>
+      <% end %>
+      <div id="dev-tool-button-10" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+        <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Mobile: #{hotwire_native_app?.to_s.titleize}" %>
+      </div>
+      <div id="dev-tool-button-11" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+        <%= inline_svg_tag("shell", class: "mr-4 size-5 text-gray-400") %>
+        <%= "ENV: #{Rails.env.to_s.titleize}" %>
+      </div>
+    </div>
+  </div>
+</div>

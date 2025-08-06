@@ -2,7 +2,7 @@ ActiveAdmin.register Product do
   menu parent: "application", priority: 3
 
   # Specify parameters which should be permitted for assignment
-  permit_params :productable_type, :productable_id, :category, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :options, :active, :position, :product_image,
+  permit_params :productable_type, :productable_id, :category, :title, :description, :price, :recommended, :recommended_text, :discount_percent, :options, :active, :position,
                 I18n.available_locales.map { |locale| "title_#{Mobility.normalize_locale(locale)}".to_sym },
                 I18n.available_locales.map { |locale| "description_#{Mobility.normalize_locale(locale)}".to_sym },
                 I18n.available_locales.map { |locale| "recommended_text_#{Mobility.normalize_locale(locale)}".to_sym },
@@ -59,7 +59,6 @@ ActiveAdmin.register Product do
       row :id
       row :productable_type
       row :productable
-      row(:product_image) { |resource| image_tag(resource.product_image.variant(:thumb), class: "w-24 h-24") if resource.product_image.attached? }
       row :category
       row :title
       row :description
@@ -76,34 +75,4 @@ ActiveAdmin.register Product do
 
   # Add or remove fields to toggle their visibility in the form
   form partial: "form"
-
-
-  # form do |f|
-  #   f.semantic_errors(*f.object.errors.attribute_names)
-  #   tabs do
-  #     tab "Details" do
-  #       f.inputs do
-  #         f.input :productable_type
-  #         # f.input :productable
-  #         f.input :price
-  #         f.input :options
-  #         f.input :recommended
-  #         f.input :discount_percent
-  #         f.input :active, as: :flowbite_toggle
-  #         f.input :position
-  #       end
-  #     end
-
-  #     I18n.available_locales.each do |locale|
-  #       tab "Content (#{locale.upcase})" do
-  #         f.inputs do
-  #           f.input "title_#{Mobility.normalize_locale(locale)}", as: :string, label: "Title (#{locale.upcase})"
-  #           f.input "description_#{Mobility.normalize_locale(locale)}", as: :text, label: "Description (#{locale.upcase})"
-  #           f.input "recommended_text_#{Mobility.normalize_locale(locale)}", as: :text, label: "Recommended Text (#{locale.upcase})"
-  #         end
-  #       end
-  #     end
-  #   end
-  #   f.actions
-  # end
 end
