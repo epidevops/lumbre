@@ -19,29 +19,6 @@ active_admin_form_for [ :admin, resource ] do |f|
         f.input :password
         f.input :password_confirmation
       end
-
-      # MFA Section
-      # panel "Multi-Factor Authentication" do
-      #   div class: "mfa-panel" do
-      #     if resource.mfa_enabled?
-      #       div class: "mfa-status enabled" do
-      #         para "✅ MFA is enabled for this account"
-      #         para "This user must provide a verification code when signing in."
-      #       end
-      #     else
-      #       div class: "mfa-status disabled" do
-      #         para "⚠️ MFA is not enabled"
-      #         para "Enable MFA to add an extra layer of security."
-      #         para do
-      #           button "Setup MFA",
-      #                  type: "button",
-      #                  class: "btn btn-primary",
-      #                  data: { modal_target: "mfa-setup-modal", modal_toggle: "mfa-setup-modal" }
-      #         end
-      #       end
-      #     end
-      #   end
-      # end
     end
 
     tab "Contact" do
