@@ -364,10 +364,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_192801) do
 
   create_table "rules", force: :cascade do |t|
     t.integer "schedule_id", null: false
-    t.string "rule_type"
-    t.string "name"
-    t.string "frequency_units"
-    t.integer "frequency"
+    t.string "rule_type", default: "inclusion", null: false
+    t.string "name", null: false
+    t.string "frequency_units", default: "IceCube::MinutelyRule", null: false
+    t.integer "frequency", default: 15, null: false
     t.json "days_of_week", default: [], null: false
     t.date "start_date"
     t.date "end_date"
@@ -391,12 +391,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_192801) do
     t.integer "scheduleable_id", null: false
     t.string "name", null: false
     t.boolean "active", default: false, null: false
-    t.integer "capacity", default: 1
-    t.boolean "exclude_lunch_time", default: true
+    t.integer "capacity", default: 5
+    t.boolean "exclude_lunch_time", default: false
     t.string "lunch_hour_start"
     t.string "lunch_hour_end"
-    t.string "beginning_of_week", default: "monday"
-    t.string "time_zone"
+    t.string "beginning_of_week", default: "sunday"
+    t.string "time_zone", default: "Mountain Time (US & Canada)", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["scheduleable_type", "scheduleable_id"], name: "index_schedules_on_scheduleable"

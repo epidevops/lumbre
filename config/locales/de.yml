@@ -1,4 +1,5 @@
 de:
+  spots: "Plätze"
   application:
     route_not_found: "Ups! Die gesuchte Seite scheint nicht zu existieren."
   locales:

@@ -1,3 +1,7 @@
+@import "simple_calendar";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+

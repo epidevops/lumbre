@@ -1,74 +1,572 @@
-<%=
-  active_admin_form_for [:admin, resource] do |f|
-    f.semantic_errors(*f.object.errors.attribute_names)
-    tabs do
-      tab 'Schedule' do
-        f.inputs do
-          f.input :name, required: true
-          # if policy(current_admin_user).restrict_access_for_new_user?
-            f.input :scheduleable_id, required: true
-            f.input :scheduleable_type, required: true
-          # end
-          f.input :active, required: true
-          f.input :capacity, required: true
-          # f.input :user_types, as: :select,
-          #         collection: current_admin_user.user_types.ordered,
-          #         include_hidden: false,
-          #         input_html: { multiple: true, style: "width: 100%" }
-          f.input :exclude_lunch_time, label: 'Exclude Lunch Times | Check to set lunch hours. Setting lunch start and end time will exclude this time from every day of the schedule.',
-                  input_html: { data: { if: 'not_checked', then: 'slide ', target: '.lunchtimes' } }
-          f.input :lunch_hour_start, as: :time_picker, label: 'Start time',
-                  required: true,
-                  wrapper_html: { class: 'lunchtimes' }
-          f.input :lunch_hour_end, as: :time_picker, label: 'End time',
-                  required: true,
-                  wrapper_html: { class: 'lunchtimes' }
-          f.input :time_zone, as: :select, label: "Schedules' timezone",
-                  collection: ActiveSupport::TimeZone.us_zones.map(&:name),
-                  required: true
-          f.input :beginning_of_week, as: :select,
-                  collection: Rule::DAYS_OF_WEEK.slice('Sunday', 'Monday'),
-                  required: true,
-                  include_blank: false
-        end
-      end
-      if !f.object.new_record?
-        tab 'Rules' do
-          f.inputs do
-            f.has_many :rules, heading: false, allow_destroy: true do |r|
-              r.input :rule_type, as: :select,
-                      collection: Rule::RULE_TYPE,
-                      input_html: { data: { eq: 'exclusion', then: 'hide', target: '.inclusion' }, disabled: !r.object.new_record? },
-                      require: true,
-                      allow_blank: true
-              r.input :name, required: true
-              # TODO: For initial deploy frequency_units will be defaulted to minutely
-              # r.input :frequency_units, as: :select,
-              r.input :frequency_units, as: :hidden,
-                      collection: Rule::FREQUENCY_UNITS,
-                      required: true,
-                      include_blank: true,
-                      wrapper_html: { class: 'inclusion' }
-              r.input :days_of_week, as: :select,
-                      collection: Rule::DAYS_OF_WEEK,
-                      input_html: { multiple: true, style: 'height: 130px !important' },
-                      required: true,
-                      include_blank: false,
-                      include_hidden: false,
-                      wrapper_html: { class: 'inclusion' }
-              r.input :frequency,
-                      wrapper_html: { class: 'inclusion' }
-              r.input :start_date, as: :date_picker,
-                      input_html: { autocomplete: 'off' }
-              r.input :end_date, as: :date_picker,
-                      input_html: { autocomplete: 'off' }
-              r.input :rule_hour_start, as: :time_picker, required: true, label: 'Start time'
-              r.input :rule_hour_end, as: :time_picker, required: true, label: 'End time'
-            end
-          end
-        end
-      end
-    end
-    f.actions
-  end
-%>
+<%= form_with(model: [:admin, resource], local: true, class: "space-y-6") do |form| %>
+  <% if resource.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <h2 class="font-bold"><%= pluralize(resource.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+      <ul class="list-disc ml-6 mt-2">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Flowbite Tabs with Active Tab Style -->
+  <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="schedule-tabs" data-tabs-toggle="#schedule-tab-content" data-tabs-active-classes="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
+      <li class="me-2" role="presentation">
+        <button class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg"
+                id="details-tab"
+                data-tabs-target="#details"
+                type="button"
+                role="tab"
+                aria-controls="details"
+                aria-selected="true">
+          <%= heroicon("calendar", variant: "solid", class: "me-2") %>
+          Details
+        </button>
+      </li>
+      <% unless resource.new_record? %>
+        <li class="me-2" role="presentation">
+          <button class="inline-flex items-center justify-center p-4 border-b-2 rounded-t-lg"
+                  id="rules-tab"
+                  data-tabs-target="#rules"
+                  type="button"
+                  role="tab"
+                  aria-controls="rules"
+                  aria-selected="false">
+            <%= heroicon("cog-6-tooth", class: "me-2") %>
+            Rules
+          </button>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- Flowbite Tab Content -->
+  <div id="schedule-tab-content">
+    <!-- Details Tab -->
+    <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+         id="details"
+         role="tabpanel"
+         aria-labelledby="details-tab"
+         aria-hidden="false">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+        <!-- Name -->
+        <div>
+          <%= form.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.text_field :name,
+              required: true,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Capacity -->
+        <div>
+          <%= form.label :capacity, class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.number_field :capacity,
+              required: true,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Scheduleable Type -->
+        <div>
+          <%= form.label :scheduleable_type, "Entity Type", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.select :scheduleable_type,
+              options_for_select([['Restaurant', 'Restaurant'], ['Store', 'Store'], ['AdminUser', 'AdminUser']], resource.scheduleable_type),
+              { include_blank: "Select type" },
+              { class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" } %>
+        </div>
+
+        <!-- Scheduleable ID -->
+        <div>
+          <%= form.label :scheduleable_id, "Entity ID", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.number_field :scheduleable_id,
+              required: true,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Time Zone -->
+        <div>
+          <%= form.label :time_zone, "Timezone", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.select :time_zone,
+              options_from_collection_for_select(ActiveSupport::TimeZone.us_zones, :name, :name, resource.time_zone),
+              { prompt: 'Select timezone' },
+              { required: true, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" } %>
+        </div>
+
+        <!-- Beginning of Week -->
+        <div>
+          <%= form.label :beginning_of_week, "Week starts on", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.select :beginning_of_week,
+              options_for_select(Rule::DAYS_OF_WEEK.slice('Sunday', 'Monday').to_a, resource.beginning_of_week),
+              {},
+              { required: true, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" } %>
+        </div>
+
+        <!-- Lunch Hour Start -->
+        <div>
+          <%= form.label :lunch_hour_start, "Lunch Start Time", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.time_field :lunch_hour_start,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Lunch Hour End -->
+        <div>
+          <%= form.label :lunch_hour_end, "Lunch End Time", class: "block text-sm font-medium text-gray-700 dark:text-gray-300" %>
+          <%= form.time_field :lunch_hour_end,
+              class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" %>
+        </div>
+
+        <!-- Exclude Lunch Time Toggle -->
+        <div class="sm:col-span-2">
+          <label class="inline-flex items-center cursor-pointer">
+            <%= form.check_box :exclude_lunch_time,
+                { class: "sr-only peer" } %>
+            <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Exclude Lunch Times</span>
+          </label>
+        </div>
+
+        <!-- Active Toggle -->
+        <div class="sm:col-span-2">
+          <label class="inline-flex items-center cursor-pointer">
+            <%= form.check_box :active,
+                { class: "sr-only peer" } %>
+            <div class="relative w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Active</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rules Tab (only for existing records) -->
+    <% unless resource.new_record? %>
+      <div id="rules"
+           role="tabpanel"
+           aria-labelledby="rules-tab"
+           aria-hidden="true"
+           class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+
+        <div class="space-y-6">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+              Schedule Rules (<%= resource.rules.count %>)
+            </h3>
+            <button type="button" class="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="addRule()">
+              Add Rule
+            </button>
+          </div>
+
+          <div id="rules-container">
+            <% if resource.rules.any? %>
+              <%= form.fields_for :rules do |r| %>
+              <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-6">
+                <div class="flex items-center justify-between mb-6">
+                  <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0">
+                      <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <%= heroicon("cog-6-tooth", variant: "solid", class: "w-5 h-5 text-blue-600 dark:text-blue-400") %>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Rule Configuration</h4>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Define schedule parameters and timing</p>
+                    </div>
+                  </div>
+                  <% if r.object&.persisted? %>
+                    <button type="button" class="inline-flex items-center justify-center w-10 h-10 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors duration-200" onclick="destroyRule(this)">
+                      <%= heroicon("trash", class: "w-5 h-5") %>
+                    </button>
+                  <% end %>
+                </div>
+
+                <%= r.hidden_field :id if r.object&.persisted? %>
+                <%= r.hidden_field :_destroy, class: "destroy-field" %>
+
+                <!-- Basic Information Section -->
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+                  <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                    <%= heroicon("information-circle", variant: "mini", class: "w-4 h-4 mr-2 text-gray-500 dark:text-gray-400") %>
+                    Basic Information
+                  </h5>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <!-- Rule Type -->
+                    <div>
+                      <%= r.label :rule_type, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.select :rule_type,
+                          options_for_select(Rule::RULE_TYPE),
+                          { prompt: 'Select rule type' },
+                          { class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" } %>
+                    </div>
+
+                    <!-- Rule Name -->
+                    <div>
+                      <%= r.label :name, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.text_field :name,
+                          required: true,
+                          placeholder: "Enter rule name",
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Frequency Settings Section -->
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+                  <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                    <%= heroicon("arrow-path", variant: "mini", class: "w-4 h-4 mr-2 text-gray-500 dark:text-gray-400") %>
+                    Frequency Settings
+                  </h5>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <!-- Frequency Units -->
+                    <div>
+                      <%= r.label :frequency_units, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.select :frequency_units,
+                          options_for_select(Rule::FREQUENCY_UNITS),
+                          { prompt: 'Select frequency' },
+                          { required: true, class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" } %>
+                    </div>
+
+                    <!-- Frequency -->
+                    <div>
+                      <%= r.label :frequency, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.number_field :frequency,
+                          placeholder: "e.g., 1",
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+                <!-- Days of Week Selection -->
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+                  <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                    <%= heroicon("calendar-days", variant: "mini", class: "w-4 h-4 mr-2 text-gray-500 dark:text-gray-400") %>
+                    Days of Week
+                  </h5>
+                  <div class="grid grid-cols-7 gap-3">
+                    <% Rule::DAYS_OF_WEEK.invert.each_with_index do |(day_key, day_name), day_index| %>
+                      <label class="cursor-pointer">
+                        <input type="checkbox"
+                               name="<%= r.object_name %>[days_of_week][]"
+                               value="<%= day_key %>"
+                               <%= 'checked' if r.object&.days_of_week&.include?(day_key) %>
+                               class="sr-only peer"
+                               id="<%= r.object_name %>_day_<%= day_key %>_<%= day_index %>" />
+                        <div class="flex flex-col items-center justify-center p-4 bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 hover:border-gray-300 peer-checked:bg-blue-50 peer-checked:border-blue-500 peer-checked:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:peer-checked:bg-blue-900 dark:peer-checked:border-blue-600 dark:peer-checked:text-blue-300 transition-all duration-200">
+                          <span class="text-sm font-semibold text-gray-900 dark:text-white peer-checked:text-blue-700 dark:peer-checked:text-blue-300">
+                            <%= day_name %>
+                          </span>
+                        </div>
+                      </label>
+                    <% end %>
+                  </div>
+                </div>
+
+                <!-- Date Range Section -->
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+                  <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                    <%= heroicon("calendar", variant: "mini", class: "w-4 h-4 mr-2 text-gray-500 dark:text-gray-400") %>
+                    Date Range
+                  </h5>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <!-- Start Date -->
+                    <div>
+                      <%= r.label :start_date, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.date_field :start_date,
+                          autocomplete: 'off',
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+
+                    <!-- End Date -->
+                    <div>
+                      <%= r.label :end_date, class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.date_field :end_date,
+                          autocomplete: 'off',
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Time Range Section -->
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                  <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+                    <%= heroicon("clock", variant: "mini", class: "w-4 h-4 mr-2 text-gray-500 dark:text-gray-400") %>
+                    Time Range
+                  </h5>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <!-- Rule Hour Start -->
+                    <div>
+                      <%= r.label :rule_hour_start, "Start Time", class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.time_field :rule_hour_start,
+                          required: true,
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+
+                    <!-- Rule Hour End -->
+                    <div>
+                      <%= r.label :rule_hour_end, "End Time", class: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" %>
+                      <%= r.time_field :rule_hour_end,
+                          required: true,
+                          class: "block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            <% else %>
+              <div class="text-center py-12" id="empty-state">
+                <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">No rules configured</h3>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">Get started by creating your first schedule rule.</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+
+  </div>
+
+  <!-- Form Actions -->
+  <div class="flex justify-start space-x-4">
+    <%= form.submit class: "px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    <%= link_to "Cancel", admin_schedules_path, class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600" %>
+  </div>
+
+<% end %>
+
+<script>
+let ruleIndex = <%= resource.rules.count %>;
+
+function addRule() {
+  const rulesContainer = document.getElementById('rules-container');
+  const emptyState = document.getElementById('empty-state');
+
+  // Hide empty state if it exists
+  if (emptyState) {
+    emptyState.style.display = 'none';
+  }
+
+  // Create new rule HTML that exactly matches the improved Rails form structure
+  const newRuleHtml = `
+    <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-6">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M9.661 2.237a.531.531 0 00-.53.61l.805 7.73H6.72a.531.531 0 00-.53.61l.805 7.73a.531.531 0 001.061-.61L7.28 10.678h3.215a.531.531 0 00.53-.61L10.22 2.338a.531.531 0 00-.559-.101z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Rule Configuration</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Define schedule parameters and timing</p>
+          </div>
+        </div>
+        <button type="button" class="inline-flex items-center justify-center w-10 h-10 text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors duration-200" onclick="removeNewRule(this)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <input type="hidden" name="schedule[rules_attributes][${ruleIndex}][_destroy]" value="false" class="destroy-field">
+
+      <!-- Basic Information Section -->
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+        <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+          Basic Information
+        </h5>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <!-- Rule Type -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_rule_type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Rule type</label>
+            <select name="schedule[rules_attributes][${ruleIndex}][rule_type]" id="schedule_rules_attributes_${ruleIndex}_rule_type" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200">
+              <option value="">Select rule type</option>
+              <option value="inclusion">Open times</option>
+              <option value="exclusion">Close times</option>
+            </select>
+          </div>
+
+          <!-- Rule Name -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+            <input required="required" type="text" name="schedule[rules_attributes][${ruleIndex}][name]" id="schedule_rules_attributes_${ruleIndex}_name" placeholder="Enter rule name" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Frequency Settings Section -->
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+        <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Frequency Settings
+        </h5>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <!-- Frequency Units -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_frequency_units" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Frequency units</label>
+            <select required="required" name="schedule[rules_attributes][${ruleIndex}][frequency_units]" id="schedule_rules_attributes_${ruleIndex}_frequency_units" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200">
+              <option value="">Select frequency</option>
+              <option value="IceCube::MinutelyRule">Minutely</option>
+              <option value="IceCube::DailyRule">Daily</option>
+              <option value="IceCube::WeeklyRule">Weekly</option>
+              <option value="IceCube::MonthlyRule">Monthly</option>
+              <option value="IceCube::YearlyRule">Yearly</option>
+            </select>
+          </div>
+
+          <!-- Frequency -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_frequency" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Frequency</label>
+            <input type="number" name="schedule[rules_attributes][${ruleIndex}][frequency]" id="schedule_rules_attributes_${ruleIndex}_frequency" placeholder="e.g., 1" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Days of Week Selection -->
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+        <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Days of Week
+        </h5>
+        <div class="grid grid-cols-7 gap-3">
+          ${generateDaysOfWeekButtons(ruleIndex)}
+        </div>
+      </div>
+
+      <!-- Date Range Section -->
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6">
+        <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Date Range
+        </h5>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <!-- Start Date -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_start_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start date</label>
+            <input autocomplete="off" type="date" name="schedule[rules_attributes][${ruleIndex}][start_date]" id="schedule_rules_attributes_${ruleIndex}_start_date" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+
+          <!-- End Date -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_end_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End date</label>
+            <input autocomplete="off" type="date" name="schedule[rules_attributes][${ruleIndex}][end_date]" id="schedule_rules_attributes_${ruleIndex}_end_date" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Range Section -->
+      <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+        <h5 class="text-sm font-medium text-gray-900 dark:text-white mb-4 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Time Range
+        </h5>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <!-- Rule Hour Start -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_rule_hour_start" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Time</label>
+            <input required="required" type="time" name="schedule[rules_attributes][${ruleIndex}][rule_hour_start]" id="schedule_rules_attributes_${ruleIndex}_rule_hour_start" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+
+          <!-- Rule Hour End -->
+          <div>
+            <label for="schedule_rules_attributes_${ruleIndex}_rule_hour_end" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Time</label>
+            <input required="required" type="time" name="schedule[rules_attributes][${ruleIndex}][rule_hour_end]" id="schedule_rules_attributes_${ruleIndex}_rule_hour_end" class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors duration-200" />
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  rulesContainer.insertAdjacentHTML('beforeend', newRuleHtml);
+  ruleIndex++;
+}
+
+function generateDaysOfWeekButtons(index) {
+  // Match the exact structure from Rule::DAYS_OF_WEEK.invert.each_with_index in the Rails form
+  const daysOfWeek = [
+    {key: 'sunday', name: 'Sunday'},
+    {key: 'monday', name: 'Monday'},
+    {key: 'tuesday', name: 'Tuesday'},
+    {key: 'wednesday', name: 'Wednesday'},
+    {key: 'thursday', name: 'Thursday'},
+    {key: 'friday', name: 'Friday'},
+    {key: 'saturday', name: 'Saturday'}
+  ];
+
+  return daysOfWeek.map((day, dayIndex) => `
+    <label class="cursor-pointer">
+      <input type="checkbox"
+             name="schedule[rules_attributes][${index}][days_of_week][]"
+             value="${day.key}"
+             class="sr-only peer"
+             id="schedule_rules_attributes_${index}_day_${day.key}_${dayIndex}" />
+      <div class="flex flex-col items-center justify-center p-4 bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 hover:border-gray-300 peer-checked:bg-blue-50 peer-checked:border-blue-500 peer-checked:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:peer-checked:bg-blue-900 dark:peer-checked:border-blue-600 dark:peer-checked:text-blue-300 transition-all duration-200">
+        <span class="text-sm font-semibold text-gray-900 dark:text-white peer-checked:text-blue-700 dark:peer-checked:text-blue-300">
+          ${day.name}
+        </span>
+      </div>
+    </label>
+  `).join('');
+}
+
+function removeNewRule(button) {
+  const ruleContainer = button.closest('.rounded-xl');
+  ruleContainer.remove();
+
+  // Show empty state if no rules left
+  const rulesContainer = document.getElementById('rules-container');
+  const emptyState = document.getElementById('empty-state');
+  if (rulesContainer.querySelectorAll('.rounded-xl').length === 0 && emptyState) {
+    emptyState.style.display = 'block';
+  }
+}
+
+function destroyRule(button) {
+  if (confirm('Are you sure you want to delete this rule?')) {
+    // Find the Rails nested form container that contains both ID and _destroy fields
+    let fieldsContainer = button.parentElement;
+    while (fieldsContainer && !fieldsContainer.querySelector('input[name*="[id]"]')) {
+      fieldsContainer = fieldsContainer.parentElement;
+    }
+
+    // Set the _destroy field to true using Rails nested form structure
+    const destroyField = fieldsContainer.querySelector('input[name*="_destroy"]');
+    if (destroyField) {
+      destroyField.value = '1';
+    }
+
+    // Visual feedback for deletion
+    fieldsContainer.style.opacity = '0.5';
+    fieldsContainer.style.pointerEvents = 'none';
+
+    // Add deleted indicator
+    const header = fieldsContainer.querySelector('h4');
+    if (header) {
+      header.innerHTML += ' <span class="text-red-500 text-sm">(Marked for deletion)</span>';
+    }
+  }
+}
+</script>
