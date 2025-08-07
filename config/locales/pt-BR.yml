@@ -1,4 +1,5 @@
 pt-BR:
+  spots: "vagas"
   application:
     route_not_found: "Ops! Parece que a página que você está procurando não existe."
   locales:

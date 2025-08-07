@@ -1,4 +1,5 @@
 es-MX:
+  spots: "lugares"
   application:
     route_not_found: "¡Ups! Parece que la página que buscas no existe."
   locales:

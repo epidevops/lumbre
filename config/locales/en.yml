@@ -28,6 +28,7 @@
 #       enabled: "ON"
 
 en:
+  spots: "spots"
   application:
     route_not_found: "Oops! Looks like the page you're looking for doesn't exist."
   locales:
