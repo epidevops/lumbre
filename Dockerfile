@@ -37,7 +37,7 @@ FROM base AS build
 
 # Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libffi-dev libyaml-dev node-gyp pkg-config python-is-python3 && \
+    apt-get install --no-install-recommends -y build-essential libffi-dev libyaml-dev node-gyp pkg-config python-is-python3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install JavaScript dependencies
@@ -99,7 +99,6 @@ ENV DATABASE_URL="sqlite3:///litefs/production.sqlite3" \
 # Entrypoint prepares the database.
 ENTRYPOINT ["litefs", "mount"]
 
-# LiteFS proxy serves on port 3000, Rails on 3001
-EXPOSE 3000
+# Start server via Thruster by default, this can be overwritten at runtime
+EXPOSE 80
 VOLUME /data
-CMD []
