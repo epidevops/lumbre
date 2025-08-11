@@ -98,7 +98,7 @@ gem "letter_opener_web", "~> 3.0"
 gem "rubycritic", require: false
 
 gem "sequenced", "~> 4.0"
-gem "positioning", "~> 0.4.5"
+gem "positioning", "~> 0.4.7"
 gem "acts_as_list", "~> 1.2"
 gem "ice_cube", "~> 0.17.0"
 gem "simple_calendar", "~> 3.1"
