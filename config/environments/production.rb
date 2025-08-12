@@ -51,7 +51,7 @@ Rails.application.configure do
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -60,7 +60,7 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   # config.action_mailer.default_url_options = { host: "lumbre.fly.dev" }
 
-  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "lumbre.fly.dev", port: 3000 }).compact_blank
+  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "lumbre.fly.dev" }).compact_blank
 
   config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
