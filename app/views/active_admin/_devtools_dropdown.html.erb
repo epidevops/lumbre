@@ -90,11 +90,20 @@
         <%= heroicon("paper-clip", class: "mr-4 size-5 text-gray-400") %>
         <%= "Active Storage" %>
       <% end %>
-      <div id="dev-tool-button-10" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+      <%= link_to mount_litestream_path,
+                  id: "dev-tool-button-10",
+                  class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                  target: '_blank',
+                  role: "menuitem",
+                  tabindex: "-1" do %>
+        <%= heroicon("arrow-path", class: "mr-4 size-5 text-gray-400") %>
+        <%= "Litestream" %>
+      <% end %>
+      <div id="dev-tool-button-11" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= heroicon("device-phone-mobile", class: "mr-4 size-5 text-gray-400") %>
         <%= "Mobile: #{hotwire_native_app?.to_s.titleize}" %>
       </div>
-      <div id="dev-tool-button-11" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
+      <div id="dev-tool-button-12" class="group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100" role="menuitem"  tabindex="-1",>
         <%= inline_svg_tag("shell", class: "mr-4 size-5 text-gray-400") %>
         <%= "ENV: #{Rails.env.to_s.titleize}" %>
       </div>

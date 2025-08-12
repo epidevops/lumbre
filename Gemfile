@@ -21,12 +21,6 @@ gem "sprockets-rails"
 gem "cssbundling-rails"
 gem "tailwindcss-rails", "~> 4.2"
 
-# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", require: false
-
-# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
-gem "thruster", require: false
-
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
@@ -64,7 +58,6 @@ group :development do
   gem "web-console"
   gem "erb_lint", "~> 0.9.0", require: false
   gem "rdoc", "~> 6.14", require: false # rdoc --root="app/"
-  gem "dockerfile-rails", ">= 1.7"
 end
 
 group :test do
@@ -115,3 +108,5 @@ gem "aws-sdk-s3", "~> 1.196", require: false
 
 gem "city-state", "~> 1.1"
 gem "country_select", "~> 11.0"
+
+gem "dockerfile-rails", "~> 1.7"

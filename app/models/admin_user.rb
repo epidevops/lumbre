@@ -56,6 +56,6 @@ class AdminUser < ApplicationRecord
     def custom_public_avatar_url
       return nil unless avatar.attached?
 
-      Rails.application.routes.url_helpers.rails_blob_url(avatar_thumb, only_path: true)
+      Rails.application.routes.url_helpers.rails_blob_url(avatar_representation, only_path: true)
     end
 end

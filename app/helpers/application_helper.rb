@@ -13,6 +13,7 @@ module ApplicationHelper
     return nil unless current_admin_user && admin_user_signed_in?
     safe_join [
       tag(:meta, name: "current-user-id", content: current_admin_user.id),
+      tag(:meta, name: "current-user-name", content: current_admin_user.name),
       tag(:meta, name: "current-user-data", content: current_admin_user.user_meta_data_tag)
     ]
   end

@@ -185,20 +185,7 @@ ActiveAdmin.register AdminUser do
   show do
     attributes_table_for(resource) do
       row :id
-      row(:avatar) do |admin_user|
-        div do
-          if admin_user.avatar.attached?
-            begin
-              # image_tag(rails_blob_path(admin_user.avatar.variant(resize_to_limit: [100, 100]), only_path: true), class: "admin-avatar", alt: "Admin avatar")
-              image_tag(rails_blob_path(admin_user.avatar_thumb), class: "rounded-full", alt: "Admin avatar")
-            rescue => e
-              "Error loading avatar: #{e.message}"
-            end
-          else
-            "No avatar"
-          end
-        end
-      end
+      row(:avatar) { |admin_user| admin_user.has_avatar? ? image_tag(rails_blob_path(admin_user.avatar_representation), class: "rounded-full w-10 h-10", alt: "Admin avatar") : "" }
       row :email
       row :first_name
       row :last_name

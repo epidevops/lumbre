@@ -22,7 +22,7 @@
     </button>
 
     <button id="user-menu-button" class="flex items-center w-9 h-9 justify-center me-1 text-sm text-gray-500 focus:outline-none dark:text-gray-200" data-dropdown-toggle="user-menu" data-dropdown-offset-distance="3" data-dropdown-placement="bottom-end" aria-label="<%= t('active_admin.toggle_user_menu') %>">
-      <%= current_active_admin_user.avatar.attached? ? image_tag(rails_blob_path(current_active_admin_user.avatar_thumb), class: "p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-600", alt: "Profile avatar") : inline_svg_tag("default-avatar.svg", alt: "Profile avatar", class: "rounded-full") %>
+      <%= current_active_admin_user.has_avatar? ? image_tag(rails_blob_path(current_active_admin_user.avatar_representation), class: "p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-600", alt: "Profile avatar") : inline_svg_tag("default-avatar.svg", alt: "Profile avatar", class: "rounded-full") %>
     </button>
 
   </div>

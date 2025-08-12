@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     mount MissionControl::Jobs::Engine, at: "/jobs", as: :mount_mission_control_jobs
     mount Lookbook::Engine, at: "/lookbook", as: :mount_lookbook
     mount ActiveStorageDashboard::Engine, at: "/active-storage-dashboard", as: :mount_active_storage_dashboard
+    mount Litestream::Engine, at: "/litestream", as: :mount_litestream
 
     # Rails info routes - available for authenticated admin users
     if Rails.env.production?
@@ -80,6 +81,7 @@ Rails.application.routes.draw do
         mount MissionControl::Jobs::Engine, at: "/dev/jobs", as: :mount_mission_control_jobs_dev
         mount Lookbook::Engine, at: "/dev/lookbook", as: :mount_lookbook_dev
         mount ActiveStorageDashboard::Engine, at: "/dev/active-storage-dashboard", as: :mount_active_storage_dashboard_dev
+        mount Litestream::Engine, at: "/dev/litestream", as: :mount_litestream_dev
 
         resources :todos do
           member do
