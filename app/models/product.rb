@@ -1,9 +1,8 @@
 class Product < ApplicationRecord
-  include Photos
-
   belongs_to :productable, polymorphic: true
-
   positioned on: [ :productable, :category ]
+
+  include Photos
 
   scope :active, -> { where(active: true) }
   scope :category, ->(category) { where(category: category) }

@@ -7,14 +7,6 @@ class Current {
     }
   }
 
-  get room() {
-    const currentRoomId = this.#extractContentFromMetaTag("current-room-id")
-
-    if (currentRoomId) {
-      return { id: parseInt(currentRoomId) }
-    }
-  }
-
   #extractContentFromMetaTag(name) {
     return document.head.querySelector(`meta[name="${name}"]`)?.getAttribute("content")
   }

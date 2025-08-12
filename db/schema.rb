@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_192801) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_05_074125) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -233,16 +233,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_192801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.string "imageable_type", null: false
-    t.integer "imageable_id", null: false
-    t.integer "position", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["imageable_id", "imageable_type", "position"], name: "index_images_on_imageable_id_and_imageable_type_and_position", unique: true
-    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
   end
 
   create_table "mobility_string_translations", force: :cascade do |t|

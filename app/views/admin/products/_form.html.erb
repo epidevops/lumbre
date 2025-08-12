@@ -240,7 +240,7 @@
       </div>
 
       <!-- Photo Gallery Section -->
-      <% if resource.photos.attached? %>
+      <% if resource.has_photos? %>
         <div class="border-t border-gray-200 dark:border-gray-600 pt-8">
           <div class="flex justify-between items-center mb-6">
             <h3 class="text-lg font-medium text-gray-900 dark:text-white">
@@ -260,9 +260,9 @@
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
             <% resource.photos.each_with_index do |photo, index| %>
               <div class="relative group bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                <%= image_tag photo.variant(:square),
+                <%= image_tag(rails_blob_path(photo.variant(:thumb).processed),
                     class: "w-full h-32 object-cover",
-                    alt: "Product photo #{index + 1}" %>
+                    alt: "Product photo #{index + 1}" )  %>
 
                 <!-- Photo Overlay -->
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200">

@@ -1,16 +1,16 @@
 module Product::Photos
   extend ActiveSupport::Concern
 
-  THUMBNAIL_MAX_WIDTH = 1200
-  THUMBNAIL_MAX_HEIGHT = 800
-  THUMBNAIL_WEBP_VARIANT = { resize_to_fill: [ THUMBNAIL_MAX_WIDTH, THUMBNAIL_MAX_HEIGHT, { crop: :centre } ], format: :webp, saver: { subsample_mode: "on", strip: true, interlace: true, lossless: true, quality: 100 }, preprocessed: true }
-  SQUARE_WEBP_VARIANT = { resize_to_fill: [ 512, 512 ], format: :webp, saver: { subsample_mode: "on", strip: true, interlace: true, lossless: true, quality: 80 }, preprocessed: true }
+  # THUMBNAIL_MAX_WIDTH = 1200
+  # THUMBNAIL_MAX_HEIGHT = 800
+  # THUMBNAIL_WEBP_VARIANT = { resize_to_fill: [ THUMBNAIL_MAX_WIDTH, THUMBNAIL_MAX_HEIGHT, { crop: :centre } ], format: :webp, saver: { subsample_mode: "on", strip: true, interlace: true, lossless: true, quality: 100 } }
+  # SQUARE_WEBP_VARIANT = { resize_to_fill: [ 512, 512 ], format: :webp, saver: { subsample_mode: "on", strip: true, interlace: true, lossless: true, quality: 80 } }
 
+  THUMBNAIL_WEBP_VARIANT = { resize_to_fill: [ 512, 512 ], format: :webp }
 
   included do
     has_many_attached :photos do |attachable|
       attachable.variant :thumb, THUMBNAIL_WEBP_VARIANT
-      attachable.variant :square, SQUARE_WEBP_VARIANT
     end
   end
 
@@ -20,9 +20,17 @@ module Product::Photos
   #   end
   # end
 
-  # def attached_photos?
-  #   photos.attached?
-  # end
+  def has_photos?
+    photos.attached?
+  end
+
+  def photos_thumb_processed
+    photos.variant(:thumb).processed
+  end
+
+  def photos_token
+    signed_id(purpose: :photos)
+  end
 
   # def s3_file_key
   #   "#{Rails.env}/products/photos/#{file_name.dasherize}.webp"
