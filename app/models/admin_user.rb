@@ -18,8 +18,6 @@ class AdminUser < ApplicationRecord
 
   serialize :otp_backup_codes, coder: JSON
 
-  before_validation :password_required?
-
   include Avatar # , EmailValidations, NoticedAssociations
   rolify
   has_person_name

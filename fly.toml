@@ -30,8 +30,6 @@ console_command = '/rails/bin/rails console'
     grace_period = '5s'
     method = 'GET'
     path = '/up'
-    protocol = 'http'
-    tls_skip_verify = false
 
     [http_service.checks.headers]
       X-Forwarded-Proto = 'https'

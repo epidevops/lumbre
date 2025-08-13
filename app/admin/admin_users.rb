@@ -100,8 +100,12 @@ ActiveAdmin.register AdminUser do
 
   controller do
     def update
-      # Handle MFA setup verification
-      if params[:admin_user] && params[:admin_user][:otp_required_for_login] == "true" && params[:admin_user][:otp_attempt].present?
+      # Handle MFA setup verification - only when explicitly setting up OTP
+      if params[:admin_user] &&
+         params[:admin_user][:otp_required_for_login] == "true" &&
+         params[:admin_user][:otp_attempt].present? &&
+         params[:admin_user][:otp_secret].present?
+
         verification_code = params[:admin_user][:otp_attempt]
         temp_otp_secret = params[:admin_user][:otp_secret]
 
@@ -130,6 +134,21 @@ ActiveAdmin.register AdminUser do
           redirect_to edit_admin_admin_user_path(resource)
         end
       else
+        # Regular update - filter out OTP-related parameters to prevent unwanted OTP setup
+        if params[:admin_user]
+          # Remove OTP-related parameters from regular updates
+          params[:admin_user].delete(:otp_secret)
+          params[:admin_user].delete(:otp_attempt)
+          params[:admin_user].delete(:otp_backup_codes)
+          params[:admin_user].delete(:consumed_timestep)
+
+          # Only allow otp_required_for_login to be set to false (disable OTP)
+          # Don't allow it to be set to true through regular updates
+          if params[:admin_user][:otp_required_for_login] == "true"
+            params[:admin_user].delete(:otp_required_for_login)
+          end
+        end
+
         # Regular update
         super
       end
