@@ -17,6 +17,8 @@ ActiveAdmin.register Product do
   #   permitted
   # end
 
+  includes :photos_attachments
+
   # For security, limit the actions that should be available
   actions :all, except: []
 
@@ -75,4 +77,14 @@ ActiveAdmin.register Product do
 
   # Add or remove fields to toggle their visibility in the form
   form partial: "form"
+
+  member_action :delete_photo, method: :delete do
+    photo = ActiveStorage::Attachment.find(params[:photo_id])
+    if photo.record == resource
+      photo.purge_later
+      redirect_to edit_admin_product_path(resource), notice: "Photo deleted successfully"
+    else
+      redirect_to edit_admin_product_path(resource), alert: "Photo not found"
+    end
+  end
 end

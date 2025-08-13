@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge(options).compact_blank
   end
 
+  include ActiveStorage::SetCurrent
+
   def route_not_found
     redirect_to root_path, flash: { info: t("application.route_not_found") }
     # render file: Rails.public_path.join("404.html"), status: :not_found, layout: false

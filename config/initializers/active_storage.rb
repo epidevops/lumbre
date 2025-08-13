@@ -1,5 +1,5 @@
 # Configure Active Storage URL generation
-Rails.application.config.active_storage.resolve_model_to_route = :rails_storage_proxy
+# Rails.application.config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
 # # Set default URL options for Active Storage
 # Rails.application.config.active_storage.default_url_options = {

@@ -14,6 +14,16 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    div class: "px-4 pb-8 m-auto max-w-3xl" do
+      para "Url Options", class: "mt-2 text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-200 text-center"
+      ul class: "mt-6 text-xl leading-8 text-gray-700 dark:text-gray-400 list-none p-0 text-left whitespace-nowrap" do
+        li "ActiveStorage::Current.url_options: #{ActiveStorage::Current.url_options}"
+        li "ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }"
+        li "protocol: #{request.protocol}, host: #{request.host}, port: #{request.port}"
+        li "Rails.application.routes.default_url_options: #{Rails.application.routes.default_url_options}"
+      end
+    end
+
     panel "Admin Tools" do
       if Flipper.enabled?(:super_admin_access, current_admin_user)
         h3 { b { link_to("Blazer", mount_blazer_path, target: "_blank") } }
