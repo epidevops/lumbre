@@ -6,12 +6,12 @@
 
 Rails.application.configure do
   # Configure Litestream through environment variables or Rails credentials
-  litestream_credentials = Rails.application.credentials.tigris
+  # litestream_credentials = Rails.application.credentials.tigris
 
-  config.litestream.replica_bucket = ENV["LITESTREAM_REPLICA_BUCKET"] || litestream_credentials&.bucket
-  config.litestream.replica_key_id = ENV["LITESTREAM_ACCESS_KEY_ID"] || litestream_credentials&.access_key_id
-  config.litestream.replica_access_key = ENV["LITESTREAM_SECRET_ACCESS_KEY"] || litestream_credentials&.secret_access_key
-  config.litestream.replica_endpoint = ENV["LITESTREAM_AWS_ENDPOINT_URL_S3"] || litestream_credentials&.endpoint
+  config.litestream.replica_bucket = ENV.fetch("LITESTREAM_REPLICA_BUCKET", Rails.application.credentials.dig(:tigris, :bucket) || ENV["BUCKET_NAME"])
+  config.litestream.replica_key_id = ENV.fetch("LITESTREAM_ACCESS_KEY_ID", Rails.application.credentials.dig(:tigris, :access_key_id) || ENV["AWS_ACCESS_KEY_ID"])
+  config.litestream.replica_access_key = ENV.fetch("LITESTREAM_SECRET_ACCESS_KEY", Rails.application.credentials.dig(:tigris, :secret_access_key) || ENV["AWS_SECRET_ACCESS_KEY"])
+  config.litestream.replica_endpoint = ENV.fetch("LITESTREAM_AWS_ENDPOINT_URL_S3", Rails.application.credentials.dig(:tigris, :endpoint) || ENV["AWS_ENDPOINT_URL_S3"])
 
   # Configure the default Litestream config path
   config.config_path = Rails.root.join("config", "litestream.yml")

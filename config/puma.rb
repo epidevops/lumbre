@@ -55,4 +55,4 @@ plugin :tmp_restart
 # Run the Solid Queue supervisor inside of Puma for single-server deployments.
 plugin :solid_queue if ENV.fetch("SOLID_QUEUE_IN_PUMA", Rails.application.credentials.puma_plugins.solid_queue.enabled)
 plugin :tailwindcss if ENV.fetch("TAILWIND_IN_PUMA", (ENV.fetch("RAILS_ENV") != "production"))
-# plugin :litestream if ENV.fetch("LITESTREAM_IN_PUMA", Rails.application.credentials.puma_plugins.litestream.enabled)
+# plugin :litestream if ENV.fetch("LITESTREAM_IN_PUMA", (Rails.application.credentials.puma_plugins.litestream.enabled && ENV.fetch("RAILS_ENV", "production") == "production"))
