@@ -1,9 +1,94 @@
+/* @import url('https://fonts.cdnfonts.com/css/perfectly-vintages'); */
+/* @import url('https://fonts.cdnfonts.com/css/gothemian'); */
+
+
+
+/* <link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css" rel="stylesheet" /> */
+
 @import "tailwindcss";
 
 /* @import "flowbite/src/themes/default"; */
 /* @plugin "flowbite/plugin"; */
+/*
+@font-face {
+  font-family: "My Awesome Font";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: font-url("my-awesome-font.ttf");
+}
+
+
+@font-face {
+  font-family: 'Perfectly Vintages';
+  font-style: normal;
+  font-weight: 400;
+  src: url('perfectly-vintages-font-by-keithzo.otf') format('otf');
+  font-display: swap;
+} */
+
 
 @theme {
+
+
+  /* --font-sans: 'Perfectly Vintages';
+  --font-serif: 'Gothemian'; */
+
+  /* Gotham Rounded, Gotham Condensed, Gotham Narrow, Gotham X-Narrow, Gotham Bold */
+
+  /* --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Perfectly Vintages";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif, "Gotham Bold"; */
+
+  /* --font-serif: 'Perfectly Vintages', serif;
+  --font-sans: 'Gothemian', sans-serif; */
+
+
+  /* --font-sans: "Gotham Bold", sans-serif;
+  --font-serif: "Perfectly Vintages", serif; */
+  /* --font-sans: Poppins, sans-serif;
+  --font-poppins: Poppins, sans-serif;
+  --font-noto: Noto Sans, sans-serif; */
+
+
+
+  --color-siam-50: #f4f4f1;
+  --color-siam-100: #e7e7e0;
+  --color-siam-200: #d2d2c4;
+  --color-siam-300: #b5b6a0;
+  --color-siam-400: #9a9b80;
+  --color-siam-500: #7d7f63;
+  --color-siam-600: #64664f;
+  --color-siam-700: #4d4e3d;
+  --color-siam-800: #3f4034;
+  --color-siam-900: #37382f;
+  --color-siam-950: #1c1d16;
+
+  --color-piper-50: #fcf7ee;
+  --color-piper-100: #f6e9cf;
+  --color-piper-200: #ecd19b;
+  --color-piper-300: #e2b467;
+  --color-piper-400: #db9d44;
+  --color-piper-500: #d27f2e;
+  --color-piper-600: #bc6226;
+  --color-piper-700: #9a4623;
+  --color-piper-800: #7e3922;
+  --color-piper-900: #682f1f;
+  --color-piper-950: #3b170d;
+
+  --color-rope-50: #fefaec;
+  --color-rope-100: #faf2cb;
+  --color-rope-200: #f5e392;
+  --color-rope-300: #f0cf59;
+  --color-rope-400: #ecbb33;
+  --color-rope-500: #e49e1c;
+  --color-rope-600: #ca7915;
+  --color-rope-700: #a85815;
+  --color-rope-800: #924919;
+  --color-rope-900: #713916;
+  --color-rope-950: #401c08;
+
+
   --animate-appear-then-fade: appear-then-fade 4s ease-in-out both;
   --animate-slide-in-then-slide-out: slide-in-then-slide-out slide-in 0.3s ease-out, slide-out 0.5s ease-out 2.5s forwards;
 
