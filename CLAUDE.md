@@ -12,7 +12,7 @@ Lumbre is a Ruby on Rails 8.1 application for a restaurant/hospitality business.
 - **Authentication**: Devise for both admin users and regular users
 - **Feature Flags**: Flipper for feature management
 - **Scheduling**: Ice Cube for recurring events/schedules
-- **Multi-language**: I18n support (en, es, fr, de, pt-BR, es-MX)
+- **Multi-language**: I18n support (en, fr, de, pt-BR, es-MX)
 
 ## Development Commands
 
@@ -102,7 +102,7 @@ bundle exec rubycritic                 # Code quality analysis
 ### Development Tools (Non-production)
 Mounted engines available in development:
 - `/blazer` - SQL dashboard and analytics
-- `/exception-track` - Error tracking interface  
+- `/exception-track` - Error tracking interface
 - `/flipper` - Feature flag management
 - `/letter-opener` - Email preview
 - `/litequeen` - Solid Litequeen interface
@@ -122,7 +122,7 @@ Mounted engines available in development:
 Uses multiple SQLite databases:
 - **Primary**: Application data (users, restaurants, schedules, etc.)
 - **Cache**: Rails caching (Solid Cache)
-- **Queue**: Background jobs (Solid Queue) 
+- **Queue**: Background jobs (Solid Queue)
 - **Cable**: WebSocket connections (Solid Cable)
 
 ### Testing Strategy

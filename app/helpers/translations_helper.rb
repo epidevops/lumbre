@@ -10,7 +10,6 @@ module TranslationsHelper
 
   LOCALE_FLAGS = {
     "en": "🇺🇸",
-    "es": "🇪🇸",
     "fr": "🇫🇷",
     "de": "🇩🇪",
     "pt-BR": "🇧🇷",

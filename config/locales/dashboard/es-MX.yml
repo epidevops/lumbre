@@ -1,0 +1,3 @@
+es-MX:
+  welcome_back: "Bienvenido de vuelta, %{name}"
+  welcome_message: "Gestiona tu restaurante, productos y operaciones comerciales desde este panel central."

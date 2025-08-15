@@ -1,5 +1,5 @@
 ActiveAdmin.register SystemContactTypeLabel do
-  menu parent: "administration", priority: 3
+  menu parent: "administration", priority: 3, if: proc { current_admin_user.super_admin? || Flipper.enabled?(:super_admin_access, current_admin_user) }
   config.sort_order = "contact_type_asc"
   # Specify parameters which should be permitted for assignment
   permit_params :id, :contact_type, :label, :created_at, :updated_at, :_destroy

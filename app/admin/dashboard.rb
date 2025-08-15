@@ -3,30 +3,36 @@
 ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
-  content title: proc { I18n.t("active_admin.dashboard") } do
+  # content title: proc { I18n.t("active_admin.dashboard") } do
+  content class: "px-4 py-16 md:py-32" do
+    div class: "text-center mb-12" do
+      h1 t(:welcome_back, name: current_admin_user.name), class: "text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
+      para t(:welcome_message), class: "text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed"
+    end
     card_data = [
       {
         title: "Manage Restaurant",
         description: "This is where you can configure internationalization, socials, addreses, events, and more.",
-        link: "/admin/restaurants/1/edit"
+        link: "/admin/restaurants/1/edit",
+        image: "lumbre_banner.jpeg"
       },
       {
         title: "Manage Products",
         description: "This is where you can configure products, categories, and more.",
         link: "/admin/products",
-        image: "/docs/images/blog/image-4.jpg"
+        image: "lumbre_banner.jpeg"
       },
       {
         title: "Manage Me",
         description: "View and edit your account, change your password, and more.",
         link: "/admin/admin_users/#{current_admin_user.id}/edit",
-        image: "/docs/images/blog/image-4.jpg"
+        image: "lumbre_banner.jpeg"
       }
     ]
+
     div class: "grid grid-cols-2 md:grid-cols-3 gap-8" do
       render partial: "card", collection: card_data
     end
-
 
     # div class: "px-4 py-16 md:py-32 text-center m-auto max-w-3xl" do
     #   h2 "Welcome to ActiveAdmin", class: "text-base font-semibold leading-7 text-indigo-600 dark:text-indigo-500"
@@ -46,46 +52,6 @@ ActiveAdmin.register_page "Dashboard" do
     #     li "protocol: #{request.protocol}, host: #{request.host}, port: #{request.port}"
     #     li "Rails.application.routes.default_url_options: #{Rails.application.routes.default_url_options}"
     #   end
-    # end
-
-    # panel "Cards Partial" do
-    #   div class: "grid grid-cols-2 md:grid-cols-3 gap-4" do
-    #     5.times do
-    #       render partial: "card"
-    #     end
-    #   end
-    # end
-
-    # panel "Admin Tools" do
-    #   if Flipper.enabled?(:super_admin_access, current_admin_user)
-    #     h3 { b { link_to("Blazer", mount_blazer_path, target: "_blank") } }
-    #     h3 { b { link_to("Litequeen", mount_solid_litequeen_path, target: "_blank") } }
-    #     h3 { b { link_to("Mission Control Jobs", mount_mission_control_jobs_path, target: "_blank") } }
-    #     h3 { b { link_to("Letter Opener", mount_letter_opener_web_path, target: "_blank") } }
-    #     h3 { b { link_to("Lookbook", mount_lookbook_path, target: "_blank") } }
-    #     h3 { b { link_to("Exception Track", mount_exception_track_path, target: "_blank") } }
-    #   end
-    #   h3 { b { link_to("Flipper", "/flipper", target: "_blank") } }
-    #   # h3 { b { link_to('Model Graph', '/models') } }
-    #   # h3 { b { link_to('PgHero', '/pghero') } }
-    #   # h3 { b { link_to('Sidekiq', '/sidekiq') } }
-    #   # h3 { b { link_to('Vue Playground', '/vue-playground') } }
-    # end
-
-    # panel "Admin Tools" do
-    #   if Flipper.enabled?(:super_admin_access, current_admin_user)
-    #     h3 { b { link_to("Blazer", mount_blazer_path, target: "_blank") } }
-    #     h3 { b { link_to("Litequeen", mount_solid_litequeen_path, target: "_blank") } }
-    #     h3 { b { link_to("Mission Control Jobs", mount_mission_control_jobs_path, target: "_blank") } }
-    #     h3 { b { link_to("Letter Opener", mount_letter_opener_web_path, target: "_blank") } }
-    #     h3 { b { link_to("Lookbook", mount_lookbook_path, target: "_blank") } }
-    #     h3 { b { link_to("Exception Track", mount_exception_track_path, target: "_blank") } }
-    #   end
-    #   h3 { b { link_to("Flipper", "/flipper", target: "_blank") } }
-    #   # h3 { b { link_to('Model Graph', '/models') } }
-    #   # h3 { b { link_to('PgHero', '/pghero') } }
-    #   # h3 { b { link_to('Sidekiq', '/sidekiq') } }
-    #   # h3 { b { link_to('Vue Playground', '/vue-playground') } }
     # end
   end
 end
