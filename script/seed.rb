@@ -20,7 +20,6 @@ I18n.available_locales.each do |locale|
     restaurant.update!(
       name: case locale
             when :en then "Lumbre"
-            when :es then "Lumbre"
             when :fr then "Lumbre"
             when :de then "Lumbre"
             when :'pt-BR' then "Lumbre"
@@ -28,7 +27,6 @@ I18n.available_locales.each do |locale|
             end,
       slogan: case locale
               when :en then "Experience the warmth of authentic Mexican cuisine"
-              when :es then "Experimenta el calor de la auténtica cocina mexicana"
               when :fr then "Découvrez la chaleur de la cuisine mexicaine authentique"
               when :de then "Erleben Sie die Wärme der authentischen mexikanischen Küche"
               when :'pt-BR' then "Experimente o calor da autêntica culinária mexicana"
@@ -36,7 +34,6 @@ I18n.available_locales.each do |locale|
               end,
       hero_text: case locale
                  when :en then "Welcome to Lumbre, where traditional Mexican flavors meet contemporary dining"
-                 when :es then "Bienvenido a Lumbre, donde los sabores mexicanos tradicionales se encuentran con la gastronomía contemporánea"
                  when :fr then "Bienvenue chez Lumbre, où les saveurs mexicaines traditionnelles rencontrent la gastronomie contemporaine"
                  when :de then "Willkommen bei Lumbre, wo traditionelle mexikanische Aromen auf zeitgenössische Küche treffen"
                  when :'pt-BR' then "Bem-vindo ao Lumbre, onde os sabores mexicanos tradicionais se encontram com a gastronomia contemporânea"
@@ -44,7 +41,6 @@ I18n.available_locales.each do |locale|
                  end,
       about_text: case locale
                   when :en then "At Lumbre, we bring the authentic taste of Mexico to your table. Our chefs combine traditional recipes with modern techniques to create an unforgettable dining experience."
-                  when :es then "En Lumbre, llevamos el sabor auténtico de México a tu mesa. Nuestros chefs combinan recetas tradicionales con técnicas modernas para crear una experiencia gastronómica inolvidable."
                   when :fr then "Chez Lumbre, nous apportons le goût authentique du Mexique à votre table. Nos chefs combinent des recettes traditionnelles avec des techniques modernes pour créer une expérience culinaire inoubliable."
                   when :de then "Bei Lumbre bringen wir den authentischen Geschmack Mexikos an Ihren Tisch. Unsere Köche kombinieren traditionelle Rezepte mit modernen Techniken, um ein unvergessliches kulinarisches Erlebnis zu schaffen."
                   when :'pt-BR' then "No Lumbre, trazemos o sabor autêntico do México para sua mesa. Nossos chefs combinam receitas tradicionais com técnicas modernas para criar uma experiência gastronômica inesquecível."
@@ -64,7 +60,6 @@ I18n.available_locales.each do |locale|
     store.update!(
       name: case locale
             when :en then "Lumbre Cafe and Market"
-            when :es then "Café y Mercado Lumbre"
             when :fr then "Café et Marché Lumbre"
             when :de then "Lumbre Café und Markt"
             when :'pt-BR' then "Café e Mercado Lumbre"
@@ -72,7 +67,6 @@ I18n.available_locales.each do |locale|
             end,
       slogan: case locale
               when :en then "Your destination for authentic Mexican flavors and artisanal products"
-              when :es then "Tu destino para sabores mexicanos auténticos y productos artesanales"
               when :fr then "Votre destination pour les saveurs mexicaines authentiques et les produits artisanaux"
               when :de then "Ihr Ziel für authentische mexikanische Aromen und handgefertigte Produkte"
               when :'pt-BR' then "Seu destino para sabores mexicanos autênticos e produtos artesanais"
@@ -120,10 +114,6 @@ menu_items = [
         title: 'Wild Garden Salad',
         description: 'Fresh mixed greens with seasonal vegetables and house-made vinaigrette'
       },
-      es: {
-        title: 'Ensalada Silvestre',
-        description: 'Verduras mixtas frescas con vegetales de temporada y vinagreta de la casa'
-      },
       fr: {
         title: 'Salade Sauvage',
         description: 'Mélange de légumes frais avec des légumes de saison et vinaigrette maison'
@@ -150,10 +140,6 @@ menu_items = [
       en: {
         title: 'Fire Roasted Avocado',
         description: 'Creamy avocado roasted to perfection with a touch of spice'
-      },
-      es: {
-        title: 'Aguacate Asado al Fuego',
-        description: 'Aguacate cremoso asado a la perfección con un toque de picante'
       },
       fr: {
         title: 'Avocat Rôti au Feu',
@@ -182,10 +168,6 @@ menu_items = [
         title: "Fire-Grilled Seasonal Vegetables",
         description: "A rotating selection of seasonal farm vegetables, flame-grilled with chimichurri and served with a creamy cashew ranch dressing."
       },
-      es: {
-        title: "Verduras de Temporada a la Parrilla",
-        description: "Una selección rotativa de verduras de temporada de la granja, a la parrilla con chimichurri y servidas con un aderezo cremoso de anacardos."
-      },
       fr: {
         title: "Légumes de Saison Grillés au Feu",
         description: "Une sélection rotative de légumes de saison de la ferme, grillés à la flamme avec du chimichurri et servis avec une vinaigrette crémeuse aux noix de cajou."
@@ -212,10 +194,6 @@ menu_items = [
       en: {
         title: "Focaccia Margherita Pizza",
         description: "House-made focaccia topped with San Marzano tomato sauce, mozzarella, and basil."
-      },
-      es: {
-        title: "Pizza Focaccia Margherita",
-        description: "Focaccia casera cubierta con salsa de tomate San Marzano, mozzarella y albahaca."
       },
       fr: {
         title: "Pizza Focaccia Margherita",
@@ -244,10 +222,6 @@ menu_items = [
         title: "Grilled Mushroom Trio",
         description: "Wild mushrooms seasonally. Portobello, oyster, and shiitake mushrooms marinated in herbs and garlic, grilled over an open flame, and finished with a tamari-maple glaze. Served with house made focaccia."
       },
-      es: {
-        title: "Trío de Hongos a la Parrilla",
-        description: "Hongos silvestres de temporada. Hongos portobello, ostra y shiitake marinados en hierbas y ajo, a la parrilla sobre llama abierta y terminados con un glaseado de tamari y maple. Servidos con focaccia casera."
-      },
       fr: {
         title: "Trio de Champignons Grillés",
         description: "Champignons sauvages de saison. Champignons portobello, pleurotes et shiitake marinés aux herbes et à l'ail, grillés sur flamme vive et finis avec un glaçage tamari-érable. Servis avec focaccia maison."
@@ -274,10 +248,6 @@ menu_items = [
       en: {
         title: "Crispy Baby Potatoes",
         description: "Baby potatoes, oven roasted and finished in rosemary-garlic oil with flaky sea salt."
-      },
-      es: {
-        title: "Papas Bebé Crujientes",
-        description: "Papas bebé, asadas al horno y terminadas en aceite de romero y ajo con sal marina escamosa."
       },
       fr: {
         title: "Pommes de Terre Bébé Croustillantes",
@@ -306,10 +276,6 @@ menu_items = [
         title: "Roasted Beets with Jocoque & Pistachios",
         description: "Slow-roasted beet over a bed of tangy pink peppercorn jocoque cheese, topped with toasted pistachios, balsamic reduction and fresh dill."
       },
-      es: {
-        title: "Remolachas Asadas con Jocoque y Pistachos",
-        description: "Remolacha asada lentamente sobre una cama de queso jocoque con pimienta rosa, cubierta con pistachos tostados, reducción de balsámico y eneldo fresco."
-      },
       fr: {
         title: "Betteraves Rôties au Jocoque et Pistaches",
         description: "Betterave rôtie lentement sur un lit de fromage jocoque au poivre rose, garnie de pistaches grillées, réduction de balsamique et aneth frais."
@@ -336,10 +302,6 @@ menu_items = [
       en: {
         title: "Esquites dip with Roasted Chile & Epazote",
         description: "Fire-roasted corn off the cob, tossed with house-made crema, cotija cheese, epazote, and chile-lime seasoning."
-      },
-      es: {
-        title: "Dip de Esquites con Chile Asado y Epazote",
-        description: "Maíz asado al fuego desgranado, mezclado con crema casera, queso cotija, epazote y condimento de chile y limón."
       },
       fr: {
         title: "Trempette d'Esquites au Piment Rôti et Épazote",
@@ -368,10 +330,6 @@ menu_items = [
         title: "24-Hour Short Rib \"Al Carbón\"",
         description: "Grass-fed costilla de res, slow-cooked 24 hours, then finished with mezcal glaze. Served with fire-roasted sauce and grilled Vidalia onion."
       },
-      es: {
-        title: "Costilla Corta de 24 Horas \"Al Carbón\"",
-        description: "Costilla de res alimentada con pasto, cocinada lentamente durante 24 horas, luego terminada con glaseado de mezcal. Servida con salsa asada al fuego y cebolla Vidalia a la parrilla."
-      },
       fr: {
         title: "Côte Courte de 24 Heures \"Al Carbón\"",
         description: "Côte de bœuf nourri à l'herbe, cuite lentement pendant 24 heures, puis finie avec un glaçage au mezcal. Servie avec une sauce grillée au feu et un oignon Vidalia grillé."
@@ -398,10 +356,6 @@ menu_items = [
       en: {
         title: "Guajillo & Agave Chicken",
         description: "Locally raised free-range chicken, marinated in guajillo and mezcal brown butter, slow-cooked at 3 hours, then fire-seared. Finished with a smoky chile glaze."
-      },
-      es: {
-        title: "Pollo Guajillo y Agave",
-        description: "Pollo de libre pastoreo criado localmente, marinado en mantequilla de guajillo y mezcal, cocinado lentamente durante 3 horas, luego sellado al fuego. Terminado con un glaseado ahumado de chile."
       },
       fr: {
         title: "Poulet Guajillo et Agave",
@@ -430,10 +384,6 @@ menu_items = [
         title: "Grass-Fed Primal Burger",
         description: "Our famous burger on house made focaccia. Farm-fresh greens, heirloom tomato, pickled red onions, cheddar cheese, aioli. Served with french fries."
       },
-      es: {
-        title: "Hamburguesa Primal de Res Alimentada con Pasto",
-        description: "Nuestra famosa hamburguesa en focaccia casera. Verduras frescas de la granja, tomate heirloom, cebollas rojas encurtidas, queso cheddar, aioli. Servida con papas fritas."
-      },
       fr: {
         title: "Burger Primal au Bœuf Nourri à l'Herbe",
         description: "Notre célèbre burger sur focaccia maison. Verdure fraîche de la ferme, tomate ancienne, oignons rouges marinés, fromage cheddar, aïoli. Servi avec des frites."
@@ -460,10 +410,6 @@ menu_items = [
       en: {
         title: "Mushroom Walnut Burger",
         description: "House-made mushroom and walnut patty on focaccia with farm-fresh greens, heirloom tomato, pickled red onions, and aioli. Served with french fries."
-      },
-      es: {
-        title: "Hamburguesa de Hongos y Nueces",
-        description: "Hamburguesa casera de hongos y nueces en focaccia con verduras frescas de la granja, tomate heirloom, cebollas rojas encurtidas y aioli. Servida con papas fritas."
       },
       fr: {
         title: "Burger aux Champignons et Noix",
@@ -492,10 +438,6 @@ menu_items = [
         title: "Cielo",
         description: "El Tinieblo Joven with Clarified Guava, Lime, Star Anise and Fennel with Blue Spirulina Ice Sphere."
       },
-      es: {
-        title: "Cielo",
-        description: "El Tinieblo Joven con Guayaba Clarificada, Lima, Anís Estrellado y Hinojo con Esfera de Hielo de Espirulina Azul."
-      },
       fr: {
         title: "Cielo",
         description: "El Tinieblo Joven avec Goyave Clarifiée, Citron Vert, Anis Étoilé et Fenouil avec Sphère de Glace à la Spiruline Bleue."
@@ -523,10 +465,6 @@ menu_items = [
         title: "Solar",
         description: "El Tinieblo Reposado, Pineapple, Ginger, Lime, Mint with Turmeric Coconut Foam."
       },
-      es: {
-        title: "Solar",
-        description: "El Tinieblo Reposado, Piña, Jengibre, Lima, Menta con Espuma de Cúrcuma y Coco."
-      },
       fr: {
         title: "Solar",
         description: "El Tinieblo Reposado, Ananas, Gingembre, Citron Vert, Menthe avec Mousse de Curcuma et Noix de Coco."
@@ -551,10 +489,6 @@ menu_items = [
     category: "specialty-cocktails",
     translations: {
       en: {
-        title: "Tierra",
-        description: "El Tinieblo Añejo, Campari, Vermouth Rosso."
-      },
-      es: {
         title: "Tierra",
         description: "El Tinieblo Añejo, Campari, Vermouth Rosso."
       },
@@ -585,10 +519,6 @@ menu_items = [
         title: "Chaga Colada",
         description: "Better than a Coke in every way. Chaga mushroom extract, vanilla simple and soda water."
       },
-      es: {
-        title: "Chaga Colada",
-        description: "Mejor que una Coca-Cola en todos los sentidos. Extracto de hongo Chaga, simple de vainilla y agua con gas."
-      },
       fr: {
         title: "Chaga Colada",
         description: "Meilleur qu'un Coca à tous les égards. Extrait de champignon Chaga, sirop de vanille et eau gazeuse."
@@ -615,10 +545,6 @@ menu_items = [
       en: {
         title: "Kombucha",
         description: "Healthy probiotic soda. Ask about our seasonal flavors."
-      },
-      es: {
-        title: "Kombucha",
-        description: "Refresco probiótico saludable. Pregunta por nuestros sabores de temporada."
       },
       fr: {
         title: "Kombucha",
@@ -647,10 +573,6 @@ menu_items = [
         title: "Lemonade",
         description: "Pineapple, Blue Guava, Orange."
       },
-      es: {
-        title: "Limonada",
-        description: "Piña, Guayaba Azul, Naranja."
-      },
       fr: {
         title: "Citronnade",
         description: "Ananas, Goyave Bleue, Orange."
@@ -677,10 +599,6 @@ menu_items = [
       en: {
         title: "Alfalfa Agua Fresca",
         description: "Alfalfa juice grown on the Finca with lime and raw sugar."
-      },
-      es: {
-        title: "Agua Fresca de Alfalfa",
-        description: "Jugo de alfalfa cultivado en la Finca con lima y azúcar cruda."
       },
       fr: {
         title: "Eau Fraîche d'Alfalfa",

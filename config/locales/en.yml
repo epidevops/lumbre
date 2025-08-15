@@ -33,7 +33,6 @@ en:
     route_not_found: "Oops! Looks like the page you're looking for doesn't exist."
   locales:
     en: "English"
-    es: "Spanish"
     fr: "French"
     de: "German"
     pt-BR: "Portuguese"

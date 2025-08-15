@@ -4,7 +4,6 @@ fr:
     route_not_found: "Oups ! Il semble que la page que vous recherchez n'existe pas."
   locales:
     en: "Anglais"
-    es: "Espagnol"
     fr: "Français"
     de: "Allemand"
     pt-BR: "Portugais"

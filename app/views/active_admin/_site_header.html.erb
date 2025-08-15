@@ -10,7 +10,7 @@
   </div>
 
   <div class="flex items-center gap-x-4">
-    <%= render 'active_admin/devtools_dropdown' %>
+    <%= render 'active_admin/devtools_dropdown' if current_admin_user.super_admin? %>
 
     <div class="flex items-center gap-x-2">
       <%= render 'active_admin/language_dropdown' %>

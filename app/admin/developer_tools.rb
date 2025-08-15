@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register_page "Developer Tools" do
-  menu parent: "administration", priority: 3
+  menu parent: "administration", priority: 3, if: proc { current_admin_user.super_admin? || Flipper.enabled?(:super_admin_access, current_admin_user) }
 
   content do
     tabs do
