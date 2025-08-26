@@ -179,7 +179,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-i18n (1.14.0)
+    devise-i18n (1.15.0)
       devise (>= 4.9.0)
       rails-i18n
     devise-two-factor (6.1.0)
@@ -723,7 +723,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise (~> 4.9)
-  devise-i18n (~> 1.14)
+  devise-i18n (~> 1.15)
   devise-two-factor (~> 6.0)
   dockerfile-rails (~> 1.7)
   dotenv (~> 3.1)
