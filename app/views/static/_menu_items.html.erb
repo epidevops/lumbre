@@ -34,7 +34,7 @@
             </div>
           <% end %>
           <% if item.has_photos? %>
-            <%= image_tag(rails_blob_path(item.photos.first.variant(:thumb).processed), class: "mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 object-cover rounded-full aspect-square") %>
+            <%= image_tag(item.photos.first.variant(:thumb), class: "mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 object-cover rounded-full aspect-square") %>
           <% else %>
             <img class="mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 rounded-full" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
           <% end %>
