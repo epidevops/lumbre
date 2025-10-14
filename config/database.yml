@@ -60,6 +60,7 @@ production:
   queue:
     <<: *default
     database: /litefs/production_queue.sqlite3
+    url: <%= URI.parse(ENV["DATABASE_URL"]).tap { |url| url.path.gsub!("production", "production_queue") } if ENV["DATABASE_URL"] %>
     migrations_paths: db/queue_migrate
     # url: <%= URI.parse(ENV["DATABASE_URL"]).tap { |url| url.path += "_queue" } if ENV["DATABASE_URL"] %>
   cable:
