@@ -12,6 +12,9 @@ module Product::Photos
     has_many_attached :photos do |attachable|
       attachable.variant :thumb, THUMBNAIL_WEBP_VARIANT
     end
+
+    # Process variants asynchronously after photos are attached
+    after_commit :process_photo_variants, on: [ :create, :update ], if: :has_photos?
   end
 
   # module ClassMethods
@@ -30,6 +33,16 @@ module Product::Photos
 
   def photos_token
     signed_id(purpose: :photos)
+  end
+
+  private
+
+  def process_photo_variants
+    photos.each do |photo|
+      photo.variant(:thumb).processed
+    rescue StandardError => e
+      Rails.logger.error("Failed to process photo variant: #{e.message}")
+    end
   end
 
   # def s3_file_key
