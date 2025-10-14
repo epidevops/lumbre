@@ -58,13 +58,13 @@ en:
     non_alcoholic_specialties: "Non-Alcoholic Specialties"
     non_alcoholic_specialties_description: "Jump to the non-alcoholic specialties"
   menu:
-    title: "Our Menu"
-    subtitle: "Hello from menu text"
+    title: "Menu"
+    subtitle: ""
     no_items_found: "No items found"
     default_recommended_text: "Chef Recommended"
     hot_dishes:
-      title: "Hot Dishes"
-      description: "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients."
+      title: "Our Food Offerings"
+      description: "We strive to provide the highest quality ingredients sourced from local and organic providers where possible."
     beverages:
       title: "Beverages"
       specialty_cocktails:
@@ -76,7 +76,7 @@ en:
         title: "Non Alcoholic Specialties"
   contact:
     title: "Get in touch"
-    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    description: "We provide full-service event coordination, exceptional farm-to-table cuisine, and a stunning natural environment to help you create memories that will last a lifetime."
     address:
       label: "Address"
     phone:
