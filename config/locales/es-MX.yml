@@ -29,13 +29,13 @@ es-MX:
     non_alcoholic_specialties: "Especialidades Sin Alcohol"
     non_alcoholic_specialties_description: "Ir a las especialidades sin alcohol"
   menu:
-    title: "Nuestro Menú"
-    subtitle: "Hola desde el texto del menú"
+    title: "Menú"
+    subtitle: ""
     no_items_found: "No se encontraron elementos"
     default_recommended_text: "Recomendado por el Chef"
     hot_dishes:
-      title: "Platillos Calientes"
-      description: "Somos un grupo dinámico de individuos apasionados por lo que hacemos y dedicados a entregar los mejores resultados para nuestros clientes."
+      title: "Nuestra Oferta de Alimentos"
+      description: "Nos esforzamos por proporcionar ingredientes de la más alta calidad provenientes de proveedores locales y orgánicos siempre que sea posible."
     beverages:
       title: "Bebidas"
       specialty_cocktails:
@@ -47,7 +47,7 @@ es-MX:
         title: "Especialidades Sin Alcohol"
   contact:
     title: "Ponte en contacto"
-    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    description: "Proporcionamos coordinación completa de eventos, cocina excepcional de granja a mesa y un impresionante entorno natural para ayudarte a crear recuerdos que durarán toda la vida."
     address:
       label: "Dirección"
     phone:

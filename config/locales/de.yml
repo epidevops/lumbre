@@ -29,13 +29,13 @@ de:
     non_alcoholic_specialties: "Alkoholfreie Spezialitäten"
     non_alcoholic_specialties_description: "Zu den alkoholfreien Spezialitäten"
   menu:
-    title: "Unsere Speisekarte"
-    subtitle: "Hallo vom Menütext"
+    title: "Menü"
+    subtitle: ""
     no_items_found: "Keine Elemente gefunden"
     default_recommended_text: "Empfohlen vom Chef"
     hot_dishes:
-      title: "Warme Gerichte"
-      description: "Wir sind eine dynamische Gruppe von Menschen, die leidenschaftlich an dem sind, was wir tun, und bestrebt sind, unseren Kunden die besten Ergebnisse zu liefern."
+      title: "Unser Essensangebot"
+      description: "Wir bemühen uns, die höchste Qualität der Zutaten zu bieten, die nach Möglichkeit von lokalen und biologischen Anbietern bezogen werden."
     beverages:
       title: "Getränke"
       specialty_cocktails:
@@ -47,7 +47,7 @@ de:
         title: "Alkoholfreie Spezialitäten"
   contact:
     title: "Kontaktieren Sie uns"
-    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    description: "Wir bieten umfassende Veranstaltungskoordination, außergewöhnliche Farm-to-Table-Küche und eine atemberaubende natürliche Umgebung, um Ihnen zu helfen, Erinnerungen zu schaffen, die ein Leben lang halten."
     address:
       label: "Adresse"
     phone:

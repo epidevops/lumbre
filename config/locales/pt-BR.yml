@@ -29,13 +29,13 @@ pt-BR:
     non_alcoholic_specialties: "Especialidades Sem Álcool"
     non_alcoholic_specialties_description: "Ir para as especialidades sem álcool"
   menu:
-    title: "Nosso Cardápio"
-    subtitle: "Olá do texto do cardápio"
+    title: "Cardápio"
+    subtitle: ""
     no_items_found: "Nenhum item encontrado"
     default_recommended_text: "Recomendado pelo Chef"
     hot_dishes:
-      title: "Pratos Quentes"
-      description: "Somos um grupo dinâmico de indivíduos apaixonados pelo que fazemos e dedicados a entregar os melhores resultados para nossos clientes."
+      title: "Nossa Oferta de Alimentos"
+      description: "Nos esforçamos para fornecer ingredientes da mais alta qualidade provenientes de fornecedores locais e orgânicos sempre que possível."
     beverages:
       title: "Bebidas"
       specialty_cocktails:
@@ -47,7 +47,7 @@ pt-BR:
         title: "Especialidades Sem Álcool"
   contact:
     title: "Entre em contato"
-    description: "Proin volutpat consequat porttitor cras nullam gravida at. Orci molestie a eu arcu. Sed ut tincidunt integer elementum id sem. Arcu sed malesuada et magna."
+    description: "Oferecemos coordenação completa de eventos, culinária excepcional da fazenda à mesa e um ambiente natural deslumbrante para ajudá-lo a criar memórias que durarão a vida toda."
     address:
       label: "Endereço"
     phone:
