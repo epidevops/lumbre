@@ -7,7 +7,7 @@ ActiveAdmin.register Restaurant do
   *I18n.available_locales.map { |locale| "slogan_#{Mobility.normalize_locale(locale)}" },
   *I18n.available_locales.map { |locale| "hero_text_#{Mobility.normalize_locale(locale)}" },
   *I18n.available_locales.map { |locale| "about_text_#{Mobility.normalize_locale(locale)}" },
-  socials_attributes: %i[id socialable_type socialable_id name url icon created_at updated_at _destroy],
+  socials_attributes: %i[id socialable_type socialable_id name url icon created_at updated_at active _destroy],
   addresses_attributes: %i[id addressable_type addressable_id label address url active created_at updated_at _destroy],
   phones_attributes: %i[id phoneable_type phoneable_id label phone active created_at updated_at _destroy],
   emails_attributes: %i[id emailable_type emailable_id label email active created_at updated_at _destroy],
