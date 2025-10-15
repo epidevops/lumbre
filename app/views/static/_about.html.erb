@@ -1,54 +1,54 @@
 <!-- About section -->
-<div class="bg-white container mx-auto snap-start snap-always">
+<div class="bg-siam-50 container mx-auto snap-start snap-always">
   <div class="grid grid-cols-1 sm:grid-cols-2">
     <div class="col-md-6 p-10">
-      <h2 class="text-lg font-semibold text-center tracking-tight text-balance text-gray-900 sm:text-5xl">Discover</h2>
-      <h3 class="mt-6 text-lg/8 text-gray-900 uppercase text-center">Our Story</h3>
-      <p class="mt-6 text-lg/8 text-gray-900">The History of Kitchens and Cooks gives further intimation on Mr Boulanger usual menu, stating confidently that "Boulanger served salted poultry and fresh eggs, all presented without a tablecloth on small marble tables". Numerous commentators have also referred to the supposed restaurant owner's eccentric habit of touting for custom outside his establishment, dressed in aristocratic fashion and brandishing a sword      Numerous commentators have also referred to the supposed restaurant owner's eccentric habit of touting for custom outside his establishment, dressed in aristocratic fashion and brandishing a sword</p>
-      <p class="indent-8 my-8"><%= link_to 'Discover our menu', '#menu', class: 'text-lg/8 text-gray-900 text-center' %></p>
+      <h2 class="heading-section text-center">Discover</h2>
+      <h3 class="mt-6 text-xl text-siam-800 uppercase text-center font-gotham-bold">Our Story</h3>
+      <p class="mt-6 text-lg leading-relaxed text-siam-700">The History of Kitchens and Cooks gives further intimation on Mr Boulanger usual menu, stating confidently that "Boulanger served salted poultry and fresh eggs, all presented without a tablecloth on small marble tables". Numerous commentators have also referred to the supposed restaurant owner's eccentric habit of touting for custom outside his establishment, dressed in aristocratic fashion and brandishing a sword.</p>
+      <p class="indent-8 my-8 text-center"><%= link_to 'Discover our menu', '#menu', class: 'btn btn-primary' %></p>
     </div>
     <div class="col-md-6 p-10">
-      <%= image_tag 'menu-parallax.jpg', class: 'w-full h-full object-cover' %>
+      <%= image_tag 'menu-parallax.jpg', class: 'w-full h-full object-cover rounded-lg' %>
     </div>
   </div>
 </div>
 
-<div class="relative h-32 sm:h-120 bg-center bg-cover bg-no-repeat bg-fixed flex flex-col items-center justify-center py-32" style="background-image: url('<%= image_path('menu-parallax.jpg') %>')">
-  <h2 class="text-lg font-semibold tracking-tight text-balance text-white sm:text-5xl">Restaurant Hours</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-15 py-10">
-    <div class="col-1/3">
-      <p class="text-lg/8 text-white text-center">Friday to Sunday</p>
+<div class="relative h-32 sm:h-120 bg-center bg-cover bg-no-repeat bg-fixed flex flex-col items-center justify-center py-32" style="background-image: linear-gradient(rgba(28, 29, 22, 0.7), rgba(28, 29, 22, 0.7)), url('<%= image_path('menu-parallax.jpg') %>')">
+  <h2 class="heading-section text-siam-50">Restaurant Hours</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 py-10 max-w-5xl mx-auto">
+    <div class="bg-siam-950/50 backdrop-blur-sm rounded-lg p-6">
+      <p class="text-lg text-rope-400 text-center font-gotham-bold mb-4">Friday to Sunday</p>
       <div class="flex flex-row items-center justify-between">
-        <p class="text-lg/8 text-white">Kitchen:</p>
-        <p class="text-lg/8 text-white">1:00 PM - 9:00 PM</p>
+        <p class="text-base text-siam-100">Kitchen:</p>
+        <p class="text-base text-siam-100">1:00 PM - 9:00 PM</p>
       </div>
     </div>
-    <div class="col-1/3">
-      <p class="text-lg/8 text-white text-center">Friday</p>
+    <div class="bg-siam-950/50 backdrop-blur-sm rounded-lg p-6">
+      <p class="text-lg text-rope-400 text-center font-gotham-bold mb-4">Friday</p>
       <div class="flex flex-row items-center justify-between gap-4">
-        <p class="text-lg/8 text-white">Sunset Jazz:</p>
-        <p class="text-lg/8 text-white">6:00 PM - 8:00 PM</p>
+        <p class="text-base text-siam-100">Sunset Jazz:</p>
+        <p class="text-base text-siam-100">6:00 PM - 8:00 PM</p>
       </div>
     </div>
-    <div class="col-1/3">
-      <p class="text-lg/8 text-white text-center">Sunday</p>
-      <div class="flex flex-row items-center justify-between">
-        <p class="text-lg/8 text-white">Kitchen:</p>
-        <p class="text-lg/8 text-white">9:00 AM - 6:00 PM</p>
+    <div class="bg-siam-950/50 backdrop-blur-sm rounded-lg p-6">
+      <p class="text-lg text-rope-400 text-center font-gotham-bold mb-4">Sunday</p>
+      <div class="flex flex-row items-center justify-between mb-2">
+        <p class="text-base text-siam-100">Kitchen:</p>
+        <p class="text-base text-siam-100">9:00 AM - 6:00 PM</p>
       </div>
       <div class="flex flex-row items-center justify-between">
-        <p class="text-lg/8 text-white">Brunch:</p>
-        <p class="text-lg/8 text-white">9:00 AM - 2:00 PM</p>
+        <p class="text-base text-siam-100">Brunch:</p>
+        <p class="text-base text-siam-100">9:00 AM - 2:00 PM</p>
       </div>
     </div>
   </div>
-  <h2 class="text-lg font-semibold tracking-tight text-balance text-white sm:text-5xl">Cafe & Store Hours</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-3 sm:gap-15 py-10">
-    <div class="col-start-2">
-      <p class="text-lg/8 text-white text-center">Tuesday to Sunday</p>
+  <h2 class="heading-section text-siam-50 mt-8">Cafe & Store Hours</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 sm:gap-8 py-10 max-w-5xl mx-auto">
+    <div class="col-start-1 sm:col-start-2 bg-siam-950/50 backdrop-blur-sm rounded-lg p-6">
+      <p class="text-lg text-rope-400 text-center font-gotham-bold mb-4">Tuesday to Sunday</p>
       <div class="flex flex-row items-center justify-between">
-        <p class="text-lg/8 text-white">Daily:</p>
-        <p class="text-lg/8 text-white">9:00 AM - 5:00 PM</p>
+        <p class="text-base text-siam-100">Daily:</p>
+        <p class="text-base text-siam-100">9:00 AM - 5:00 PM</p>
       </div>
     </div>
   </div>
