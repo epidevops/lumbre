@@ -28,8 +28,45 @@
   font-display: swap;
 } */
 
+  /* Font Face Declarations */
+  @font-face {
+    font-family: 'Gotham Bold';
+    src: url('/assets/GOTHAM-BOLD.TTF') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Gotham Medium';
+    src: url('/assets/Gotham-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Gotham Narrow';
+    src: url('/assets/GothamNarrow-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Perfectly Vintages';
+    src: url('/assets/Perfectly Vintages Font by Keithzo.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
 
 @theme {
+
+  --font-gotham-bold: 'Gotham Bold', ui-sans-serif, system-ui, sans-serif;
+  --font-gotham-medium: 'Gotham Medium', ui-sans-serif, system-ui, sans-serif;
+  --font-gotham-narrow: 'Gotham Narrow', ui-sans-serif, system-ui, sans-serif;
+  --font-perfectly-vintages: 'Perfectly Vintages', ui-serif, Georgia, serif;
 
 
   /* --font-sans: 'Perfectly Vintages';
@@ -52,6 +89,7 @@
 
 
 
+  # Green
   --color-siam-50: #f4f4f1;
   --color-siam-100: #e7e7e0;
   --color-siam-200: #d2d2c4;

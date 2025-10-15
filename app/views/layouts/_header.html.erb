@@ -1,6 +1,6 @@
 <!-- Header -->
 <header class="absolute inset-x-0 top-0 z-50" data-controller="toggle">
-  <nav class="flex items-center justify-between p-2 lg:p-6 lg:px-8 bg-gray-900/50" aria-label="Global">
+  <nav class="flex items-center justify-between p-2 lg:p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
       <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
         <span class="sr-only"><%= t('header.home') %></span>
@@ -20,7 +20,7 @@
         <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
       <% end %>
       <div class="relative">
-        <%= button_tag t('header.menu'), class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
+        <%= button_tag t('header.menu'), class: 'text-3xl font-perfectly-vintages uppercase tracking-widest text-siam-600 cursor-pointer hover:text-siam-800 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
         <div class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 hidden" data-toggle-target="dropdownMenu">
           <div class="p-4">
             <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
@@ -100,7 +100,7 @@
       <% if Flipper.enabled?(:enable_gallery) %>
         <%= link_to t('header.gallery'), '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
       <% end %>
-      <%= link_to t('header.contact'), '#contact', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <%= link_to t('header.contact'), '#contact', class: 'text-3xl font-perfectly-vintages uppercase tracking-widest text-siam-600 cursor-pointer hover:text-siam-800 transition-all duration-300', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
       <% if Flipper.enabled?(:enable_admin_dev_tools) %>
