@@ -5,19 +5,21 @@
 </div>
 
 <div class="bg-siam-50 py-4">
-  <%= render "menu_items", local_assigns: {
-    title: t('menu.hot_dishes.title'),
-    description: t('menu.hot_dishes.description'),
-    menu_items: @menu_items
-  } %>
-  <%= render "menu_items", local_assigns: {
-    title: t('menu.beverages.title'),
-    subtitle: t('menu.beverages.specialty_cocktails.title'),
-    additional_info: t('menu.beverages.specialty_cocktails.additional_info'),
-    menu_items: @specialty_cocktails
-  } %>
-  <%= render "menu_items", local_assigns: {
-    subtitle: t('menu.beverages.non_alcoholic.title'),
-    menu_items: @non_alcoholic_specialties
-  } %>
+  <div class="">
+    <%= render "menu_items", local_assigns: {
+      title: t('menu.hot_dishes.title'),
+      description: t('menu.hot_dishes.description'),
+      menu_items: @menu_items
+    } %>
+    <%= render "menu_items", local_assigns: {
+      title: t('menu.beverages.title'),
+      subtitle: t('menu.beverages.specialty_cocktails.title'),
+      additional_info: t('menu.beverages.specialty_cocktails.additional_info'),
+      menu_items: @specialty_cocktails
+    } %>
+    <%= render "menu_items", local_assigns: {
+      subtitle: t('menu.beverages.non_alcoholic.title'),
+      menu_items: @non_alcoholic_specialties
+    } %>
+  </div>
 </div>

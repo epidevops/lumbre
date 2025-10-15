@@ -5,18 +5,21 @@
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-24 lg:mt-32">
       <div class="mx-auto max-w-2xl py-4 sm:py-8 lg:py-10">
-        <% if @announcement %>
-          <%= render "hero_announcement", local_assigns: { announcement: @announcement } %>
-        <% end %>
-        <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-8">
-          <h1 class="heading-display"><%= @restaurant.name %></h1>
-          <p class="mt-4 text-xl font-gotham-medium uppercase tracking-widest text-rope-400"><%= @restaurant.slogan %></p>
-          <p class="hidden sm:block mt-6 text-lg text-siam-100"><%= @restaurant.hero_text %></p>
-        </div>
+        <img class="" src="<%= image_path('logos/LOGO-LUMBRE_original.png') %>" alt="">
+        <% if 1 == 2 %>
+          <% if @announcement %>
+            <%= render "hero_announcement", local_assigns: { announcement: @announcement } %>
+          <% end %>
+          <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-8">
+            <h1 class="heading-display"><%= @restaurant.name %></h1>
+            <p class="mt-4 text-xl font-gotham-medium uppercase tracking-widest text-rope-400"><%= @restaurant.slogan %></p>
+            <p class="hidden sm:block mt-6 text-lg text-siam-100"><%= @restaurant.hero_text %></p>
+          </div>
 
-        <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-6 mt-4">
-          <%= render "hero_hours" %>
-        </div>
+          <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-6 mt-4">
+            <%= render "hero_hours" %>
+          </div>
+        <% end %>
       </div>
     </div>
 
