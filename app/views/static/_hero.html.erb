@@ -1,27 +1,17 @@
 <!-- Hero section -->
 <div class="bg-siam-950 h-dvh">
-  <div class="relative isolate overflow-hidden h-dvh flex flex-col">
+  <div class="relative isolate overflow-hidden h-dvh flex flex-col items-center justify-center">
     <%= video_tag 'lumbreyhumo.mp4', autoplay: true, loop: true, muted: true, type: 'video/mp4', class: 'absolute inset-0 -z-10 size-full object-cover opacity-70' %>
 
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-24 lg:mt-32">
-      <div class="mx-auto max-w-2xl py-4 sm:py-8 lg:py-10">
-        <img class="" src="<%= image_path('logos/LOGO BLANCO Y VERDE.png') %>" alt="">
-        <% if 1 == 2 %>
-          <% if @announcement %>
-            <%= render "hero_announcement", local_assigns: { announcement: @announcement } %>
-          <% end %>
-          <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-8">
-            <h1 class="heading-display"><%= @restaurant.name %></h1>
-            <p class="mt-4 text-xl font-gotham-medium uppercase tracking-widest text-rope-400"><%= @restaurant.slogan %></p>
-            <p class="hidden sm:block mt-6 text-lg text-siam-100"><%= @restaurant.hero_text %></p>
-          </div>
-
-          <div class="text-center bg-siam-950/80 backdrop-blur-sm rounded-2xl p-6 mt-4">
-            <%= render "hero_hours" %>
-          </div>
-        <% end %>
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <!-- Main logo - visible on all screens, animated -->
+        <img
+          src="<%= image_path('logos/LOGO BLANCO Y VERDE.png') %>"
+          alt="Lumbre Logo"
+          class="mx-auto w-full max-w-md animate-fade-in-up"
+        />
       </div>
     </div>
-
   </div>
 </div>
