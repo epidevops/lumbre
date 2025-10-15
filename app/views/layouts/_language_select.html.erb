@@ -1,9 +1,9 @@
 <div class="relative text-left" data-controller="toggle">
   <div>
-    <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm/6 cursor-pointer font-semibold text-white shadow-xs ring-1 ring-gray-300 ring-inset", id: "local-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
+    <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm cursor-pointer font-semibold text-siam-50 shadow-xs ring-1 ring-siam-600 ring-inset hover:bg-siam-900 transition-colors duration-300", id: "local-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
       <div class="" aria-hidden="true"><%= flag_for_locale(I18n.locale) %></div>
       <%= t('locales.' + I18n.locale.to_s) %>
-      <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <svg class="size-5 text-siam-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
         <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
       </svg>
     <% end %>
@@ -19,12 +19,12 @@
       From: "transform opacity-100 scale-100"
       To: "transform opacity-0 scale-95"
   -->
-  <div class="absolute right-0 z-10 w-fit mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="local-button" tabindex="-1" data-toggle-target="dropdownMenu">
+  <div class="absolute right-0 z-10 w-fit mt-2 origin-top-right divide-y divide-siam-200 rounded-md bg-white shadow-lg ring-1 ring-siam-200 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="local-button" tabindex="-1" data-toggle-target="dropdownMenu">
     <div class="py-1" role="none">
       <% I18n.available_locales.each_with_index do |locale, index| %>
         <%= link_to url_for(locale: locale),
                     id: "local-button-#{index}",
-                    class: "group flex items-center px-2.5 py-1 text-sm/6 text-gray-700 hover:bg-gray-100",
+                    class: "group flex items-center px-2.5 py-1 text-sm link-primary hover:bg-siam-50 transition-colors duration-300",
                     role: "menuitem",
                     tabindex: "-1",
                     data: { action: 'toggle#toggleDropdownItem' } do %>

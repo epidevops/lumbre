@@ -5,20 +5,20 @@
 <% @menu_items = local_assigns[:menu_items] %>
 
 
-<div class="mx-auto max-w-2xl text-center space-y-1 mt-8 text">
+<div class="mx-auto max-w-2xl text-center space-y-2 mt-8">
   <% if @title %>
-    <h2 id="menu-section-title-<%= @title.parameterize %>" class="text-2xl font-perfectly-vintages tracking-widest text-center text-balance text-siam-600 sm:text-5xl uppercase"><%= @title %></h2>
+    <h2 id="menu-section-title-<%= @title.parameterize %>" class="heading-section"><%= @title %></h2>
   <% end %>
   <% if @subtitle %>
-    <h3 id="menu-section-subtitle-<%= @subtitle.parameterize %>" class="text-xl mt-2 font-semibold tracking-wide text-balance sm:text-3xl uppercase"><%= @subtitle %></h3>
+    <h3 id="menu-section-subtitle-<%= @subtitle.parameterize %>" class="text-xl mt-2 font-gotham-bold tracking-wide text-siam-800 sm:text-3xl uppercase"><%= @subtitle %></h3>
   <% end %>
   <% if @additional_info %>
     <% @additional_info.each do |info| %>
-      <p class="my-0 mx-4 text-lg/8 text-gray-600 text-balance text-pretty"><%= info %></p>
+      <p class="my-0 mx-4 text-base text-siam-600 text-balance"><%= info %></p>
     <% end %>
   <% end %>
   <% if @description %>
-    <p class="font-gotham-medium mx-4 mb-4 text-lg/6 text-siam-400 text-balance text-pretty"><%= @description %></p>
+    <p class="font-gotham-medium mx-4 mb-4 text-lg text-siam-700 text-balance"><%= @description %></p>
   <% end %>
 </div>
 
@@ -27,10 +27,10 @@
     <ul role="list" class="mx-auto grid max-w-xl grid-cols-1 gap-y-2 sm:gap-x-8 sm:gap-y-4 sm:grid-cols-1 sm:max-w-7xl md:gap-x-8 md:gap-y-4 md:grid-cols-1 md:max-w-7xl lg:gap-x-8 lg:gap-y-4 lg:grid-cols-2 lg:max-w-7xl xl:gap-x-8 xl:gap-y-4 xl:grid-cols-2 xl:max-w-7xl 2xl:gap-x-8 2xl:gap-y-4 2xl:grid-cols-3 2xl:max-w-[80%]">
       <% @menu_items.each do |item| %>
 
-        <li class="relative flex flex-row gap-2 sm:gap-4 p-4 pt-10 mx-4 <%= item.recommended? ? "border-gray-200 border-2" : "border-transparent" %>">
+        <li class="relative flex flex-row gap-2 sm:gap-4 p-4 pt-10 mx-4 rounded-lg bg-white <%= item.recommended? ? "ring-2 ring-rope-400 shadow-md" : "border border-siam-200" %>">
           <% if item.recommended? %>
             <div class="absolute inset-0 top-0 left-0 isolate">
-              <p class="text-sm/6 font-semibold text-gray-900 bg-gray-200 py-1 px-6 w-fit"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
+              <p class="text-sm font-semibold text-siam-950 bg-rope-400 py-1 px-6 w-fit rounded-tl-lg"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
             </div>
           <% end %>
           <% if item.has_photos? %>
@@ -40,16 +40,16 @@
           <% end %>
           <div class="flex-auto">
             <div class="flex flex-row justify-between">
-              <h3 class="text-lg/8 font-semibold tracking-tight text-gray-900"><%= item.title %></h3>
-              <h3 class="text-lg/8 font-semibold tracking-tight text-gray-900"><%= item.price %></h3>
+              <h3 class="text-lg font-gotham-bold tracking-tight text-siam-900"><%= item.title %></h3>
+              <h3 class="text-lg font-gotham-bold tracking-tight text-rope-600"><%= item.price %></h3>
             </div>
-            <p class="text-base/7 text-gray-600"><%= item.options %></p>
-            <p class="mt-2 text-base/7 text-gray-600 text-balance text-pretty"><%= item.description %></p>
+            <p class="text-base text-siam-600"><%= item.options %></p>
+            <p class="mt-2 text-base text-siam-700 text-balance"><%= item.description %></p>
           </div>
         </li>
       <% end %>
     </ul>
   <% else %>
-    <p class="mx-4 text-lg/8 text-gray-600 text-balance text-pretty"><%= t('menu.no_items_found') %></p>
+    <p class="mx-4 text-lg text-siam-600 text-balance text-center"><%= t('menu.no_items_found') %></p>
   <% end %>
 </div>

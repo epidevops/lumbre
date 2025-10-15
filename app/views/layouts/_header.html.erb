@@ -8,7 +8,7 @@
       <% end %>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-siam-100" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
         <span class="sr-only"><%= t('header.open_menu') %></span>
         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -17,90 +17,90 @@
     </div>
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
       <% if Flipper.enabled?(:enable_about) %>
-        <%= link_to t('header.about'), '#about', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+        <%= link_to t('header.about'), '#about', class: 'link-light text-sm font-semibold cursor-pointer', data: { controller: 'scroll-to' } %>
       <% end %>
       <div class="relative">
-        <%= button_tag t('header.menu'), class: 'text-3xl font-perfectly-vintages uppercase tracking-widest text-siam-600 cursor-pointer hover:text-siam-800 transition-all duration-300', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
-        <div class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 hidden" data-toggle-target="dropdownMenu">
+        <%= button_tag t('header.menu'), class: 'heading-display text-4xl cursor-pointer', aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } %>
+        <div class="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-siam-200 hidden" data-toggle-target="dropdownMenu">
           <div class="p-4">
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-              <div class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <div class="menu-dropdown-item">
+              <div class="menu-dropdown-icon">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                 </svg>
               </div>
               <div class="flex-auto">
-                <%= link_to "#menu", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
+                <%= link_to "#menu", class: "block font-semibold link-primary cursor-pointer", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   <%= t('header.menu') %>
                   <span class="absolute inset-0"></span>
                 <% end %>
-                <p class="mt-1 text-gray-600"><%= t('header.menu_description') %></p>
+                <p class="mt-1 text-sm text-siam-600"><%= t('header.menu_description') %></p>
               </div>
             </div>
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-              <div class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <div class="menu-dropdown-item">
+              <div class="menu-dropdown-icon">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
                 </svg>
               </div>
               <div class="flex-auto">
-                <%= link_to "#menu-section-title-hot-dishes", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
+                <%= link_to "#menu-section-title-hot-dishes", class: "block font-semibold link-primary cursor-pointer", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   <%= t('header.hot_dishes') %>
                   <span class="absolute inset-0"></span>
                 <% end %>
-                <p class="mt-1 text-gray-600"><%= t('header.hot_dishes_description') %></p>
+                <p class="mt-1 text-sm text-siam-600"><%= t('header.hot_dishes_description') %></p>
               </div>
             </div>
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-              <div class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <div class="menu-dropdown-item">
+              <div class="menu-dropdown-icon">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
                 </svg>
               </div>
               <div class="flex-auto">
-                <%= link_to "#menu-section-title-beverages", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
+                <%= link_to "#menu-section-title-beverages", class: "block font-semibold link-primary cursor-pointer", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   <%= t('header.beverages') %>
                   <span class="absolute inset-0"></span>
                 <% end %>
-                <p class="mt-1 text-gray-600"><%= t('header.beverages_description') %></p>
+                <p class="mt-1 text-sm text-siam-600"><%= t('header.beverages_description') %></p>
               </div>
             </div>
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-              <div class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <div class="menu-dropdown-item">
+              <div class="menu-dropdown-icon">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
               </div>
               <div class="flex-auto">
-                <%= link_to "#menu-section-subtitle-specialty-cocktails", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
+                <%= link_to "#menu-section-subtitle-specialty-cocktails", class: "block font-semibold link-primary cursor-pointer", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   <%= t('header.specialty_cocktails') %>
                   <span class="absolute inset-0"></span>
                 <% end %>
-                <p class="mt-1 text-gray-600"><%= t('header.specialty_cocktails_description') %></p>
+                <p class="mt-1 text-sm text-siam-600"><%= t('header.specialty_cocktails_description') %></p>
               </div>
             </div>
-            <div class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50">
-              <div class="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                <svg class="size-6 text-gray-600 group-hover:text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <div class="menu-dropdown-item">
+              <div class="menu-dropdown-icon">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
               </div>
               <div class="flex-auto">
-                <%= link_to "#menu-section-subtitle-non-alcoholic-specialties", class: "block font-semibold text-gray-900 cursor-pointer transition-all duration-300", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
+                <%= link_to "#menu-section-subtitle-non-alcoholic-specialties", class: "block font-semibold link-primary cursor-pointer", data: { controller: 'scroll-to', action: 'toggle#toggleDropdownItem' } do %>
                   <%= t('header.non_alcoholic_specialties') %>
                   <span class="absolute inset-0"></span>
                 <% end %>
-                <p class="mt-1 text-gray-600"><%= t('header.non_alcoholic_specialties_description') %></p>
+                <p class="mt-1 text-sm text-siam-600"><%= t('header.non_alcoholic_specialties_description') %></p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <% if Flipper.enabled?(:enable_gallery) %>
-        <%= link_to t('header.gallery'), '#gallery', class: 'text-sm/6 font-semibold text-white cursor-pointer hover:text-gray-400 transition-all duration-300', data: { controller: 'scroll-to' } %>
+        <%= link_to t('header.gallery'), '#gallery', class: 'link-light text-sm font-semibold cursor-pointer', data: { controller: 'scroll-to' } %>
       <% end %>
-      <%= link_to t('header.contact'), '#contact', class: 'text-3xl font-perfectly-vintages uppercase tracking-widest text-siam-600 cursor-pointer hover:text-siam-800 transition-all duration-300', data: { controller: 'scroll-to' } %>
+      <%= link_to t('header.contact'), '#contact', class: 'heading-display text-4xl cursor-pointer', data: { controller: 'scroll-to' } %>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
       <% if Flipper.enabled?(:enable_admin_dev_tools) %>
@@ -109,13 +109,13 @@
       <%= render 'layouts/language_select' %>
       <% if Flipper.enabled?(:user_sign_in) || Flipper.enabled?(:user_sign_in) %>
         <% if user_signed_in? %>
-          <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-sm/6 font-semibold text-white' %>
+          <%= link_to t('header.sign_out'), destroy_user_session_path, data: { turbo_method: :delete }, class: 'link-light text-sm font-semibold' %>
         <% else %>
           <% if Flipper.enabled?(:user_sign_in) %>
-            <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'text-sm/6 font-semibold text-white' %>
+            <%= button_tag t('header.sign_in'), data: { modal_target: 'authentication-modal', modal_toggle: 'authentication-modal' }, class: 'link-light text-sm font-semibold' %>
           <% end %>
           <% if Flipper.enabled?(:user_sign_in) %>
-            <%= link_to t('header.sign_up'), new_user_registration_path, class: 'text-sm/6 font-semibold text-white' %>
+            <%= link_to t('header.sign_up'), new_user_registration_path, class: 'link-light text-sm font-semibold' %>
           <% end %>
         <% end %>
       <% end %>
@@ -125,13 +125,13 @@
   <div class="hidden" role="dialog" aria-modal="true" data-toggle-target="mobileMenu">
     <!-- Background backdrop, show/hide based on slide-over state. -->
     <div class="fixed inset-0 z-50"></div>
-    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-siam-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-siam-800">
       <div class="flex items-center justify-between">
         <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
           <span class="sr-only"><%= t('header.home') %></span>
           <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="">
         <% end %>
-        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400" aria-expanded="true" data-action="toggle#toggleMobileMenu" data-toggle-target="closeMenuButton">
+        <button type="button" class="-m-2.5 rounded-md p-2.5 text-siam-100" aria-expanded="true" data-action="toggle#toggleMobileMenu" data-toggle-target="closeMenuButton">
           <span class="sr-only"><%= t('header.close_menu') %></span>
           <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -139,20 +139,20 @@
         </button>
       </div>
       <div class="mt-6 flow-root">
-        <div class="-my-6 divide-y divide-gray-500/25">
+        <div class="-my-6 divide-y divide-siam-800/50">
           <div class="space-y-2 py-6">
             <% if Flipper.enabled?(:enable_about) %>
-              <%= link_to t('header.about'), '#about', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+              <%= link_to t('header.about'), '#about', class: "-mx-3 block rounded-lg px-4 py-3 text-base font-semibold link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <% end %>
-            <%= link_to t('header.menu'), '#menu', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
-            <%= link_to t('header.hot_dishes'), '#menu-section-title-hot-dishes', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
-            <%= link_to t('header.beverages'), '#menu-section-title-beverages', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
-            <%= link_to t('header.specialty_cocktails'), '#menu-section-subtitle-specialty-cocktail', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
-            <%= link_to t('header.non_alcoholic_specialties'), '#menu-section-subtitle-non-alcoholic-specialties', class: "mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.menu'), '#menu', class: "-mx-3 block rounded-lg px-4 py-3 text-base font-semibold link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.hot_dishes'), '#menu-section-title-hot-dishes', class: "mx-3 block rounded-lg px-4 py-3 text-sm link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.beverages'), '#menu-section-title-beverages', class: "mx-3 block rounded-lg px-4 py-3 text-sm link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.specialty_cocktails'), '#menu-section-subtitle-specialty-cocktail', class: "mx-3 block rounded-lg px-4 py-3 text-sm link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.non_alcoholic_specialties'), '#menu-section-subtitle-non-alcoholic-specialties', class: "mx-3 block rounded-lg px-4 py-3 text-sm link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <% if Flipper.enabled?(:enable_gallery) %>
-              <%= link_to t('header.gallery'), '#gallery', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+              <%= link_to t('header.gallery'), '#gallery', class: "-mx-3 block rounded-lg px-4 py-3 text-base font-semibold link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
             <% end %>
-            <%= link_to t('header.contact'), '#contact', class: "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800 transition-all duration-300", data: { action: 'toggle#toggleMobileMenuItems' } %>
+            <%= link_to t('header.contact'), '#contact', class: "-mx-3 block rounded-lg px-4 py-3 text-base font-semibold link-light hover:bg-siam-900", data: { action: 'toggle#toggleMobileMenuItems' } %>
           </div>
           <% if @socials.any? %>
             <div class="flex justify-center gap-x-12 md:order-2 py-12">
@@ -162,13 +162,13 @@
           <div class="py-6 flex gap-x-4">
             <% if Flipper.enabled?(:user_sign_in) || Flipper.enabled?(:user_sign_in) %>
               <% if user_signed_in? %>
-                <%= link_to t('header.sign_out'), destroy_user_session_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                <%= link_to t('header.sign_out'), destroy_user_session_path, class: "btn btn-primary" %>
               <% else %>
                 <% if Flipper.enabled?(:user_sign_in) %>
-                  <%= link_to t('header.sign_in'), new_user_session_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                  <%= link_to t('header.sign_in'), new_user_session_path, class: "w-full btn btn-primary" %>
                 <% end %>
                 <% if Flipper.enabled?(:user_sign_in) %>
-                  <%= link_to t('header.sign_up'), new_user_registration_path, class: "w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+                  <%= link_to t('header.sign_up'), new_user_registration_path, class: "w-full btn btn-secondary" %>
                 <% end %>
               <% end %>
             <% end %>

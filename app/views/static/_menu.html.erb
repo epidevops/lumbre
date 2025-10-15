@@ -1,10 +1,10 @@
 <!-- Menu section -->
-<div class="relative h-32 sm:h-64 bg-center bg-cover bg-no-repeat bg-fixed flex flex-col items-center justify-center" style="background-image: url('<%= image_path('chicken-parallax.jpg') %>')">
-  <h2 class="text-5xl font-perfectly-vintages uppercase tracking-widest text-rope-600 sm:text-7xl"><%= t('menu.title') %></h2>
-  <p class="mt-6 text-lg/8 text-white"><%= t('menu.subtitle') %></p>
+<div class="relative h-32 sm:h-64 bg-center bg-cover bg-no-repeat bg-fixed flex flex-col items-center justify-center" style="background-image: linear-gradient(rgba(28, 29, 22, 0.6), rgba(28, 29, 22, 0.6)), url('<%= image_path('chicken-parallax.jpg') %>')">
+  <h2 class="heading-display text-rope-400"><%= t('menu.title') %></h2>
+  <p class="mt-6 text-lg text-siam-100"><%= t('menu.subtitle') %></p>
 </div>
 
-<div class="bg-white my-4">
+<div class="bg-siam-50 py-4">
   <%= render "menu_items", local_assigns: {
     title: t('menu.hot_dishes.title'),
     description: t('menu.hot_dishes.description'),
