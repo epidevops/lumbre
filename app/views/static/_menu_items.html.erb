@@ -27,24 +27,50 @@
     <ul role="list" class="mx-auto grid max-w-xl grid-cols-1 gap-y-2 sm:gap-x-8 sm:gap-y-4 sm:grid-cols-1 sm:max-w-7xl md:gap-x-8 md:gap-y-4 md:grid-cols-1 md:max-w-7xl lg:gap-x-8 lg:gap-y-4 lg:grid-cols-2 lg:max-w-7xl xl:gap-x-8 xl:gap-y-4 xl:grid-cols-2 xl:max-w-7xl 2xl:gap-x-8 2xl:gap-y-4 2xl:grid-cols-3 2xl:max-w-[80%]">
       <% @menu_items.each do |item| %>
 
-        <li class="relative flex flex-row gap-2 sm:gap-4 p-4 pt-10 mx-4 rounded-lg bg-white <%= item.recommended? ? "ring-2 ring-rope-400 shadow-md" : "border border-siam-200" %>">
+        <li class="relative flex flex-row gap-3 sm:gap-4 overflow-hidden mx-4 rounded-xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 <%= item.recommended? ? "ring-2 ring-rope-400" : "border border-siam-200" %>">
           <% if item.recommended? %>
-            <div class="absolute inset-0 top-0 left-0 isolate">
-              <p class="text-sm font-semibold text-siam-950 bg-rope-400 py-1 px-6 w-fit rounded-tl-lg"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
+            <div class="absolute top-0 left-0 z-10">
+              <p class="text-xs sm:text-sm font-gotham-bold text-siam-950 bg-rope-400 py-1.5 px-4 rounded-tl-xl rounded-br-xl"><%= item.recommended_text.presence || t('menu.default_recommended_text') %></p>
             </div>
           <% end %>
-          <% if item.has_photos? %>
-            <%= image_tag(item.photos.first.variant(:thumb), class: "mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 object-cover rounded-full aspect-square") %>
-          <% else %>
-            <img class="mx-auto hidden sm:block sm:size-12 md:size-12 lg:size-14 xl:size-24 rounded-full" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="">
-          <% end %>
-          <div class="flex-auto">
-            <div class="flex flex-row justify-between">
-              <h3 class="text-lg font-gotham-bold tracking-tight text-siam-900"><%= item.title %></h3>
-              <h3 class="text-lg font-gotham-bold tracking-tight text-rope-600"><%= item.price %></h3>
+
+          <!-- Image - Compact but visible -->
+          <% item_image = item.has_photos? ? item.photos.first.variant(:thumb) : item.category == "menu" ? "placeholder-food.jpg" : "placeholder-drink.jpg" %>
+          <div class="relative w-24 sm:w-28 md:w-32 flex-shrink-0">
+            <%= image_tag(item_image, class: "absolute inset-0 size-full object-cover") %>
+          </div>
+
+          <!-- Content -->
+          <div class="flex flex-col flex-1 py-4 pr-4 <%= item.recommended? ? "pt-12" : "pt-4" %>">
+            <!-- Header: Title and Price -->
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <h3 class="text-base sm:text-lg font-gotham-bold tracking-tight text-siam-900 leading-tight text-balance flex-1"><%= item.title %></h3>
+              <span class="text-lg sm:text-xl font-gotham-bold text-rope-600 whitespace-nowrap"><%= item.price %></span>
             </div>
-            <p class="text-base text-siam-600"><%= item.options %></p>
-            <p class="mt-2 text-base text-siam-700 text-balance"><%= item.description %></p>
+
+            <!-- Description -->
+            <p class="text-sm sm:text-base text-siam-700 leading-relaxed mb-2 flex-1"><%= item.description %></p>
+
+            <!-- Dietary icons - Bottom right -->
+            <% if item.options.present? %>
+              <div class="flex items-center justify-end gap-1.5">
+                <% if item.options.downcase.include?('v') && !item.options.downcase.include?('vo') %>
+                  <div class="flex items-center justify-center size-6 rounded-full bg-green-100 flex-shrink-0" title="Vegan">
+                    <%= inline_svg_tag 'vegan.svg', class: 'size-3.5 text-green-600' %>
+                  </div>
+                <% end %>
+                <% if item.options.downcase.include?('gf') %>
+                  <div class="flex items-center justify-center size-6 rounded-full bg-amber-100 flex-shrink-0" title="Gluten Free">
+                    <%= inline_svg_tag 'gluten-free.svg', class: 'size-3.5 text-amber-600' %>
+                  </div>
+                <% end %>
+                <% if item.options.downcase.include?('vo') %>
+                  <div class="flex items-center justify-center size-6 rounded-full bg-emerald-100 flex-shrink-0" title="Vegan Option Available">
+                    <%= inline_svg_tag 'vegan.svg', class: 'size-3.5 text-emerald-600' %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         </li>
       <% end %>
