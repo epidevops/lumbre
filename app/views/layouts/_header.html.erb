@@ -1,10 +1,11 @@
 <!-- Header -->
-<header class="absolute inset-x-0 top-0 z-50" data-controller="toggle">
+<header class="absolute inset-x-0 top-0 z-50 bg-siam-50/50" data-controller="toggle">
   <nav class="flex items-center justify-between p-2 lg:p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
       <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
         <span class="sr-only"><%= t('header.home') %></span>
-        <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="">
+        <!-- <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt=""> -->
+        <img class="h-12 w-auto" src="<%= image_path('logos/LOGO-LUMBRE_original.png') %>" alt="">
       <% end %>
     </div>
     <div class="flex lg:hidden">
