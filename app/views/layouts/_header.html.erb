@@ -5,17 +5,19 @@
       <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
         <span class="sr-only"><%= t('header.home') %></span>
         <!-- <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt=""> -->
-        <img class="h-12 w-auto" src="<%= image_path('logos/LOGO-LUMBRE_original.png') %>" alt="">
+        <img class="h-10 w-auto" src="<%= image_path('logos/LOGO Flame.png') %>" alt="">
       <% end %>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-siam-100" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-siam-800 hover:text-siam-950 transition-colors duration-300" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
         <span class="sr-only"><%= t('header.open_menu') %></span>
         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
     </div>
+
+ <!-- Original -->
     <div class="hidden lg:flex lg:gap-x-12 items-center justify-center">
       <% if Flipper.enabled?(:enable_about) %>
         <%= link_to t('header.about'), '#about', class: 'link-light text-sm font-semibold cursor-pointer', data: { controller: 'scroll-to' } %>
@@ -103,6 +105,7 @@
       <% end %>
       <%= link_to t('header.contact'), '#contact', class: 'heading-display text-4xl cursor-pointer', data: { controller: 'scroll-to' } %>
     </div>
+
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4 items-center justify-center">
       <% if Flipper.enabled?(:enable_admin_dev_tools) %>
         <%= render 'layouts/dev_tools_select' %>
@@ -121,6 +124,7 @@
         <% end %>
       <% end %>
     </div>
+
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
   <div class="hidden" role="dialog" aria-modal="true" data-toggle-target="mobileMenu">
@@ -130,7 +134,7 @@
       <div class="flex items-center justify-between">
         <%= link_to root_path, class: "-m-1.5 p-1.5" do %>
           <span class="sr-only"><%= t('header.home') %></span>
-          <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="">
+          <img class="h-10 w-auto" src="<%= image_path('logos/LOGO Flame.png') %>" alt="">
         <% end %>
         <button type="button" class="-m-2.5 rounded-md p-2.5 text-siam-100" aria-expanded="true" data-action="toggle#toggleMobileMenu" data-toggle-target="closeMenuButton">
           <span class="sr-only"><%= t('header.close_menu') %></span>
