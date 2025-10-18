@@ -1,35 +1,31 @@
-<div class="relative text-left" data-controller="toggle">
+<div class="relative inline-block text-left" data-controller="toggle">
   <div>
-    <%= button_tag class: "inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-transparent px-3 py-1 text-sm cursor-pointer font-semibold text-siam-50 shadow-xs ring-1 ring-siam-600 ring-inset hover:bg-siam-900 transition-colors duration-300", id: "local-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
-      <div class="" aria-hidden="true"><%= flag_for_locale(I18n.locale) %></div>
-      <%= t('locales.' + I18n.locale.to_s) %>
-      <svg class="size-5 text-siam-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+    <%= button_tag class: "inline-flex items-center justify-center gap-x-1.5 rounded-lg px-2.5 py-2 text-sm font-semibold text-siam-800 hover:text-siam-950 hover:bg-siam-100/50 transition-all duration-300 lg:btn lg:btn-outline", id: "locale-button", aria: { expanded: "false" }, data: { action: 'toggle#toggleDropdown', toggle_target: 'dropdownButton' } do %>
+      <div class="flex items-center text-2xl lg:text-base" aria-hidden="true"><%= flag_for_locale(I18n.locale) %></div>
+      <span class="hidden lg:inline"><%= t('locales.' + I18n.locale.to_s) %></span>
+      <svg class="size-4 text-siam-600 hover:text-siam-900 transition-transform duration-300 hidden lg:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
         <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
       </svg>
     <% end %>
   </div>
 
-  <!--
-    Dropdown menu, show/hide based on menu state.
-
-    Entering: "transition ease-out duration-100"
-      From: "transform opacity-0 scale-95"
-      To: "transform opacity-100 scale-100"
-    Leaving: "transition ease-in duration-75"
-      From: "transform opacity-100 scale-100"
-      To: "transform opacity-0 scale-95"
-  -->
-  <div class="absolute right-0 z-10 w-fit mt-2 origin-top-right divide-y divide-siam-200 rounded-md bg-white shadow-lg ring-1 ring-siam-200 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="local-button" tabindex="-1" data-toggle-target="dropdownMenu">
-    <div class="py-1" role="none">
+  <!-- Dropdown menu -->
+  <div class="absolute left-0 lg:left-auto lg:right-0 z-50 mt-2 w-56 origin-top-left lg:origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-siam-900/10 focus:outline-none hidden transition-all duration-300 ease-out" role="menu" aria-orientation="vertical" aria-labelledby="locale-button" tabindex="-1" data-toggle-target="dropdownMenu">
+    <div class="p-1" role="none">
       <% I18n.available_locales.each_with_index do |locale, index| %>
         <%= link_to url_for(locale: locale),
-                    id: "local-button-#{index}",
-                    class: "group flex items-center px-2.5 py-1 text-sm link-primary hover:bg-siam-50 transition-colors duration-300",
+                    id: "locale-option-#{index}",
+                    class: "group flex items-center gap-x-3 rounded-lg px-3 py-2.5 text-sm font-medium text-siam-700 hover:bg-siam-50 hover:text-siam-900 transition-all duration-200 #{locale == I18n.locale ? 'bg-siam-50/70 text-siam-900' : ''}",
                     role: "menuitem",
                     tabindex: "-1",
                     data: { action: 'toggle#toggleDropdownItem' } do %>
-          <div class="mr-3" aria-hidden="true"><%= flag_for_locale(locale) %></div>
-          <%= t('locales.' + locale.to_s) %>
+          <div class="flex items-center text-xl" aria-hidden="true"><%= flag_for_locale(locale) %></div>
+          <span class="flex-1"><%= t('locales.' + locale.to_s) %></span>
+          <% if locale == I18n.locale %>
+            <svg class="size-5 text-siam-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+          <% end %>
         <% end %>
       <% end %>
     </div>
