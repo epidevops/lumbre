@@ -2,11 +2,16 @@
 <header class="absolute inset-x-0 top-0 z-50 bg-siam-50/50" data-controller="toggle">
   <nav class="flex items-center justify-between py-0 px-4 lg:p-6 lg:px-8" aria-label="Global">
     <!-- Left logo - Flame icon (hidden on small, shown on large) -->
-    <div class="lg:flex lg:flex-1">
+    <div class="hidden lg:flex lg:flex-1">
       <%= link_to root_path, class: "-m-1.5 p-1.5 cursor-pointer" do %>
         <span class="sr-only"><%= t('header.home') %></span>
         <img class="size-10 w-auto" src="<%= image_path('logos/LOGO Flame.png') %>" alt="Lumbre Flame">
       <% end %>
+    </div>
+
+    <!-- Left Language Select (shown on small, hidden on large) -->
+    <div class="flex lg:hidden">
+      <%= render 'layouts/language_select' %>
     </div>
 
     <!-- Center logo - Name only (shown on small, hidden on large) -->
@@ -19,9 +24,9 @@
 
     <!-- Hamburger menu button -->
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-siam-800 hover:text-siam-950 transition-colors duration-300" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-siam-800 hover:text-siam-950 hover:bg-siam-100/50 transition-all duration-300" aria-expanded="false" data-action="toggle#toggleMobileMenu" data-toggle-target="hamburgerButton">
         <span class="sr-only"><%= t('header.open_menu') %></span>
-        <svg class="size-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+        <svg class="size-8" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
