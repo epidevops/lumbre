@@ -92,7 +92,7 @@ gem "flipper-active_record", "~> 1.3"
 gem "flipper-ui", "~> 1.3"
 gem "blazer", "~> 3.3"
 gem "active_storage_dashboard", "~> 0.1.7"
-gem "vernier", "~> 1.0"
+gem "vernier", "~> 1.8"
 gem "profile-viewer", "~> 0.0.5"
 gem "letter_opener_web", "~> 3.0"
 gem "rubycritic", require: false
