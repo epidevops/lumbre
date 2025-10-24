@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
 
+# Temporary workaround for OpenSSL 3.6.0 CRL verification issues
+require 'openssl'
+OpenSSL::SSL.send(:remove_const, :VERIFY_PEER)
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
 require_relative "../config/application"
 require "importmap/commands"
