@@ -9,29 +9,57 @@ ActiveAdmin.register_page "Dashboard" do
       h1 t(:welcome_back, name: current_admin_user.name), class: "text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
       para t(:welcome_message), class: "text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed"
     end
-    card_data = [
-      {
-        title: "Manage Restaurant",
-        description: "This is where you can configure internationalization, socials, addreses, events, and more.",
-        link: "/admin/restaurants/1/edit",
-        image: "lumbre_banner.jpeg"
-      },
-      {
-        title: "Manage Products",
-        description: "This is where you can configure products, categories, and more.",
-        link: "/admin/products",
-        image: "lumbre_banner.jpeg"
-      },
-      {
-        title: "Manage Me",
-        description: "View and edit your account, change your password, and more.",
-        link: "/admin/admin_users/#{current_admin_user.id}/edit",
-        image: "lumbre_banner.jpeg"
-      }
-    ]
 
-    div class: "grid grid-cols-2 md:grid-cols-3 gap-8" do
-      render partial: "card", collection: card_data
+    # Quick Navigation Section
+    div class: "mb-16" do
+      h2 "Quick Navigation", class: "text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6"
+
+      nav_cards = [
+        {
+          title: "Manage Restaurant",
+          description: "This is where you can configure internationalization, socials, addreses, events, and more.",
+          link: "/admin/restaurants/1/edit",
+          image: "lumbre_banner.jpeg"
+        },
+        {
+          title: "Manage Products",
+          description: "This is where you can configure products, categories, and more.",
+          link: "/admin/products",
+          image: "lumbre_banner.jpeg"
+        },
+        {
+          title: "Manage Me",
+          description: "View and edit your account, change your password, and more.",
+          link: "/admin/admin_users/#{current_admin_user.id}/edit",
+          image: "lumbre_banner.jpeg"
+        }
+      ]
+
+      div class: "grid grid-cols-2 md:grid-cols-3 gap-8" do
+        render partial: "card", collection: nav_cards
+      end
+    end
+
+    # Possible Issues Section - Missing Translations
+    # Get products with missing translations formatted for cards
+    translation_cards = Product.missing_translations_for_cards.map do |card_data|
+      # Get the record from the dynamic key (:product, :restaurant, etc.)
+      record = card_data[:product] || card_data.values.find { |v| v.is_a?(Product) }
+      card_data.merge(
+        link: "/admin/products/#{card_data[:id]}/edit",
+        product_id: card_data[:id]  # Add for backward compatibility with card partial
+      )
+    end
+
+    # Display Possible Issues section only if there are translation issues
+    if translation_cards.any?
+      div class: "mb-16" do
+        h2 "Possible Issues", class: "text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6"
+
+        div class: "grid grid-cols-2 md:grid-cols-3 gap-8" do
+          render partial: "card_missing_translation", collection: translation_cards, as: :card
+        end
+      end
     end
 
     # div class: "px-4 py-16 md:py-32 text-center m-auto max-w-3xl" do
