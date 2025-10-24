@@ -4,7 +4,7 @@
 #
 
 app = 'lumbre'
-primary_region = 'den'
+primary_region = 'dfw'
 console_command = '/rails/bin/rails console'
 
 [build]
