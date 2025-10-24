@@ -1,0 +1,85 @@
+<a href="<%= card[:link] %>" class="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl border border-yellow-300 dark:border-yellow-700 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] no-underline">
+  <!-- Background gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-br from-yellow-50/50 via-transparent to-orange-50/50 dark:from-yellow-900/20 dark:via-transparent dark:to-orange-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+  <!-- Card content -->
+  <div class="relative p-6">
+    <!-- Icon/Image section -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-3">
+        <!-- Warning icon for translation issues -->
+        <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 dark:from-yellow-600 dark:to-orange-700 rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+
+        <!-- Arrow icon -->
+        <div class="flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-full group-hover:bg-yellow-100 dark:group-hover:bg-yellow-900/30 transition-colors duration-300">
+          <svg class="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text content -->
+    <div class="space-y-3">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors duration-300">
+        <%= card[:title] %>
+      </h3>
+
+      <!-- Validation issue details -->
+      <div class="space-y-3">
+        <!-- Missing translations section -->
+        <% if card[:missing_locales].present? && card[:missing_locales].any? %>
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Missing translations for:
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <% card[:missing_locales].each do |locale| %>
+                  <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded-md border border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-800">
+                    <span class="mr-1"><%= flag_for_locale(locale) %></span>
+                    <%= I18n.t("locales.#{locale}") %> (<%= locale.to_s.upcase %>)
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Missing photos section -->
+        <% unless card[:has_photos] %>
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                No photos attached
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                Add product photos to improve visibility
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Action prompt -->
+        <div class="pt-2 border-t border-gray-200 dark:border-gray-600">
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            Click to edit and resolve issues
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom accent line -->
+    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+  </div>
+</a>
