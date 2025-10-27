@@ -676,8 +676,8 @@ GEM
     uri (1.0.4)
     useragent (0.16.11)
     vernier (1.8.1)
-    view_component (4.0.2)
-      activesupport (>= 7.1.0, < 8.1)
+    view_component (4.1.0)
+      activesupport (>= 7.1.0, < 8.2)
       concurrent-ruby (~> 1)
     virtus (2.0.0)
       axiom-types (~> 0.1)
@@ -772,7 +772,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   vernier (~> 1.8)
-  view_component (~> 4.0)
+  view_component (~> 4.1)
   web-console
 
 BUNDLED WITH
