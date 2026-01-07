@@ -1,13 +1,23 @@
-LUMBRE - New Contact Us Message
+LUMBRE - <%= t('contact_us_mailer.notify_admin.title') %>
 ==========================
 
-<%= @greeting %>
+<%= t('contact_us_mailer.notify_admin.greeting') %>
 
-MESSAGE FROM <%= @email %>:
+<%= t('contact_us_mailer.notify_admin.info_title') %>
 -------------
-"<%= @message %>"
+
+<%= t('contact_us_mailer.notify_admin.contact_email_label') %>
+<%= @info_contact_email %>
+
+<%= t('contact_us_mailer.notify_admin.message_label') %>
+"<%= @info_contact_message %>"
+
+<%= t('contact_us_mailer.notify_admin.received_at', time: l(@received_at, format: :long)) %>
+
 -------------
+
+To reply, send an email to: <%= @info_contact_email %>
 
 ---
-This is an automated notification email from Lumbre.
-If you have any urgent inquiries, please contact us directly.
+<%= t('contact_us_mailer.notify_admin.footer_auto_message') %>
+<%= t('contact_us_mailer.notify_admin.sent_at', time: l(Time.current, format: :long)) %>

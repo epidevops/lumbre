@@ -6,7 +6,13 @@ class NewContactUsAdminNotifier < ApplicationNotifier
   deliver_by :email do |config|
     config.mailer = "ContactUsMailer"
     config.method = "notify_admin"
-    config.params = -> { { email: params[:email], inquiry: params[:inquiry] } }
+    config.params = -> {
+      {
+        email: params[:email],
+        inquiry: params[:inquiry],
+        received_at: params[:received_at]
+      }
+    }
   end
 
   # Add required params

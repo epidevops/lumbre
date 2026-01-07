@@ -148,3 +148,26 @@ fr:
       description: "Un système de gestion des fonctionnalités qui vous permet de contrôler le déploiement des fonctionnalités et les tests A/B dans votre application."
     active_storage_dashboard:
       description: "Une interface de gestion pour Active Storage qui vous aide à surveiller et gérer les pièces jointes dans votre application."
+  contact_us_mailer:
+    notify_contact:
+      subject: "Lumbre: Nous avons reçu votre message"
+      title: "Message Reçu"
+      greeting: "Merci d'avoir contacté Lumbre. Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais."
+      info_title: "Détails de la Demande"
+      your_message_label: "Votre Message:"
+      footer_tagline: "Découvrez une cuisine et une hospitalité exceptionnelles"
+      footer_copyright: "© %{year} Lumbre. Tous droits réservés."
+      footer_auto_message: "Ceci est un email de confirmation automatique."
+      received_at: "Reçu: %{time}"
+    notify_admin:
+      subject: "Lumbre: Nouvelle Demande de Contact Reçue"
+      title: "Nouvelle Demande"
+      greeting: "Une nouvelle demande de contact a été reçue. Veuillez trouver les détails ci-dessous."
+      info_title: "Détails de la Demande"
+      admin_badge: "Notification Administrateur"
+      contact_email_label: "Email de Contact:"
+      message_label: "Contenu du Message:"
+      reply_button: "Répondre au Client"
+      footer_auto_message: "Ceci est une notification administrateur automatique du système de contact Lumbre."
+      sent_at: "Envoyé: %{time}"
+      received_at: "Reçu: %{time}"
