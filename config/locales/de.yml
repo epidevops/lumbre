@@ -148,3 +148,26 @@ de:
       description: "Ein Feature-Flag-Managementsystem, das Ihnen ermöglicht, Feature-Rollouts und A/B-Tests in Ihrer Anwendung zu steuern."
     active_storage_dashboard:
       description: "Eine Verwaltungsoberfläche für Active Storage, die Ihnen hilft, Dateianhänge in Ihrer Anwendung zu überwachen und zu verwalten."
+  contact_us_mailer:
+    notify_contact:
+      subject: "Lumbre: Wir haben Ihre Nachricht erhalten"
+      title: "Nachricht Erhalten"
+      greeting: "Vielen Dank, dass Sie Lumbre kontaktiert haben. Wir haben Ihre Nachricht erhalten und werden uns so schnell wie möglich bei Ihnen melden."
+      info_title: "Anfragedetails"
+      your_message_label: "Ihre Nachricht:"
+      footer_tagline: "Erleben Sie außergewöhnliche Küche und Gastfreundschaft"
+      footer_copyright: "© %{year} Lumbre. Alle Rechte vorbehalten."
+      footer_auto_message: "Dies ist eine automatische Bestätigungs-E-Mail."
+      received_at: "Erhalten: %{time}"
+    notify_admin:
+      subject: "Lumbre: Neue Kontaktanfrage Erhalten"
+      title: "Neue Anfrage"
+      greeting: "Eine neue Kontaktanfrage wurde erhalten. Bitte finden Sie die Details unten."
+      info_title: "Anfragedetails"
+      admin_badge: "Administrator-Benachrichtigung"
+      contact_email_label: "Kontakt-E-Mail:"
+      message_label: "Nachrichteninhalt:"
+      reply_button: "Kunden Antworten"
+      footer_auto_message: "Dies ist eine automatische Administrator-Benachrichtigung vom Lumbre-Kontaktsystem."
+      sent_at: "Gesendet: %{time}"
+      received_at: "Erhalten: %{time}"

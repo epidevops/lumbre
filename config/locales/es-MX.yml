@@ -148,3 +148,26 @@ es-MX:
       description: "Un sistema de gestión de flags de características que te permite controlar el lanzamiento de funciones y pruebas A/B en tu aplicación."
     active_storage_dashboard:
       description: "Una interfaz de gestión para Active Storage que te ayuda a monitorear y gestionar los archivos adjuntos en tu aplicación."
+  contact_us_mailer:
+    notify_contact:
+      subject: "Lumbre: Hemos Recibido Tu Mensaje"
+      title: "Mensaje Recibido"
+      greeting: "Gracias por contactar a Lumbre. Hemos recibido tu mensaje y te responderemos lo antes posible."
+      info_title: "Detalles de la Solicitud"
+      your_message_label: "Tu Mensaje:"
+      footer_tagline: "Experimenta una cocina y hospitalidad excepcionales"
+      footer_copyright: "© %{year} Lumbre. Todos los derechos reservados."
+      footer_auto_message: "Este es un correo de confirmación automático."
+      received_at: "Recibido: %{time}"
+    notify_admin:
+      subject: "Lumbre: Nueva Solicitud de Contacto Recibida"
+      title: "Nueva Solicitud"
+      greeting: "Se ha recibido una nueva solicitud de contacto. Por favor, encuentra los detalles a continuación."
+      info_title: "Detalles de la Solicitud"
+      admin_badge: "Notificación de Administrador"
+      contact_email_label: "Correo de Contacto:"
+      message_label: "Contenido del Mensaje:"
+      reply_button: "Responder al Cliente"
+      footer_auto_message: "Esta es una notificación automática de administrador del Sistema de Contacto Lumbre."
+      sent_at: "Enviado: %{time}"
+      received_at: "Recibido: %{time}"

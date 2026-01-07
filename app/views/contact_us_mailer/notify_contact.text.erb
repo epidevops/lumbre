@@ -1,15 +1,28 @@
-LUMBRE - Message Received
+LUMBRE - <%= t('contact_us_mailer.notify_contact.title') %>
 ==========================
 
-<%= @greeting %>
+<%= t('contact_us_mailer.notify_contact.greeting') %>
 
-YOUR MESSAGE:
+<%= t('contact_us_mailer.notify_contact.info_title') %>
 -------------
-"<%= @message %>"
 
-We appreciate you taking the time to reach out to us. Our team will review 
+<%= t('contact_us_mailer.notify_contact.your_message_label') %>
+"<%= @info_contact_message %>"
+
+<%= t('contact_us_mailer.notify_contact.received_at', time: l(@received_at, format: :long)) %>
+
+We appreciate you taking the time to reach out to us. Our team will review
 your message and respond within 24 hours during business days.
 
 ---
-This is an automated confirmation email from Lumbre.
-If you have any urgent inquiries, please contact us directly.
+<%= t('contact_us_mailer.notify_contact.footer_auto_message') %>
+<%= t('contact_us_mailer.notify_contact.footer_copyright', year: Time.current.year) %>
+
+<%= t('contact_us_mailer.notify_contact.footer_tagline') %>
+
+<% if @socials.any? %>
+Follow us:
+<% @socials.each do |social| %>
+<%= social.name %>: <%= social.url %>
+<% end %>
+<% end %>

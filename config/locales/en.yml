@@ -177,3 +177,26 @@ en:
       description: "A feature flag management system that enables you to control feature rollouts and A/B testing in your application."
     active_storage_dashboard:
       description: "A management interface for Active Storage that helps you monitor and manage file attachments in your application."
+  contact_us_mailer:
+    notify_contact:
+      subject: "Lumbre: We've Got Your Message"
+      title: "Message Received"
+      greeting: "Thank you for contacting Lumbre. We've got your message and will get back to you as soon as possible."
+      info_title: "Request Details"
+      your_message_label: "Your Message:"
+      footer_tagline: "Experience exceptional cuisine and hospitality"
+      footer_copyright: "© %{year} Lumbre. All rights reserved."
+      footer_auto_message: "This is an automated confirmation email."
+      received_at: "Received: %{time}"
+    notify_admin:
+      subject: "Lumbre: New Contact Request Received"
+      title: "New Request"
+      greeting: "A new contact request has been received. Please find the details below."
+      info_title: "Request Details"
+      admin_badge: "Admin Notification"
+      contact_email_label: "Contact Email:"
+      message_label: "Message Content:"
+      reply_button: "Reply to Customer"
+      footer_auto_message: "This is an automated admin notification from Lumbre Contact System."
+      sent_at: "Sent: %{time}"
+      received_at: "Received: %{time}"
