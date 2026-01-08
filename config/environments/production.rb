@@ -63,9 +63,10 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: "lumbre.fly.dev" }
 
   config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "lumbre.fly.dev" }).compact_blank
+  config.action_mailer.asset_host = { locale: I18n.locale }.merge({ host: "lumbre.fly.dev" }).compact_blank
 
-  config.action_mailer.delivery_method = :letter_opener_web
-  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.delivery_method = :letter_opener_web
+  # config.action_mailer.perform_deliveries = true
   config.action_mailer.show_previews = true
 
   config.mission_control.jobs.http_basic_auth_enabled = false
@@ -73,18 +74,18 @@ Rails.application.configure do
   # config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
   # TODO: Uncomment this when we have a production SMTP server
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.default charset: "utf-8"
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch("GMAIL_ADDRESS") { Rails.application.credentials.dig(:gmail_smtp, :address) },
-  #   port: ENV.fetch("GMAIL_PORT") { Rails.application.credentials.dig(:gmail_smtp, :port) },
-  #   user_name: ENV.fetch("GMAIL_USER_NAME") { Rails.application.credentials.dig(:gmail_smtp, :username) },
-  #   password: ENV.fetch("GMAIL_APP_PASSWORD") { Rails.application.credentials.dig(:gmail_smtp, :app_password) },
-  #   authentication: ENV.fetch("GMAIL_AUTHENTICATION") { Rails.application.credentials.dig(:gmail_smtp, :authentication) },
-  #   enable_starttls_auto: ENV.fetch("GMAIL_STARTTLS_AUTO") { Rails.application.credentials.dig(:gmail_smtp, :enable_starttls_auto) }
-  # }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default charset: "utf-8"
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("GMAIL_ADDRESS") { Rails.application.credentials.dig(:gmail_smtp, :address) },
+    port: ENV.fetch("GMAIL_PORT") { Rails.application.credentials.dig(:gmail_smtp, :port) },
+    user_name: ENV.fetch("GMAIL_USER_NAME") { Rails.application.credentials.dig(:gmail_smtp, :username) },
+    password: ENV.fetch("GMAIL_APP_PASSWORD") { Rails.application.credentials.dig(:gmail_smtp, :app_password) },
+    authentication: ENV.fetch("GMAIL_AUTHENTICATION") { Rails.application.credentials.dig(:gmail_smtp, :authentication) },
+    enable_starttls_auto: ENV.fetch("GMAIL_STARTTLS_AUTO") { Rails.application.credentials.dig(:gmail_smtp, :enable_starttls_auto) }
+  }
 
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
