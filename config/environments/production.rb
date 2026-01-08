@@ -62,8 +62,8 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   # config.action_mailer.default_url_options = { host: "lumbre.fly.dev" }
 
-  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "lumbre.fly.dev" }).compact_blank
-  # config.action_mailer.asset_host = "https://lumbre.fly.dev"
+  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "lumbreyhumo.com" }).compact_blank
+  config.action_mailer.asset_host = "https://lumbreyhumo.com"
 
   # config.action_mailer.delivery_method = :letter_opener_web
   # config.action_mailer.perform_deliveries = true
