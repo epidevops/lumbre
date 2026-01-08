@@ -42,23 +42,27 @@ Rails.application.configure do
   # Set localhost to be used by links generated in mailer templates.
   # Rails.application.routes.default_url_options = { host: "127.0.0.1", port: 3000, locale: I18n.locale }
   # Rails.application.routes.default_url_options = { host: "127.0.0.1" }
-  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "127.0.0.1", port: 3000 }).compact_blank
 
-  config.action_mailer.delivery_method = :letter_opener_web
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { locale: I18n.locale }.merge({ host: "127.0.0.1", port: 3000 }).compact_blank
+  config.action_mailer.asset_host = "http://127.0.0.1:3000"
+
+  # config.action_mailer.delivery_method = :letter_opener_web
+  # config.action_mailer.perform_deliveries = true
 
   config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.default charset: "utf-8"
-  # config.action_mailer.smtp_settings = {
-  #   address: ENV.fetch("GMAIL_ADDRESS") { Rails.application.credentials.dig(:gmail_smtp, :address) },
-  #   port: ENV.fetch("GMAIL_PORT") { Rails.application.credentials.dig(:gmail_smtp, :port) },
-  #   user_name: ENV.fetch("GMAIL_USER_NAME") { Rails.application.credentials.dig(:gmail_smtp, :username) },
-  #   password: ENV.fetch("GMAIL_APP_PASSWORD") { Rails.application.credentials.dig(:gmail_smtp, :app_password) },
-  #   authentication: ENV.fetch("GMAIL_AUTHENTICATION") { Rails.application.credentials.dig(:gmail_smtp, :authentication) },
-  #   enable_starttls_auto: ENV.fetch("GMAIL_STARTTLS_AUTO") { Rails.application.credentials.dig(:gmail_smtp, :enable_starttls_auto) }
-  # }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default charset: "utf-8"
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("GMAIL_ADDRESS") { Rails.application.credentials.dig(:gmail_smtp, :address) },
+    port: ENV.fetch("GMAIL_PORT") { Rails.application.credentials.dig(:gmail_smtp, :port) },
+    user_name: ENV.fetch("GMAIL_USER_NAME") { Rails.application.credentials.dig(:gmail_smtp, :username) },
+    password: ENV.fetch("GMAIL_APP_PASSWORD") { Rails.application.credentials.dig(:gmail_smtp, :app_password) },
+    authentication: ENV.fetch("GMAIL_AUTHENTICATION") { Rails.application.credentials.dig(:gmail_smtp, :authentication) },
+    enable_starttls_auto: ENV.fetch("GMAIL_STARTTLS_AUTO") { Rails.application.credentials.dig(:gmail_smtp, :enable_starttls_auto) },
+    openssl_verify_mode: "none"
+  }
+
   config.action_mailer.show_previews = true
   # config.action_mailer.preview_paths << Rails.root.join("app/mailers/previews")
 
