@@ -45,6 +45,10 @@ de:
           - "* Als alkoholfreie Variante erhältlich"
       non_alcoholic:
         title: "Alkoholfreie Spezialitäten"
+  gallery:
+    title: "Galerie"
+    subtitle: "Folgen Sie uns auf Instagram"
+    follow_us: "Folgen @lumbre_restaurante_"
   contact:
     title: "Kontaktieren Sie uns"
     description: "Wir bieten umfassende Veranstaltungskoordination, außergewöhnliche Farm-to-Table-Küche und eine atemberaubende natürliche Umgebung, um Ihnen zu helfen, Erinnerungen zu schaffen, die ein Leben lang halten."

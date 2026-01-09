@@ -45,6 +45,10 @@ pt-BR:
           - "* Disponível como mocktails"
       non_alcoholic:
         title: "Especialidades Sem Álcool"
+  gallery:
+    title: "Galeria"
+    subtitle: "Siga-nos no Instagram"
+    follow_us: "Seguir @lumbre_restaurante_"
   contact:
     title: "Entre em contato"
     description: "Oferecemos coordenação completa de eventos, culinária excepcional da fazenda à mesa e um ambiente natural deslumbrante para ajudá-lo a criar memórias que durarão a vida toda."
