@@ -74,6 +74,10 @@ en:
           - "* Available as mocktails"
       non_alcoholic:
         title: "Non Alcoholic Specialties"
+  gallery:
+    title: "Gallery"
+    subtitle: "Follow us on Instagram"
+    follow_us: "Follow @lumbre_restaurante_"
   contact:
     title: "Get in touch"
     description: "We provide full-service event coordination, exceptional farm-to-table cuisine, and a stunning natural environment to help you create memories that will last a lifetime."

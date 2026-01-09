@@ -45,6 +45,10 @@ fr:
           - "* Disponible en version sans alcool"
       non_alcoholic:
         title: "Spécialités Sans Alcool"
+  gallery:
+    title: "Galerie"
+    subtitle: "Suivez-nous sur Instagram"
+    follow_us: "Suivre @lumbre_restaurante_"
   contact:
     title: "Contactez-nous"
     description: "Nous offrons une coordination complète d'événements, une cuisine exceptionnelle de la ferme à la table et un environnement naturel magnifique pour vous aider à créer des souvenirs qui dureront toute une vie."
