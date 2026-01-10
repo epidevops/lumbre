@@ -1,4 +1,4 @@
-<section id="home">
+<section id="hero">
   <%= render "hero" %>
 </section>
 
@@ -20,15 +20,15 @@
   </section>
 <% end %>
 
-<% if Flipper.enabled?(:enable_subscribe) %>
-  <section id="subscribe">
-    <%= render "subscribe" %>
-  </section>
-<% end %>
-
 <% if Flipper.enabled?(:enable_gallery) %>
   <section id="gallery">
     <%= render "gallery" %>
+  </section>
+<% end %>
+
+<% if Flipper.enabled?(:enable_testimonials) %>
+  <section id="testimonial">
+    <%= render "testimonial" %>
   </section>
 <% end %>
 
@@ -36,12 +36,12 @@
   <%= render "menu" %>
 </section>
 
+<% if Flipper.enabled?(:enable_subscribe) %>
+  <section id="subscribe">
+    <%= render "subscribe" %>
+  </section>
+<% end %>
+
 <section id="contact">
   <%= render "contact" %>
 </section>
-
-<% if Flipper.enabled?(:enable_testimonials) %>
-  <section id="testimonial">
-    <%= render "testimonial" %>
-  </section>
-<% end %>
