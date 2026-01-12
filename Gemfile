@@ -68,7 +68,7 @@ end
 
 gem "activeadmin", "~> 4.0.0.beta15"
 gem "devise", "~> 4.9"
-gem "devise-two-factor", "~> 6.0"
+gem "devise-two-factor", "~> 6.3"
 gem "rqrcode", "~> 3.1"
 gem "devise-i18n", "~> 1.15"
 gem "rails-i18n", "~> 8.0"
