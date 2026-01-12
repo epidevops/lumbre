@@ -13,8 +13,8 @@ class Static::ContactsController < ApplicationController
     end
 
     if @contact.save
-      NewContactUsContactNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message).deliver(@contact)
-      NewContactUsAdminNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message).deliver(AdminUser.super_admin_users)
+      NewContactUsContactNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message, restaurant_email: restaurant_email).deliver(@contact)
+      NewContactUsAdminNotifier.with(record: @contact, email: @contact.email, inquiry: @contact.contact_messages.last.message, restaurant_email: restaurant_email).deliver(AdminUser.super_admin_users)
       respond_to do |format|
         format.html { redirect_to root_path, notice: CONTACT_MESSAGE_SUCCESS_MESSAGE }
         format.turbo_stream { flash.now[:notice] = CONTACT_MESSAGE_SUCCESS_MESSAGE }
@@ -32,5 +32,11 @@ class Static::ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:email, contact_messages_attributes: [ :message ])
+  end
+
+  def restaurant_email
+    @restaurant ||= Restaurant.primary.includes(:emails).first
+    @restaurant.emails.active.first&.email ||
+      ENV.fetch("GMAIL_USER_NAME") { Rails.application.credentials.dig(:gmail_smtp, :username) }
   end
 end
