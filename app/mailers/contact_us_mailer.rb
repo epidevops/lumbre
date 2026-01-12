@@ -11,6 +11,7 @@ class ContactUsMailer < ApplicationMailer
     @info_contact_message = params[:inquiry]
 
     mail(
+      from: email_address_with_name(params[:restaurant_email], "Lumbre"),
       to: params[:email],
       subject: I18n.t("contact_us_mailer.notify_contact.subject"),
       reply_to: "noreply@lumbreyhumo.com"
@@ -27,7 +28,8 @@ class ContactUsMailer < ApplicationMailer
     @info_contact_message = params[:inquiry]
 
     mail(
-      to: AdminUser.super_admin_users.pluck(:email),
+      from: email_address_with_name(params[:restaurant_email], "Lumbre"),
+      to: params[:restaurant_email],
       subject: I18n.t("contact_us_mailer.notify_admin.subject"),
       reply_to: params[:email],
       reply_to_subject: "RE: Lumbre: We've Got Your Message"

@@ -10,11 +10,12 @@ class NewContactUsAdminNotifier < ApplicationNotifier
       {
         email: params[:email],
         inquiry: params[:inquiry],
-        received_at: params[:received_at]
+        received_at: params[:received_at],
+        restaurant_email: params[:restaurant_email]
       }
     }
   end
 
   # Add required params
-  required_param :email, :inquiry
+  required_param :email, :inquiry, :restaurant_email
 end

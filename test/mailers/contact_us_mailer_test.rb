@@ -5,55 +5,56 @@ class ContactUsMailerTest < ActionMailer::TestCase
     @email = "test@example.com"
     @inquiry = "I would like to make a reservation for 4 people this Friday evening."
     @received_at = Time.zone.parse("2026-01-07 18:30:00")
+    @restaurant_email = Restaurant.primary.includes(:emails).first.emails.active.first.email
   end
 
   # ========== notify_contact tests ==========
 
   test "notify_contact sends email to customer" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     assert_equal [ @email ], mail.to
-    assert_equal [ "noreply@lumbreyhumo.com" ], mail.from
+    assert_equal [ @restaurant_email ], mail.from
     assert_equal "noreply@lumbreyhumo.com", mail.reply_to.first
   end
 
   test "notify_contact uses i18n subject in English" do
     I18n.with_locale(:en) do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
       assert_equal "Lumbre: We've Got Your Message", mail.subject
     end
   end
 
   test "notify_contact uses i18n subject in French" do
     I18n.with_locale(:fr) do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
       assert_equal "Lumbre: Nous avons reçu votre message", mail.subject
     end
   end
 
   test "notify_contact uses i18n subject in Spanish" do
     I18n.with_locale(:"es-MX") do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
       assert_equal "Lumbre: Hemos Recibido Tu Mensaje", mail.subject
     end
   end
 
   test "notify_contact includes customer message in body" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     assert_match @inquiry, mail.body.encoded
     assert_match "reservation for 4 people", mail.body.encoded
   end
 
   test "notify_contact includes translated greeting" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     assert_match "Thank you for contacting Lumbre", mail.body.encoded
     assert_match "Message Received", mail.body.encoded
   end
 
   test "notify_contact includes logo attachment" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     assert_not_empty mail.attachments
     assert mail.attachments["logo.png"].present?
@@ -62,7 +63,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_contact loads restaurant and social links" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     # Check that social links are rendered in HTML body
     html_part = mail.html_part.body.to_s
@@ -72,7 +73,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_contact includes social links in text version" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     text_part = mail.text_part.body.to_s
     assert_match "Follow us:", text_part
@@ -84,7 +85,8 @@ class ContactUsMailerTest < ActionMailer::TestCase
     mail = ContactUsMailer.with(
       email: @email,
       inquiry: @inquiry,
-      received_at: @received_at
+      received_at: @received_at,
+      restaurant_email: @restaurant_email
     ).notify_contact
 
     body = mail.body.encoded
@@ -93,7 +95,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
 
   test "notify_contact uses current time when no timestamp provided" do
     freeze_time do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
       # The email should include a timestamp close to now
       assert_match "Received:", mail.body.encoded
@@ -101,7 +103,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_contact has both HTML and text parts" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     assert mail.html_part.present?
     assert mail.text_part.present?
@@ -110,14 +112,14 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_contact includes footer tagline" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     body = mail.body.encoded
     assert_match "Experience exceptional cuisine and hospitality", body
   end
 
   test "notify_contact includes copyright in footer" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
 
     body = mail.body.encoded
     # Copyright symbol may be encoded as ©, \u00A9, or =C2=A9
@@ -127,37 +129,37 @@ class ContactUsMailerTest < ActionMailer::TestCase
 
   # ========== notify_admin tests ==========
 
-  test "notify_admin sends email to super admins" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+  test "notify_admin sends email to restaurant email" do
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
-    assert_equal AdminUser.super_admin_users.pluck(:email), mail.to
-    assert_equal [ "noreply@lumbreyhumo.com" ], mail.from
+    assert_equal [ @restaurant_email ], mail.to
+    assert_equal [ @restaurant_email ], mail.from
     assert_equal @email, mail.reply_to.first
   end
 
   test "notify_admin uses i18n subject in English" do
     I18n.with_locale(:en) do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
       assert_equal "Lumbre: New Contact Request Received", mail.subject
     end
   end
 
   test "notify_admin uses i18n subject in German" do
     I18n.with_locale(:de) do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
       assert_equal "Lumbre: Neue Kontaktanfrage Erhalten", mail.subject
     end
   end
 
   test "notify_admin uses i18n subject in Portuguese" do
     I18n.with_locale(:"pt-BR") do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
       assert_equal "Lumbre: Nova Solicitação de Contato Recebida", mail.subject
     end
   end
 
   test "notify_admin includes customer email and message" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     body = mail.body.encoded
     assert_match @email, body
@@ -166,14 +168,14 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_admin includes admin notification badge" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     html_part = mail.html_part.body.to_s
     assert_match "Admin Notification", html_part
   end
 
   test "notify_admin includes translated greeting" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     body = mail.body.encoded
     assert_match "A new contact request has been received", body
@@ -181,7 +183,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_admin includes logo attachment" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     assert_not_empty mail.attachments
     assert mail.attachments["logo.png"].present?
@@ -190,7 +192,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_admin includes reply button with mailto link" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     html_part = mail.html_part.body.to_s
     assert_match "Reply to Customer", html_part
@@ -201,7 +203,8 @@ class ContactUsMailerTest < ActionMailer::TestCase
     mail = ContactUsMailer.with(
       email: @email,
       inquiry: @inquiry,
-      received_at: @received_at
+      received_at: @received_at,
+      restaurant_email: @restaurant_email
     ).notify_admin
 
     body = mail.body.encoded
@@ -210,7 +213,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_admin has both HTML and text parts" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     assert mail.html_part.present?
     assert mail.text_part.present?
@@ -219,14 +222,14 @@ class ContactUsMailerTest < ActionMailer::TestCase
   end
 
   test "notify_admin includes contact email label" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     body = mail.body.encoded
     assert_match "Contact Email:", body
   end
 
   test "notify_admin includes footer with admin notification message" do
-    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin
+    mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin
 
     body = mail.body.encoded
     assert_match "automated admin notification", body
@@ -237,8 +240,8 @@ class ContactUsMailerTest < ActionMailer::TestCase
 
   test "both emails load restaurant data without errors" do
     assert_nothing_raised do
-      ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact.deliver_now
-      ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_admin.deliver_now
+      ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact.deliver_now
+      ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_admin.deliver_now
     end
   end
 
@@ -247,7 +250,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
     Restaurant.primary.first.socials.update_all(active: false)
 
     assert_nothing_raised do
-      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+      mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
       assert_not_nil mail.body
     end
   ensure
@@ -259,7 +262,7 @@ class ContactUsMailerTest < ActionMailer::TestCase
     [ :en, :fr, :de, :"es-MX", :"pt-BR" ].each do |locale|
       I18n.with_locale(locale) do
         assert_nothing_raised do
-          mail = ContactUsMailer.with(email: @email, inquiry: @inquiry).notify_contact
+          mail = ContactUsMailer.with(email: @email, inquiry: @inquiry, restaurant_email: @restaurant_email).notify_contact
           assert_not_nil mail.subject
           assert_not_nil mail.body
         end
