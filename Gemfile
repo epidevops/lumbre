@@ -31,7 +31,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
-gem "solid_litequeen", "~> 0.19.3"
+gem "solid_litequeen", "~> 0.20.0"
 gem "mission_control-jobs", "~> 1.1"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
