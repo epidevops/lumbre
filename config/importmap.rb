@@ -10,6 +10,7 @@ pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "@rails/request.js", to: "@rails--request.js" # @0.0.11
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "ahoy", to: "ahoy.js"
 
 pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.turbo.min.js"
 pin "stimulus-confetti", to: "stimulus-confetti.js" # @1.0.1

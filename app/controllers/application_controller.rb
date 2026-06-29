@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   include Internationalization
+  include AhoySessionTracking
 
   def self.default_url_options(options = {})
     { locale: I18n.locale }.merge(options).compact_blank
