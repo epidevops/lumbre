@@ -86,6 +86,8 @@ gem "listen", "~> 3.9"
 
 gem "noticed", "~> 2.9"
 
+gem "ahoy_matey", "~> 5.4"
+gem "geocoder", "~> 1.8"
 gem "exception-track", "~> 1.3"
 gem "flipper", "~> 1.3"
 gem "flipper-active_record", "~> 1.3"

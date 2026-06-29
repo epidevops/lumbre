@@ -10,6 +10,37 @@ ActiveAdmin.register_page "Dashboard" do
       para t(:welcome_message), class: "text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium max-w-3xl mx-auto leading-relaxed"
     end
 
+    # Site Analytics Section
+    div class: "mb-16" do
+      h2 "Site Analytics", class: "text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6"
+
+      public_visits = Ahoy::Visit.public_site.count
+      admin_visits = Ahoy::Visit.admin_site.count
+      security_events = Ahoy::Event.where(name: AdminSecurityTracking::SECURITY_EVENT_NAMES).count
+
+      analytics_cards = [
+        {
+          title: "Public Site",
+          description: "#{public_visits} #{'visit'.pluralize(public_visits)} tracked on the public-facing site.",
+          link: admin_ahoy_visits_path(scope: "public_site")
+        },
+        {
+          title: "Admin Site",
+          description: "#{admin_visits} #{'visit'.pluralize(admin_visits)} tracked on the admin site.",
+          link: admin_ahoy_visits_path(scope: "admin_site")
+        },
+        {
+          title: "Security Events",
+          description: "#{security_events} failed logins and rate limits recorded.",
+          link: admin_ahoy_events_path(scope: "security")
+        }
+      ]
+
+      div class: "grid grid-cols-2 md:grid-cols-3 gap-8" do
+        render partial: "card", collection: analytics_cards
+      end
+    end
+
     # Quick Navigation Section
     div class: "mb-16" do
       h2 "Quick Navigation", class: "text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6"

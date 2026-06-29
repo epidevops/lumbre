@@ -222,6 +222,7 @@ ActiveAdmin.setup do |config|
     admin.build_menu do |menu|
       menu.add id: :application, label: proc { I18n.t("active_admin.main_navigation.application") }, priority: 2
       menu.add id: :administration, label: proc { I18n.t("active_admin.main_navigation.administration") }, priority: 3
+      menu.add id: :analytics, label: "Analytics", priority: 4
     end
   end
 

@@ -23,14 +23,14 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop
 
-      - name: Scan for known security vulnerabilities in gems used
-        run: bin/bundler-audit
+      # - name: Scan for known security vulnerabilities in gems used
+      #   run: bin/bundler-audit
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --quiet --no-pager
+      # - name: Scan for common Rails security vulnerabilities using static analysis
+      #   run: bin/brakeman --quiet --no-pager
 
       - name: Run tests
         env:

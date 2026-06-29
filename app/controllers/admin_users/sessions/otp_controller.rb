@@ -4,6 +4,16 @@ class AdminUsers::Sessions::OtpController < ActiveAdmin::Devise::SessionsControl
   layout "active_admin_logged_out"
   helper ActiveAdmin::ViewHelpers
 
+  rate_limit to: 10, within: 3.minutes, only: :verify, with: -> {
+    AdminSecurityTracking.track(
+      request,
+      AdminSecurityTracking::EVENTS[:login_rate_limited],
+      stage: "otp",
+      admin_user_id: session[:pending_admin_user_id]
+    )
+    redirect_to admin_user_otp_challenge_path, alert: "Try again later."
+  }
+
   before_action :ensure_otp_pending_session
   before_action :set_resource, only: [ :challenge, :verify ]
 
@@ -16,6 +26,12 @@ class AdminUsers::Sessions::OtpController < ActiveAdmin::Devise::SessionsControl
       sign_in(resource_name, resource)
       redirect_to admin_dashboard_path, notice: t("active_admin.otp.session.success")
     else
+      AdminSecurityTracking.track(
+        request,
+        AdminSecurityTracking::EVENTS[:otp_failed],
+        admin_user_id: resource.id,
+        email: AdminSecurityTracking.mask_email(resource.email)
+      )
       render :challenge, alert: t("active_admin.otp.session.invalid_code")
     end
   end
