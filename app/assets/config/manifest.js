@@ -3,6 +3,7 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link_tree ../builds
+//= link solid_litequeen/tailwind.css
 //= link solid_litequeen/application.css
 //= link solid_litequeen/icons/chevron-left.svg
 //= link solid_litequeen/icons/chevron-right.svg
