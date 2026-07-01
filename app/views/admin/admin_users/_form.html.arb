@@ -18,6 +18,9 @@ active_admin_form_for [ :admin, resource ] do |f|
         f.input :email
         f.input :password
         f.input :password_confirmation
+        if current_admin_user.super_admin?
+          f.input :roles, as: :select, multiple: false, collection: Role.all.map { |r| [ r.name.humanize, r.id ] }
+        end
       end
     end
 

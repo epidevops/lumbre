@@ -1,0 +1,18 @@
+application_nav:
+  access_type: navigation
+  key: application
+  label: Application
+
+restaurant_index:
+  access_type: resources
+  access_resource: restaurant
+  key: restaurant_index
+  label: Restaurant — Index
+  action: index
+
+dashboard_index:
+  access_type: pages
+  access_resource: dashboard_page
+  key: dashboard_index
+  label: Dashboard — Index
+  action: index

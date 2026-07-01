@@ -74,6 +74,40 @@ fr:
     main_navigation:
       application: "Application"
       administration: "Administration"
+    permissions:
+      access_types:
+        navigation: "Navigation"
+        resources: "Ressources"
+        pages: "Pages"
+      navigation:
+        root: "Racine"
+      columns:
+        component: "Composant"
+        enabled: "Activé"
+        index_scope: "Portée de l'index"
+      actions:
+        index: "Index"
+        show: "Afficher"
+        new: "Nouveau"
+        create: "Créer"
+        edit: "Modifier"
+        update: "Mettre à jour"
+        destroy: "Supprimer"
+        destroy_all: "Tout supprimer"
+        batch_actions: "Actions groupées"
+        index_download: "Télécharger"
+        filter: "Filtrer"
+      scopes:
+        all: "Tous"
+        current_user: "Utilisateur actuel"
+        group: "Groupe"
+      form:
+        errors_title: "%{count} erreur(s) ont empêché l'enregistrement de cette permission :"
+        role: "Rôle"
+        select_role: "Sélectionner un rôle"
+        authorizations_title: "Autorisations"
+        submit: "Enregistrer la permission"
+        cancel: "Annuler"
     otp:
       setup:
         title: "Configurer l'Authentification à Usage Unique"

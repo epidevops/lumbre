@@ -10,25 +10,60 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_202726) do
-  create_table "action_text_rich_texts", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "body"
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
+ActiveRecord::Schema[8.1].define(version: 2026_06_30_100000) do
+  create_table "access_authorizations", force: :cascade do |t|
+    t.integer "access_resource_id"
+    t.integer "access_type_id", null: false
+    t.string "action"
     t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "label", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_resource_id"], name: "index_access_authorizations_on_access_resource_id"
+    t.index ["access_type_id", "key"], name: "index_access_authorizations_on_access_type_id_and_key", unique: true
+    t.index ["access_type_id"], name: "index_access_authorizations_on_access_type_id"
+  end
+
+  create_table "access_resources", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "kind", default: "model", null: false
+    t.string "label", null: false
+    t.string "menu_parent"
+    t.string "resource_class", null: false
+    t.string "source", default: "active_admin", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_access_resources_on_key", unique: true
+    t.index ["kind"], name: "index_access_resources_on_kind"
+    t.index ["resource_class"], name: "index_access_resources_on_resource_class", unique: true
+  end
+
+  create_table "access_types", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_access_types_on_key", unique: true
+  end
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.integer "resource_id"
-    t.string "author_type"
     t.integer "author_id"
+    t.string "author_type"
+    t.text "body"
     t.datetime "created_at", null: false
+    t.string "namespace"
+    t.integer "resource_id"
+    t.string "resource_type"
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
@@ -36,24 +71,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_202726) do
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
+    t.string "content_type"
     t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -64,44 +99,44 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_202726) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "addressable_type", null: false
-    t.integer "addressable_id", null: false
-    t.string "label"
+    t.boolean "active", default: true, null: false
     t.string "address"
     t.string "address_line_1"
     t.string "address_line_2"
+    t.integer "addressable_id", null: false
+    t.string "addressable_type", null: false
     t.string "city"
-    t.string "state"
-    t.string "zip"
     t.string "country", default: "US", null: false
-    t.string "time_zone", default: "Central Time (US & Canada)", null: false
-    t.string "url"
-    t.boolean "default", default: false, null: false
-    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.string "label"
+    t.string "state"
+    t.string "time_zone", default: "Central Time (US & Canada)", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
+    t.string "zip"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "admin_users", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.text "bio"
+    t.integer "consumed_timestep", default: 0, null: false
+    t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
     t.string "first_name"
     t.string "last_name"
-    t.string "title"
-    t.text "bio"
-    t.string "username"
-    t.string "preferred_language", default: "en", null: false
-    t.boolean "active", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "otp_secret"
     t.text "otp_backup_codes"
-    t.integer "consumed_timestep", default: 0, null: false
     t.boolean "otp_required_for_login", default: false, null: false
+    t.string "otp_secret"
+    t.string "preferred_language", default: "en", null: false
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -115,281 +150,320 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_202726) do
   end
 
   create_table "ahoy_events", force: :cascade do |t|
-    t.integer "visit_id"
-    t.string "user_type"
-    t.integer "user_id"
     t.string "name"
     t.text "properties"
     t.datetime "time"
+    t.integer "user_id"
+    t.string "user_type"
+    t.integer "visit_id"
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["user_type", "user_id"], name: "index_ahoy_events_on_user"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
   end
 
   create_table "ahoy_visits", force: :cascade do |t|
-    t.string "visit_token"
-    t.string "visitor_token"
-    t.string "user_type"
-    t.integer "user_id"
-    t.string "ip"
-    t.text "user_agent"
-    t.text "referrer"
-    t.string "referring_domain"
-    t.text "landing_page"
+    t.string "app_version"
     t.string "browser"
-    t.string "os"
-    t.string "device_type"
-    t.string "country"
-    t.string "region"
     t.string "city"
+    t.string "country"
+    t.string "device_type"
+    t.string "ip"
+    t.text "landing_page"
     t.float "latitude"
     t.float "longitude"
-    t.string "utm_source"
-    t.string "utm_medium"
-    t.string "utm_term"
-    t.string "utm_content"
-    t.string "utm_campaign"
-    t.string "app_version"
+    t.string "os"
     t.string "os_version"
     t.string "platform"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.string "region"
     t.datetime "started_at"
+    t.text "user_agent"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "utm_campaign"
+    t.string "utm_content"
+    t.string "utm_medium"
+    t.string "utm_source"
+    t.string "utm_term"
+    t.string "visit_token"
+    t.string "visitor_token"
     t.index ["user_type", "user_id"], name: "index_ahoy_visits_on_user"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
     t.index ["visitor_token", "started_at"], name: "index_ahoy_visits_on_visitor_token_and_started_at"
   end
 
   create_table "blazer_audits", force: :cascade do |t|
-    t.integer "user_id"
+    t.datetime "created_at"
+    t.string "data_source"
     t.integer "query_id"
     t.text "statement"
-    t.string "data_source"
-    t.datetime "created_at"
+    t.integer "user_id"
     t.index ["query_id"], name: "index_blazer_audits_on_query_id"
     t.index ["user_id"], name: "index_blazer_audits_on_user_id"
   end
 
   create_table "blazer_checks", force: :cascade do |t|
-    t.integer "creator_id"
-    t.integer "query_id"
-    t.string "state"
-    t.string "schedule"
-    t.text "emails"
-    t.text "slack_channels"
     t.string "check_type"
-    t.text "message"
-    t.datetime "last_run_at"
     t.datetime "created_at", null: false
+    t.integer "creator_id"
+    t.text "emails"
+    t.datetime "last_run_at"
+    t.text "message"
+    t.integer "query_id"
+    t.string "schedule"
+    t.text "slack_channels"
+    t.string "state"
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_checks_on_creator_id"
     t.index ["query_id"], name: "index_blazer_checks_on_query_id"
   end
 
   create_table "blazer_dashboard_queries", force: :cascade do |t|
-    t.integer "dashboard_id"
-    t.integer "query_id"
-    t.integer "position"
     t.datetime "created_at", null: false
+    t.integer "dashboard_id"
+    t.integer "position"
+    t.integer "query_id"
     t.datetime "updated_at", null: false
     t.index ["dashboard_id"], name: "index_blazer_dashboard_queries_on_dashboard_id"
     t.index ["query_id"], name: "index_blazer_dashboard_queries_on_query_id"
   end
 
   create_table "blazer_dashboards", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.integer "creator_id"
     t.string "name"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_dashboards_on_creator_id"
   end
 
   create_table "blazer_queries", force: :cascade do |t|
-    t.integer "creator_id"
-    t.string "name"
-    t.text "description"
-    t.text "statement"
-    t.string "data_source"
-    t.string "status"
     t.datetime "created_at", null: false
+    t.integer "creator_id"
+    t.string "data_source"
+    t.text "description"
+    t.string "name"
+    t.text "statement"
+    t.string "status"
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
   create_table "contact_messages", force: :cascade do |t|
     t.integer "contact_id", null: false
-    t.string "message", null: false
     t.datetime "created_at", null: false
+    t.string "message", null: false
     t.datetime "updated_at", null: false
     t.index ["contact_id"], name: "index_contact_messages_on_contact_id"
   end
 
   create_table "contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "email", null: false
     t.boolean "subscribed", default: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_contacts_on_email", unique: true
   end
 
   create_table "emails", force: :cascade do |t|
-    t.string "emailable_type", null: false
-    t.integer "emailable_id", null: false
-    t.string "label"
-    t.string "email"
-    t.boolean "default", default: false, null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.string "email"
+    t.integer "emailable_id", null: false
+    t.string "emailable_type", null: false
+    t.string "label"
     t.datetime "updated_at", null: false
     t.index ["emailable_type", "emailable_id"], name: "index_emails_on_emailable"
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "eventable_type", null: false
-    t.integer "eventable_id", null: false
-    t.string "label"
-    t.string "start_day"
-    t.string "end_day"
-    t.string "start_time"
-    t.string "end_time"
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.string "end_day"
+    t.string "end_time"
+    t.integer "eventable_id", null: false
+    t.string "eventable_type", null: false
+    t.string "label"
+    t.string "start_day"
+    t.string "start_time"
     t.datetime "updated_at", null: false
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable"
   end
 
   create_table "exception_tracks", force: :cascade do |t|
-    t.string "title"
     t.text "body", limit: 16777215
     t.datetime "created_at", precision: nil, null: false
+    t.string "title"
     t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "flipper_features", force: :cascade do |t|
-    t.string "key", null: false
     t.datetime "created_at", null: false
+    t.string "key", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_flipper_features_on_key", unique: true
   end
 
   create_table "flipper_gates", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "feature_key", null: false
     t.string "key", null: false
-    t.text "value"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "value"
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
-  create_table "mobility_string_translations", force: :cascade do |t|
-    t.string "locale", null: false
-    t.string "key", null: false
-    t.string "value"
-    t.string "translatable_type"
-    t.integer "translatable_id"
+  create_table "index_scope_rules", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.text "description"
+    t.string "key", null: false
+    t.string "name", null: false
     t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_index_scope_rules_on_key", unique: true
+  end
+
+  create_table "mobility_string_translations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "locale", null: false
+    t.integer "translatable_id"
+    t.string "translatable_type"
+    t.datetime "updated_at", null: false
+    t.string "value"
     t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_string_translations_on_translatable_attribute"
     t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_string_translations_on_keys", unique: true
     t.index ["translatable_type", "key", "value", "locale"], name: "index_mobility_string_translations_on_query_keys"
   end
 
   create_table "mobility_text_translations", force: :cascade do |t|
-    t.string "locale", null: false
-    t.string "key", null: false
-    t.text "value"
-    t.string "translatable_type"
-    t.integer "translatable_id"
     t.datetime "created_at", null: false
+    t.string "key", null: false
+    t.string "locale", null: false
+    t.integer "translatable_id"
+    t.string "translatable_type"
     t.datetime "updated_at", null: false
+    t.text "value"
     t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_text_translations_on_translatable_attribute"
     t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_text_translations_on_keys", unique: true
   end
 
   create_table "noticed_events", force: :cascade do |t|
-    t.string "type"
-    t.string "record_type"
-    t.bigint "record_id"
-    t.json "params"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "notifications_count"
+    t.json "params"
+    t.bigint "record_id"
+    t.string "record_type"
+    t.string "type"
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
   end
 
   create_table "noticed_notifications", force: :cascade do |t|
-    t.string "type"
-    t.bigint "event_id", null: false
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.datetime "read_at", precision: nil
-    t.datetime "seen_at", precision: nil
     t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.datetime "read_at", precision: nil
+    t.bigint "recipient_id", null: false
+    t.string "recipient_type", null: false
+    t.datetime "seen_at", precision: nil
+    t.string "type"
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
     t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
+  create_table "permission_grants", force: :cascade do |t|
+    t.integer "access_authorization_id", null: false
+    t.datetime "created_at", null: false
+    t.boolean "granted", default: false, null: false
+    t.integer "permission_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_authorization_id"], name: "index_permission_grants_on_access_authorization_id"
+    t.index ["permission_id", "access_authorization_id"], name: "index_permission_grants_on_permission_and_authorization", unique: true
+    t.index ["permission_id"], name: "index_permission_grants_on_permission_id"
+  end
+
+  create_table "permission_resource_scopes", force: :cascade do |t|
+    t.integer "access_resource_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "index_scope_rule_id", null: false
+    t.integer "permission_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_resource_id"], name: "index_permission_resource_scopes_on_access_resource_id"
+    t.index ["index_scope_rule_id"], name: "index_permission_resource_scopes_on_index_scope_rule_id"
+    t.index ["permission_id", "access_resource_id"], name: "index_permission_resource_scopes_on_permission_and_resource", unique: true
+    t.index ["permission_id"], name: "index_permission_resource_scopes_on_permission_id"
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "role_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_permissions_on_role_id", unique: true
+  end
+
   create_table "phones", force: :cascade do |t|
-    t.string "phoneable_type", null: false
-    t.integer "phoneable_id", null: false
-    t.string "label"
-    t.string "phone"
-    t.boolean "default", default: false, null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.string "label"
+    t.string "phone"
+    t.integer "phoneable_id", null: false
+    t.string "phoneable_type", null: false
     t.datetime "updated_at", null: false
     t.index ["phoneable_type", "phoneable_id"], name: "index_phones_on_phoneable"
   end
 
   create_table "preferences", force: :cascade do |t|
-    t.string "preferenceable_type", null: false
-    t.integer "preferenceable_id", null: false
-    t.string "preferred_language", default: "en", null: false
-    t.string "time_zone", default: "UTC", null: false
-    t.string "theme", default: "system", null: false
+    t.datetime "created_at", null: false
     t.boolean "enable_email", default: false, null: false
+    t.boolean "enable_mobile_push", default: false, null: false
     t.boolean "enable_sms", default: false, null: false
     t.boolean "enable_web_push", default: false, null: false
-    t.boolean "enable_mobile_push", default: false, null: false
-    t.datetime "created_at", null: false
+    t.integer "preferenceable_id", null: false
+    t.string "preferenceable_type", null: false
+    t.string "preferred_language", default: "en", null: false
+    t.string "theme", default: "system", null: false
+    t.string "time_zone", default: "UTC", null: false
     t.datetime "updated_at", null: false
     t.index ["preferenceable_type", "preferenceable_id"], name: "index_preferences_on_preferenceable"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "productable_type", null: false
-    t.integer "productable_id", null: false
+    t.boolean "active", default: true, null: false
     t.string "category"
-    t.string "title"
+    t.datetime "created_at", null: false
     t.text "description"
-    t.string "price"
-    t.boolean "recommended", default: false, null: false
-    t.string "recommended_text"
     t.string "discount_percent"
     t.string "options"
-    t.boolean "active", default: true, null: false
     t.integer "position", null: false
-    t.datetime "created_at", null: false
+    t.string "price"
+    t.integer "productable_id", null: false
+    t.string "productable_type", null: false
+    t.boolean "recommended", default: false, null: false
+    t.string "recommended_text"
+    t.string "title"
     t.datetime "updated_at", null: false
     t.index ["productable_id", "productable_type", "category", "position"], name: "idx_on_productable_id_productable_type_category_pos_2bfebd940b", unique: true
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
   end
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.string "slogan"
-    t.text "hero_text"
     t.text "about_text"
     t.boolean "active", default: true, null: false
-    t.boolean "primary", default: true, null: false
     t.datetime "created_at", null: false
+    t.text "hero_text"
+    t.string "name"
+    t.boolean "primary", default: true, null: false
+    t.string "slogan"
     t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.integer "resource_id"
     t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "resource_id"
+    t.string "resource_type"
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
@@ -397,105 +471,113 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_202726) do
   end
 
   create_table "rules", force: :cascade do |t|
-    t.integer "schedule_id", null: false
-    t.string "rule_type", default: "inclusion", null: false
-    t.string "name", null: false
-    t.string "frequency_units", default: "IceCube::MinutelyRule", null: false
-    t.integer "frequency", default: 15, null: false
-    t.json "days_of_week", default: [], null: false
-    t.date "start_date"
-    t.date "end_date"
-    t.string "rule_hour_start"
-    t.string "rule_hour_end"
     t.datetime "created_at", null: false
+    t.json "days_of_week", default: [], null: false
+    t.date "end_date"
+    t.integer "frequency", default: 15, null: false
+    t.string "frequency_units", default: "IceCube::MinutelyRule", null: false
+    t.string "name", null: false
+    t.string "rule_hour_end"
+    t.string "rule_hour_start"
+    t.string "rule_type", default: "inclusion", null: false
+    t.integer "schedule_id", null: false
+    t.date "start_date"
     t.datetime "updated_at", null: false
     t.index ["schedule_id"], name: "index_rules_on_schedule_id"
   end
 
   create_table "schedule_events", force: :cascade do |t|
-    t.integer "schedule_id", null: false
-    t.datetime "event_time"
     t.datetime "created_at", null: false
+    t.datetime "event_time"
+    t.integer "schedule_id", null: false
     t.datetime "updated_at", null: false
     t.index ["schedule_id"], name: "index_schedule_events_on_schedule_id"
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.string "scheduleable_type", null: false
-    t.integer "scheduleable_id", null: false
-    t.string "name", null: false
     t.boolean "active", default: false, null: false
-    t.integer "capacity", default: 5
-    t.boolean "exclude_lunch_time", default: false
-    t.string "lunch_hour_start"
-    t.string "lunch_hour_end"
     t.string "beginning_of_week", default: "sunday"
-    t.string "time_zone", default: "Mountain Time (US & Canada)", null: false
+    t.integer "capacity", default: 5
     t.datetime "created_at", null: false
+    t.boolean "exclude_lunch_time", default: false
+    t.string "lunch_hour_end"
+    t.string "lunch_hour_start"
+    t.string "name", null: false
+    t.integer "scheduleable_id", null: false
+    t.string "scheduleable_type", null: false
+    t.string "time_zone", default: "Mountain Time (US & Canada)", null: false
     t.datetime "updated_at", null: false
     t.index ["scheduleable_type", "scheduleable_id"], name: "index_schedules_on_scheduleable"
   end
 
   create_table "socials", force: :cascade do |t|
-    t.string "socialable_type", null: false
-    t.integer "socialable_id", null: false
-    t.string "name", null: false
-    t.string "url", null: false
-    t.string "icon", null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
+    t.string "icon", null: false
+    t.string "name", null: false
+    t.integer "socialable_id", null: false
+    t.string "socialable_type", null: false
     t.datetime "updated_at", null: false
+    t.string "url", null: false
     t.index ["socialable_type", "socialable_id"], name: "index_socials_on_socialable"
   end
 
   create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.string "slogan"
     t.boolean "active", default: true
-    t.boolean "primary", default: true
     t.datetime "created_at", null: false
+    t.string "name"
+    t.boolean "primary", default: true
+    t.string "slogan"
     t.datetime "updated_at", null: false
   end
 
   create_table "system_contact_type_labels", force: :cascade do |t|
     t.string "contact_type", null: false
-    t.string "label", null: false
     t.datetime "created_at", null: false
+    t.string "label", null: false
     t.datetime "updated_at", null: false
     t.index ["contact_type", "label"], name: "index_system_contact_type_labels_on_contact_type_and_label", unique: true
   end
 
   create_table "todos", force: :cascade do |t|
-    t.string "category"
-    t.string "name"
     t.boolean "active", default: true
-    t.integer "position", null: false
+    t.string "category"
     t.datetime "created_at", null: false
+    t.string "name"
+    t.integer "position", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
+    t.text "bio"
+    t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
     t.string "first_name"
     t.string "last_name"
-    t.string "title"
-    t.text "bio"
-    t.string "username"
     t.string "phone"
     t.string "preferred_language", default: "en", null: false
-    t.datetime "created_at", null: false
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.string "title"
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "access_authorizations", "access_resources"
+  add_foreign_key "access_authorizations", "access_types"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contact_messages", "contacts"
+  add_foreign_key "permission_grants", "access_authorizations"
+  add_foreign_key "permission_grants", "permissions"
+  add_foreign_key "permission_resource_scopes", "access_resources"
+  add_foreign_key "permission_resource_scopes", "index_scope_rules"
+  add_foreign_key "permission_resource_scopes", "permissions"
+  add_foreign_key "permissions", "roles"
   add_foreign_key "rules", "schedules"
   add_foreign_key "schedule_events", "schedules"
 end

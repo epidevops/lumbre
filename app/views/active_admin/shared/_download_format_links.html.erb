@@ -1,0 +1,9 @@
+<% params = request.query_parameters.except :format, :commit %>
+<% resource_class = active_admin_config&.resource_class %>
+<div>
+  <span><%= I18n.t("active_admin.download") %></span>
+  <% formats.each do |format| %>
+    <% next if resource_class && !authorized?(:index_download, resource_class) %>
+    <%= link_to format.upcase, url_for(params: params, format: format) %>
+  <% end %>
+</div>

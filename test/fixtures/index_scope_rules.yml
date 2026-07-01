@@ -1,0 +1,19 @@
+all:
+  key: all
+  name: All records
+  description: No filtering applied to the index list.
+
+current_admin_user:
+  key: current_admin_user
+  name: Current admin user
+  description: Only records owned by or assigned to the signed-in admin user.
+
+role_peers:
+  key: role_peers
+  name: Role peers
+  description: Records visible to admin users who share at least one role.
+
+author:
+  key: author
+  name: Author
+  description: Only records created by the signed-in admin user via the author association.

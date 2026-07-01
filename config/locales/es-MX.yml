@@ -74,6 +74,40 @@ es-MX:
     main_navigation:
       application: "Aplicación"
       administration: "Administración"
+    permissions:
+      access_types:
+        navigation: "Navegación"
+        resources: "Recursos"
+        pages: "Páginas"
+      navigation:
+        root: "Raíz"
+      columns:
+        component: "Componente"
+        enabled: "Habilitado"
+        index_scope: "Alcance del índice"
+      actions:
+        index: "Índice"
+        show: "Mostrar"
+        new: "Nuevo"
+        create: "Crear"
+        edit: "Editar"
+        update: "Actualizar"
+        destroy: "Eliminar"
+        destroy_all: "Eliminar todo"
+        batch_actions: "Acciones en lote"
+        index_download: "Descargar"
+        filter: "Filtrar"
+      scopes:
+        all: "Todos"
+        current_user: "Usuario actual"
+        group: "Grupo"
+      form:
+        errors_title: "%{count} error(es) impidieron guardar este permiso:"
+        role: "Rol"
+        select_role: "Seleccionar un rol"
+        authorizations_title: "Autorizaciones"
+        submit: "Guardar permiso"
+        cancel: "Cancelar"
     otp:
       setup:
         title: "Configurar Autenticación de Contraseña de Un Solo Uso"

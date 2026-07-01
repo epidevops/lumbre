@@ -12,8 +12,7 @@ ActiveAdmin.register AdminUser do
                 addresses_attributes: %i[id label address address_line_1 address_line_2 city state zip country time_zone url default active _destroy],
                 emails_attributes: %i[id label email default active _destroy],
                 phones_attributes: %i[id label phone default active _destroy],
-                admin_users_roles_attributes: %i[id admin_user_id role_id _destroy],
-                roles_attributes: %i[id name resource_id resource_type created_at updated_at _destroy]
+                role_ids: []
 
   # permit_params %i[email encrypted_password reset_password_token reset_password_sent_at remember_created_at first_name last_name title bio username avatar preferred_language active]
   # preference_attributes: %i[id preferenceable_id preferenceable_type email_notifications sms_notifications mobile_push_notifications web_push_notifications language timezone theme]
@@ -99,6 +98,8 @@ ActiveAdmin.register AdminUser do
   end
 
   controller do
+    before_action :normalize_role_ids_param, only: %i[create update]
+
     def update
       # Handle MFA setup verification - only when explicitly setting up OTP
       if params[:admin_user] &&
@@ -153,6 +154,22 @@ ActiveAdmin.register AdminUser do
         super
       end
     end
+
+    private
+
+      def normalize_role_ids_param
+        return unless params[:admin_user]
+
+        if current_admin_user.super_admin?
+          params[:admin_user][:role_ids] = if params[:admin_user].key?(:role_ids)
+            Array(params[:admin_user][:role_ids]).compact_blank
+          else
+            []
+          end
+        else
+          params[:admin_user].delete(:role_ids)
+        end
+      end
   end
 
   member_action :delete_avatar, method: :get do
@@ -212,8 +229,19 @@ ActiveAdmin.register AdminUser do
       row :preferred_language
       row :active
       row :otp_required_for_login
+      row(:roles) { |admin_user| admin_user.roles.map { |role| role.name.titleize }.join(", ") }
     end
   end
 
   form partial: "form"
+
+  sidebar :help do
+    para "Need help? Email us at help@example.com"
+  end
+
+
+  csv do
+    column(:first_name) { |admin_user| admin_user.first_name }
+    column(:last_name) { |admin_user| admin_user.last_name }
+  end
 end

@@ -1,0 +1,4 @@
+super_admin_restaurant_scope:
+  permission: super_admin_permission
+  access_resource: restaurant
+  index_scope_rule: all

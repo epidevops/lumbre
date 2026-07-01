@@ -75,6 +75,7 @@ gem "rails-i18n", "~> 8.0"
 gem "mobility", "~> 1.3"
 
 gem "rolify", "~> 6.0"
+gem "pundit", "~> 2.5"
 gem "name_of_person", "~> 1.1"
 
 gem "inline_svg", "~> 1.10"

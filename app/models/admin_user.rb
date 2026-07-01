@@ -21,6 +21,7 @@ class AdminUser < ApplicationRecord
   serialize :otp_backup_codes, coder: JSON
 
   include Avatar # , EmailValidations, NoticedAssociations
+  include AdminAuthorizable
   rolify
   has_person_name
 

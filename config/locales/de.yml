@@ -74,6 +74,40 @@ de:
     main_navigation:
       application: "Anwendung"
       administration: "Verwaltung"
+    permissions:
+      access_types:
+        navigation: "Navigation"
+        resources: "Resources"
+        pages: "Pages"
+      navigation:
+        root: "Root"
+      columns:
+        component: "Komponente"
+        enabled: "Aktiviert"
+        index_scope: "Index-Bereich"
+      actions:
+        index: "Index"
+        show: "Anzeigen"
+        new: "Neu"
+        create: "Erstellen"
+        edit: "Bearbeiten"
+        update: "Aktualisieren"
+        destroy: "Löschen"
+        destroy_all: "Alle löschen"
+        batch_actions: "Stapelaktionen"
+        index_download: "Herunterladen"
+        filter: "Filtern"
+      scopes:
+        all: "Alle"
+        current_user: "Aktueller Benutzer"
+        group: "Gruppe"
+      form:
+        errors_title: "%{count} Fehler haben das Speichern dieser Berechtigung verhindert:"
+        role: "Rolle"
+        select_role: "Rolle auswählen"
+        authorizations_title: "Berechtigungen"
+        submit: "Berechtigung speichern"
+        cancel: "Abbrechen"
     otp:
       setup:
         title: "Einmalpasswort-Authentifizierung Einrichten"

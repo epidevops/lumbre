@@ -1,0 +1,9 @@
+super_admin_application_nav:
+  permission: super_admin_permission
+  access_authorization: application_nav
+  granted: true
+
+super_admin_restaurant_index:
+  permission: super_admin_permission
+  access_authorization: restaurant_index
+  granted: true

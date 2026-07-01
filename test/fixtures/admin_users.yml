@@ -7,3 +7,11 @@ one:
   encrypted_password: <%= encrypted_password %>
   preferred_language: en
   roles: super_admin
+
+two:
+  first_name: Manager
+  last_name: User
+  email: manager@example.com
+  encrypted_password: <%= encrypted_password %>
+  preferred_language: en
+  roles: manager

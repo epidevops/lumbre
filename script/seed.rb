@@ -1,16 +1,32 @@
-system("bin/rails db:fixtures:load FIXTURES=system_contact_type_labels")
+require Rails.root.join("script/seed_logger")
 
-Rails.application.credentials.seed.roles.map { |role| Role.create!(name: role) }
+SeedLogger.run do
+  SeedLogger.section "system_contact_type_labels fixtures"
+  ActiveRecord::FixtureSet.create_fixtures(
+    Rails.root.join("test/fixtures"),
+    [ "system_contact_type_labels" ]
+  )
 
-Rails.application.credentials.seed.users.each do |user|
-  r = user.first
-  a = user.last
-  u = AdminUser.create!(a.to_h)
-  u.add_role r
-  u.emails.create!(label: "authentication", email: a.email, active: true)
-end
+  SeedLogger.section "roles"
+  Rails.application.credentials.seed.roles.map { |role| Role.create!(name: role) }
 
-restaurant = Restaurant.create(
+  load Rails.root.join("script/access_types_seed.rb")
+  load Rails.root.join("script/index_scope_rules_seed.rb")
+  load Rails.root.join("script/access_resources_seed.rb")
+  load Rails.root.join("script/access_authorizations_seed.rb")
+  load Rails.root.join("script/permissions_seed.rb")
+
+  SeedLogger.section "admin users"
+  Rails.application.credentials.seed.users.each do |user|
+    r = user.first
+    a = user.last
+    u = AdminUser.create!(a.to_h)
+    u.add_role r
+    u.emails.create!(label: "authentication", email: a.email, active: true)
+  end
+
+  SeedLogger.section "restaurant"
+  restaurant = Restaurant.create(
   active: true,
   primary: true
 )
@@ -50,6 +66,7 @@ I18n.available_locales.each do |locale|
   end
 end
 
+SeedLogger.section "store"
 store = Store.create(
   active: true,
   primary: true
@@ -105,6 +122,7 @@ store.events.create!([
   { label: 'Hours', start_day: 'Tuesday', end_day: 'Sunday', start_time: '9:00 AM', end_time: '5:00 PM', active: true }
 ])
 
+SeedLogger.section "menu items"
 # Create menu items with translations
 menu_items = [
   {
@@ -646,6 +664,7 @@ end
   end
 end
 
+SeedLogger.section "feature flags"
 Flipper.enable_group(:super_admin_access, :admin_user)
 
 %w[
@@ -668,6 +687,7 @@ end
   Flipper.disable(feature)
 end
 
+SeedLogger.section "schedule"
 schedule = Schedule.create!(scheduleable_id: AdminUser.first.id, scheduleable_type: "AdminUser", name: "Appointment Availability", active: true, capacity: 5, exclude_lunch_time: false, beginning_of_week: "sunday", time_zone: "Mountain Time (US & Canada)")
 
 schedule.rules.create!(name: "Open Time Rule MWF", rule_type: "inclusion", frequency_units: "IceCube::MinutelyRule", frequency: 15, days_of_week: [ "monday", "wednesday", "friday" ], start_date: Date.today, end_date: Date.today + 90.days, rule_hour_start: "08:00", rule_hour_end: "12:00")
@@ -698,4 +718,5 @@ end
     schedule.schedule_events.create!(event_time: Date.today.next_week(day).to_s + ' 18:15:00 MST')
     schedule.schedule_events.create!(event_time: Date.today.next_week(day).to_s + ' 18:45:00 MST')
   end
+end
 end

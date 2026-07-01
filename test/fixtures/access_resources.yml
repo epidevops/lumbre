@@ -1,0 +1,30 @@
+restaurant:
+  key: restaurant
+  resource_class: Restaurant
+  label: Restaurant
+  kind: model
+  source: fixture
+  menu_parent: application
+
+admin_user:
+  key: admin_user
+  resource_class: AdminUser
+  label: Admin User
+  kind: model
+  source: fixture
+  menu_parent: administration
+
+product:
+  key: product
+  resource_class: Product
+  label: Product
+  kind: model
+  source: fixture
+  menu_parent: application
+
+dashboard_page:
+  key: dashboard
+  resource_class: ActiveAdmin::Page:dashboard
+  label: Dashboard
+  kind: page
+  source: fixture

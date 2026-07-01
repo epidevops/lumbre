@@ -103,6 +103,41 @@ en:
     main_navigation:
       application: "Application"
       administration: "Administration"
+    permissions:
+      access_types:
+        navigation: "Navigation"
+        resources: "Resources"
+        pages: "Pages"
+      navigation:
+        root: "Root"
+      columns:
+        component: "Component"
+        enabled: "Enabled"
+        index_scope: "Index Scope"
+      actions:
+        index: "Index"
+        show: "Show"
+        new: "New"
+        create: "Create"
+        edit: "Edit"
+        update: "Update"
+        destroy: "Destroy"
+        destroy_all: "Destroy All"
+        batch_actions: "Batch Actions"
+        index_download: "Download"
+        filter: "Filter"
+      scopes:
+        all: "All"
+        current_admin_user: "Current admin user"
+        role_peers: "Role peers"
+        author: "Author"
+      form:
+        errors_title: "%{count} error(s) prohibited this permission from being saved:"
+        role: "Role"
+        select_role: "Select a role"
+        authorizations_title: "Authorizations"
+        submit: "Save Permission"
+        cancel: "Cancel"
     otp:
       setup:
         title: "Setup One-Time Password Authentication"
@@ -140,6 +175,8 @@ en:
         saved_codes_button: "I've Saved My Backup Codes"
         continue_button: "Continue"
       admin_users:
+        form:
+          roles_hint: "Roles determine which permissions apply to this user."
         enable_otp: "Enable OTP"
         disable_otp: "Disable OTP"
         disable_confirm: "Are you sure you want to disable OTP?"

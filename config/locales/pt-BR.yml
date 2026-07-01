@@ -74,6 +74,40 @@ pt-BR:
     main_navigation:
       application: "Aplicação"
       administration: "Administração"
+    permissions:
+      access_types:
+        navigation: "Navegação"
+        resources: "Recursos"
+        pages: "Páginas"
+      navigation:
+        root: "Raiz"
+      columns:
+        component: "Componente"
+        enabled: "Ativado"
+        index_scope: "Escopo do índice"
+      actions:
+        index: "Índice"
+        show: "Exibir"
+        new: "Novo"
+        create: "Criar"
+        edit: "Editar"
+        update: "Atualizar"
+        destroy: "Excluir"
+        destroy_all: "Excluir tudo"
+        batch_actions: "Ações em lote"
+        index_download: "Download"
+        filter: "Filtrar"
+      scopes:
+        all: "Todos"
+        current_user: "Usuário atual"
+        group: "Grupo"
+      form:
+        errors_title: "%{count} erro(s) impediram que esta permissão fosse salva:"
+        role: "Função"
+        select_role: "Selecione uma função"
+        authorizations_title: "Autorizações"
+        submit: "Salvar permissão"
+        cancel: "Cancelar"
     otp:
       setup:
         title: "Configurar Autenticação de Senha Única"

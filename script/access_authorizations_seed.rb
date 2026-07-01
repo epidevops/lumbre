@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+SeedLogger.section "access authorizations"
+AccessControlCatalog.sync_navigation_authorizations!
+AccessControlCatalog.sync_resource_authorizations!
+AccessControlCatalog.sync_page_authorizations!

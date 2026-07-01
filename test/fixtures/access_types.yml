@@ -1,0 +1,11 @@
+navigation:
+  key: navigation
+  name: Navigation
+
+resources:
+  key: resources
+  name: Resources
+
+pages:
+  key: pages
+  name: Pages

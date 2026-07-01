@@ -37,10 +37,10 @@ ActiveAdmin.register Role do
 
   form do |f|
     f.inputs do
-      f.input :id, input_html: { disabled: !f.object.new_record? }
+      # f.input :id, input_html: { disabled: !f.object.new_record? }
       f.input :name, input_html: { disabled: !f.object.new_record? }
-      f.input :resource_type, input_html: { disabled: !f.object.new_record? }
-      f.input :resource_id, input_html: { disabled: !f.object.new_record? }
+      # f.input :resource_type, input_html: { disabled: !f.object.new_record? }
+      # f.input :resource_id, input_html: { disabled: !f.object.new_record? }
     end
     f.actions
   end

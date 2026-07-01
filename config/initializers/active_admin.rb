@@ -82,17 +82,17 @@ ActiveAdmin.setup do |config|
   # CanCanAdapter, PunditAdapter, or make your own. Please
   # refer to the documentation.
   # config.authorization_adapter = ActiveAdmin::CanCanAdapter
-  # config.authorization_adapter = ActiveAdmin::PunditAdapter
+  config.authorization_adapter = ActiveAdmin::PunditAdapter
 
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
-  # config.pundit_default_policy = "MyDefaultPunditPolicy"
+  config.pundit_default_policy = "Admin::ApplicationPolicy"
 
   # If you wish to maintain a separate set of Pundit policies for admin
   # resources, you may set a namespace here that Pundit will search
   # within when looking for a resource's policy.
-  # config.pundit_policy_namespace = :admin
+  config.pundit_policy_namespace = :admin
 
   # You can customize your CanCan Ability class name here.
   # config.cancan_ability_class = "Ability"
@@ -245,6 +245,13 @@ ActiveAdmin.setup do |config|
   #     admin.download_links = proc { can?(:view_download_links) }
   #
   #   end
+  config.namespace :admin do |admin|
+    admin.download_links = proc {
+      next false unless active_admin_config.resource_class
+
+      authorized?(:index_download, active_admin_config.resource_class) ? ActiveAdmin::BaseController::DEFAULT_DOWNLOAD_FORMATS : false
+    }
+  end
 
   # == Pagination
   #
@@ -264,6 +271,15 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+
+  # config.namespace :admin do |admin|
+  #   admin.filters = proc {
+  #     next false unless active_admin_config.resource_class
+
+  #     active_admin_config.filters = authorized?(:filter, active_admin_config.resource_class)
+  #   }
+  # end
+
   #
   # By default the filters include associations in a select, which means
   # that every record will be loaded for each association (up
